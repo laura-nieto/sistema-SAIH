@@ -72,5 +72,33 @@ class RoleSeeder extends Seeder
         // ADMIN SETTING                            
         Permission::create(['name'=>'admin.settings',
                             'description'=>'Modificación de Vistas'])->syncRoles([$role1]);
+
+        // MANDAR EMAIL
+        Permission::create(['name'=>'admin.enviar.email',
+                            'description'=>'Enviar Emails'])->syncRoles([$role1]);
+
+        // PERMISO PARA ENCUESTAS
+        Permission::create(['name'=>'admin.encuestas.index',
+                            'description'=>'Ver listado de Preguntas de encuesta'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.encuestas.create',
+                            'description'=>'Crear Pregunta de Encuesta'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.encuestas.edit',
+                            'description'=>'Editar Pregunta de Encuesta'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.encuestas.destroy',
+                            'description'=>'Eliminar Pregunta de Encuesta'])->syncRoles([$role1]);
+        Permission::create(['name'=>'realizar.encuesta',
+                            'description'=>'Realizar Encuesta'])->syncRoles([$role1]);
+        Permission::create(['name'=>'ver.encuesta',
+                            'description'=>'Ver las Respuestas de Encuestas'])->syncRoles([$role1]);
+
+        // PERMISO PARA COLABORADORES
+        Permission::create(['name'=>'admin.colaboradores.index',
+                            'description'=>'Ver listado de Colaboradores'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.colaboradores.create',
+                            'description'=>'Crear Colaborador'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.colaboradores.edit',
+                            'description'=>'Editar Colaborador'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.colaboradores.destroy',
+                            'description'=>'Eliminar Colaborador'])->syncRoles([$role1]);
     }
 }

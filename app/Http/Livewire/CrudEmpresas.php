@@ -43,7 +43,6 @@ class CrudEmpresas extends Component
         ]);
         $empresa->sucursales()->sync($this->sucursales_id);
         $this->cerrarModal();
-        $this->limpiarCampos();
     }
     public function editar($id)
     {

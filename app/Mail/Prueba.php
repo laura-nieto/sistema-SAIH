@@ -11,14 +11,17 @@ class Prueba extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $logo,$mensaje;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($msj,$logo)
     {
-        //
+        $this->mensaje = $msj;
+        $this->logo = $logo;
     }
 
     /**
@@ -28,6 +31,6 @@ class Prueba extends Mailable
      */
     public function build()
     {
-        return $this->view('email.prueba');
+        return $this->view('mail.prueba2');
     }
 }
