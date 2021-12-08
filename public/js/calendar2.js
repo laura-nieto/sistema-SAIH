@@ -18528,6 +18528,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var calendar = new _fullcalendar_core__WEBPACK_IMPORTED_MODULE_0__.Calendar(calendarEl, {
     plugins: [_fullcalendar_daygrid__WEBPACK_IMPORTED_MODULE_1__["default"], _fullcalendar_timegrid__WEBPACK_IMPORTED_MODULE_2__["default"], _fullcalendar_list__WEBPACK_IMPORTED_MODULE_4__["default"], _fullcalendar_interaction__WEBPACK_IMPORTED_MODULE_3__["default"]],
     initialView: 'dayGridMonth',
+    locale: _fullcalendar_core_locales_es__WEBPACK_IMPORTED_MODULE_5__["default"],
     slotDuration: '00:15',
     eventSources: {
       url: baseURL + '/citas/' + sucursal,
@@ -18542,7 +18543,6 @@ document.addEventListener('DOMContentLoaded', function () {
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,listWeek'
     },
-    locale: _fullcalendar_core_locales_es__WEBPACK_IMPORTED_MODULE_5__["default"],
     dateClick: function dateClick(info) {
       formulario.reset();
       document.getElementById('evento').classList.toggle("hidden");
@@ -18586,7 +18586,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('evento').classList.toggle("hidden");
     })["catch"](function (error) {
       if (error.response) {
-        console.log(error.response.data);
+        console.log(error.response.data); //document.getElementById('error').classList.toggle('hidden');
       }
     });
   }); // BORRAR EVENTO
@@ -18597,7 +18597,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('edit').classList.toggle("hidden");
     })["catch"](function (error) {
       if (error.response) {
-        console.log(error.response.data);
+        console.log(error.response.data); //document.getElementById('error').classList.toggle('hidden');
       }
     });
   }); // EDITAR EVENTO 
@@ -18609,7 +18609,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('edit').classList.toggle("hidden");
     })["catch"](function (error) {
       if (error.response) {
-        console.log(error.response.data);
+        console.log(error.response.data); //document.getElementById('error').classList.toggle('hidden');
       }
     });
   });

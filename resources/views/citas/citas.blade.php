@@ -24,6 +24,12 @@
                         </svg>
                     </div>
                     <div class="flex flex-col px-6 py-5 bg-gray-50">
+                        <div class="bg-red-200 text-red-600 my-4 py-2 flex items-center justify-center rounded hidden" id="error">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            <p class="font-bold ml-3">Algunos campos no fueron completados</p>
+                        </div>
                         <form action="" id="formulario">
                             @csrf
                             <input type="hidden" name="id">
@@ -106,6 +112,12 @@
                         </svg>
                     </div>
                     <div class="flex flex-col px-6 py-5 bg-gray-50">
+                        <div class="bg-red-200 text-red-600 my-4 py-2 flex items-center justify-center rounded hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            <p class="font-bold ml-3">Algunos campos no fueron completados</p>
+                        </div>
                         <form action="" id="formulario2">
                             @csrf
                             <input type="hidden" name="id">

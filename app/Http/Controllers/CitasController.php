@@ -42,6 +42,18 @@ class CitasController extends Controller
      */
     public function store(Request $request)
     {
+        $rules = [
+            'start' => 'required',
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
+            'apellido' => 'required',
+            'nombre' => 'required',
+        ];
+        $mesage =[
+            'required' => 'Campo obligatorio'
+        ];
+        $request->validate($rules,$mesage);
+
         $evento = new Citas;
         $evento->start = $request->start . ' ' . $request->hora_inicio;
         $evento->end = $request->start . ' ' . $request->hora_fin;
@@ -84,6 +96,18 @@ class CitasController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $rules = [
+            'start' => 'required',
+            'hora_inicio' => 'required',
+            'hora_fin' => 'required',
+            'apellido' => 'required',
+            'nombre' => 'required',
+        ];
+        $mesage =[
+            'required' => 'Campo obligatorio'
+        ];
+        $request->validate($rules,$mesage);
+
         $evento = Citas::find($id);
         $evento->start = $request->start . ' ' . $request->hora_inicio;
         $evento->end = $request->start . ' ' . $request->hora_fin;

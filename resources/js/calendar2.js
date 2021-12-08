@@ -91,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch((error)=>{
             if (error.response) {
                 console.log(error.response.data);
+                //document.getElementById('error').classList.toggle('hidden');
             }
         })
     })
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch((error)=>{
             if (error.response) {
                 console.log(error.response.data);
+                //document.getElementById('error').classList.toggle('hidden');
             }
         })
     })
@@ -121,6 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch((error)=>{
             if (error.response) {
                 console.log(error.response.data);
+                //document.getElementById('error').classList.toggle('hidden');
             }
         })
     })
