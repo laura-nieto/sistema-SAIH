@@ -100,10 +100,17 @@
         </div>
     </div>
     @section('js')
-        <script type="text/javascript">
-            const baseURL = {!! json_encode(url('/')) !!}
-            const sucursal = {!! session('sucursal') !!};
-        </script>
+        @if (Auth::user()->hasRole(1))
+            <script type="text/javascript">
+                const baseURL = {!! json_encode(url('/')) !!}
+                const sucursal = 1;
+            </script>
+        @else
+            <script type="text/javascript">
+                const baseURL = {!! json_encode(url('/')) !!}
+                const sucursal = {!! session('sucursal') !!}
+            </script>
+        @endif
         <script src="{{asset('js/calendar-home.js')}}" defer></script>
     @endsection
 </x-app-layout>
