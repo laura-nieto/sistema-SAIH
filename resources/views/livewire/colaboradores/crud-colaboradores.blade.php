@@ -21,7 +21,7 @@
                 <div>
                     <input type="text" wire:model="search" placeholder="Buscar" class="mt-1 mb-3 focus:ring-indigo-500 focus:border-indigo-500 block w-3/6 shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
-                <table class="min-w-full divide-y divide-gray-200 sm:rounded-lg">
+                <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
@@ -44,7 +44,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @if(!$colaboradores->count())
                             <tr>
-                                <td class="px-6 py-4 border-b-2" colspan="4">No existen colaboradores</td>
+                                <td class="px-6 py-4 border-b-2" colspan="5">No existen colaboradores</td>
                             </tr>
                         @else
                             @foreach($colaboradores as $colaborador)

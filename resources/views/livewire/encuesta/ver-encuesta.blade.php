@@ -3,7 +3,7 @@
 </x-slot>
 <div class="w-full">
     <div class="py-12 px-2 md:px-10">
-        <div class="flex bg-white py-3">
+        <div class="flex bg-white text-black py-3">
             <div class="w-1/3 border-r-2 border-gray-400">
                 <div>
                     <ul class="divide-y divide-gray-300">

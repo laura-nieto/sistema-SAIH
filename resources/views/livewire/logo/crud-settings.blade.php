@@ -14,7 +14,7 @@
                 @include('livewire.logo.modal-imagen')
             @endif
             <div class="overflow-hidden py-6 sm:px-6 lg:px-8">
-                <table class="min-w-full divide-y divide-gray-200 sm:rounded-lg">
+                <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">

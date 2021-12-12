@@ -25,7 +25,7 @@
                     class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Enviar
                     </button>
             </div>
-            <table class="min-w-full divide-y divide-gray-200 sm:rounded-lg">
+            <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
