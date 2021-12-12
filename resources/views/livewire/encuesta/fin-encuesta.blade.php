@@ -2,7 +2,7 @@
     <x-slot name="header">
         {{ __('Realizar Encuesta') }}
     </x-slot>
-    <div class="flex bg-white justify-center py-12">
+    <div class="flex bg-white text-black justify-center py-12">
         <div class="p-12 text-center max-w-2xl">
             <div class="md:text-3xl text-3xl font-bold">Ha respondido todas las preguntas</div>
             <div class="text-xl font-normal mt-4">Gracias por tomarse el tiempo de responder.

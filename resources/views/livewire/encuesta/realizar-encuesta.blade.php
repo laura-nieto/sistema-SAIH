@@ -4,7 +4,7 @@
             {{ __('Realizar Encuesta') }}
         </x-slot>
         <div class="flex justify-center">
-            <div class="w-3/4 lg:w-1/2 bg-white p-5 rounded-xl bg-opacity-60 backdrop-filter backdrop-blur-lg">
+            <div class="w-3/4 lg:w-1/2 bg-white text-black p-5 rounded-xl bg-opacity-60 backdrop-filter backdrop-blur-lg">
                 <form wire:submit.prevent="next">
                     <div>
                         <label class="block text-lg mb-3">{{$pregunta->pregunta}}</label>

@@ -4,7 +4,7 @@
         <div
             class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl">
             <div
-                class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg">
+                class="flex flex-row justify-between p-6 bg-white text-black border-b border-gray-200 rounded-tl-lg rounded-tr-lg">
                 <p class="font-semibold text-gray-800">Crear Pregunta</p>
                 <svg wire:click="cerrarModal()" class="w-6 h-6" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="pregunta">Pregunta</label>
                         <input type="text" name="pregunta" id="pregunta" placeholder="Pregunta"
-                            class="bg-white border border-gray-200 rounded shadow-sm @error('pregunta')border-red-500 @enderror" wire:model="pregunta">
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('pregunta')border-red-500 @enderror" wire:model="pregunta">
                         @error('pregunta')
                             <span class="error text-red-500">{{$message}}</span>
                         @enderror
