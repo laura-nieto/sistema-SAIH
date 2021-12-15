@@ -50,7 +50,7 @@
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="rol">Rol</label>
                         <select name="rol" id="rol" wire:model="role_id"
-                            class="w-full bg-white border border-gray-200 rounded shadow-sm appearance-none">
+                            class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
                             <option>Seleccione un Rol</option>
                             @if(Auth::user()->hasRole(1))
                                 @foreach ($roles as $rol)
@@ -69,7 +69,7 @@
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="empresa">Empresa</label>
                         <select name="empresa" id="empresa_id" wire:model="empresa_id"
-                            class="w-full bg-white border border-gray-200 rounded shadow-sm appearance-none">
+                            class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
                             @if (Auth::user()->hasRole(1))    
                                 <option selected value="">No corresponde</option>
                                 @foreach ($empresas as $empresa)

@@ -13,7 +13,7 @@
         @csrf
         <input type="hidden" id="content" wire:ignore wire:key="message">
         <label class="block mb-2 text-xl">Mensaje</label>
-        <div wire:ignore wire:key="Themessage">
+        <div wire:ignore wire:key="Themessage" class="text-black">
             <textarea id="editor" cols="30" rows="10"></textarea>
         </div>
         <div class="mt-5">

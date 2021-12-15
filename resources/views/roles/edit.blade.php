@@ -14,7 +14,7 @@
                                 <label for="name" class="block text-sm font-medium text-gray-700">Nombre del Rol</label>
                                 <input type="text" name="name" id="name" placeholder="Ingrese el nombre del Rol"
                                     autocomplete="given-name" value="{{$role->name}}"
-                                    class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('name') border-red-400 ring-red-400 @enderror">
+                                    class="mt-1 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('name') border-red-400 ring-red-400 @enderror">
                                 @error('name')
                                     <small class="text-red-500">
                                         {{$message}}

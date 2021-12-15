@@ -17,7 +17,7 @@
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="nombre">Nombre</label>
                         <input type="text" name="nombre" id="nombre" placeholder="Nombre"
-                            class="bg-white border border-gray-200 rounded shadow-sm @error('nombre')border-red-500 @enderror" wire:model="nombre">
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('nombre')border-red-500 @enderror" wire:model="nombre">
                         @error('nombre')
                             <span class="error text-red-500">{{$message}}</span>
                         @enderror
