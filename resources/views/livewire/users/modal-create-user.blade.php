@@ -13,7 +13,7 @@
                 </svg>
             </div>
             <div class="flex flex-col px-6 py-5 bg-gray-50">
-                <form action="" method="post" class="mb-3">
+                <form action="" method="post" class="mb-3 text-black">
                     @csrf
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="nombre">Nombre</label>

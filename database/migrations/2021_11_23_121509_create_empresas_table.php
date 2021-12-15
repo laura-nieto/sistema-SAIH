@@ -22,6 +22,19 @@ class CreateEmpresasTable extends Migration
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
+            $table->string('direccion')->nullable();
+            $table->string('dom_noExterior')->nullable();
+            $table->string('dom_noInterior')->nullable();
+            $table->string('colonia')->nullable();
+            $table->string('RFC')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('ciudad')->nullable();
+            $table->string('dom_municipio')->nullable();
+            $table->string('dom_cp')->nullable();
+            $table->string('dom_pais')->nullable();
+            $table->string('dom_referencia')->nullable();
+            $table->string('representante')->nullable();
+            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });

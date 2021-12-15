@@ -61,6 +61,11 @@ class CrudUser extends Component
     public function editar($id)
     {
         $this->roles = Role::all();
+        if (auth()->user()->hasRole(1)) {
+            $this->empresas = Empresa::all();
+        }else{
+            $this->empresas = auth()->user()->empresa;
+        }
         $user = User::findOrFail($id);
         $this->id_user = $user->id;
         $this->nombre = $user->nombre;

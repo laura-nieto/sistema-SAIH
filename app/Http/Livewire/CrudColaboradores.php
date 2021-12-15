@@ -15,6 +15,7 @@ class CrudColaboradores extends Component
     
     public $modal = false;
     public $sucursales, $usuarios;
+    public $search;
 
     protected $rules = [
         'folio_tarjeta' => 'max:30',
@@ -39,7 +40,10 @@ class CrudColaboradores extends Component
 
     public function render()
     {
-        $colaboradores = Colaborador::all();
+        //$colaboradores = Colaborador::all();
+        $colaboradores = Colaborador::where('apellido_materno','like','%'.$this->search.'%')
+                        ->orWhere('apellido_paterno','like','%'.$this->search.'%')
+                        ->orWhere('nombre','like','%'.$this->search.'%')->get();
         return view('livewire.colaboradores.crud-colaboradores',compact('colaboradores'));
     }
 

@@ -19,7 +19,7 @@
             @endif
             <div class="overflow-hidden sm:px-6 lg:px-8">
                 <div>
-                    <input type="text" wire:model="search" placeholder="Buscar" class="mt-1 mb-3 focus:ring-indigo-500 focus:border-indigo-500 block w-3/6 shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    <input type="text" wire:model="search" placeholder="Buscar" class="mt-1 mb-3 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-3/6 shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
                 <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                     <thead class="bg-gray-50">
@@ -44,7 +44,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @if(!$users->count())
                             <tr>
-                                <td class="px-6 py-4 border-b-2" colspan="">No existen usuarios</td>
+                                <td class="px-6 py-4 border-b-2" colspan="5">No existen usuarios</td>
                             </tr>
                         @else
                             @foreach($users as $usuario)

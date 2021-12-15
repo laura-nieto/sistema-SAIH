@@ -6,7 +6,7 @@
         <x-seccion-white>
             <form action="{{ route('admin.roles.store') }}" method="post">
                 @csrf
-                <div class="overflow-hidden sm:rounded-md">
+                <div class="text-black overflow-hidden sm:rounded-md">
                     <div class="px-4 py-5 bg-white sm:p-6">
                         <div class="grid grid-cols-6 gap-6">
                             <div class="col-span-6 sm:col-span-6">
