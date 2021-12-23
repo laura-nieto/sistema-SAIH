@@ -47,7 +47,7 @@ class CrudEmpresas extends Component
             'dom_noExterior' => $this->dom_noExterior,
             'dom_noInterior' => $this->dom_noInterior,
             'colonia' => $this->colonia,
-            'rfc' => $this->rfc,
+            'RFC' => $this->rfc,
             'telefono' => $this->telefono,
             'ciudad' => $this->ciudad,
             'dom_municipio' => $this->dom_municipio,

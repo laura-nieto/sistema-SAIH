@@ -38,10 +38,10 @@ class CrudSucursales extends Component
         Sucursal::updateOrCreate(['id'=>$this->id_sucursal],
         [
             'nombre'=>$this->nombre,
-            'ip_sucursal' => $this->ip_sucursal,
+            'IP_sucursal' => $this->ip_sucursal,
             'servidor_sucursal' => $this->servidor_sucursal,
             'base_de_datos' => $this->base_de_datos,
-            'conexion_ip' => $this->conexion_ip,
+            'conexion_IP' => $this->conexion_ip,
         ]);
         Bitacora::create([
             'seccion' => 'Sucursales',

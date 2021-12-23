@@ -55,7 +55,7 @@ class CrudClientes extends Component
             'dom_referencia' => $this->dom_referencia,
             'direccion' => $this->direccion,
             'ciudad' => $this->ciudad,
-            'rfc' => $this->rfc,
+            'RFC' => $this->rfc,
             'numero_precio' => $this->numero_precio == '' ? NULL : $this->numero_precio,
             'cobrador_id' => $this->cobrador_id == '' ? NULL : $this->cobrador_id,
             'dias_credito'=> $this->dias_credito == '' ? NULL : $this->dias_credito,
