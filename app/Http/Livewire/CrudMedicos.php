@@ -39,7 +39,6 @@ class CrudMedicos extends Component
     public function crear()
     {
         $this->resetErrorBag();
-        $this->limpiarCampos();
         $this->especialidades = EspecialidadMedica::all();
         $this->abrirModal();
     }
@@ -65,6 +64,7 @@ class CrudMedicos extends Component
             'descripcion' => 'Creación o Modificación',
             'usuario_id' => Auth::id(),
         ]);
+        $this->limpiarCampos();
         $this->cerrarModal();
     }
     public function editar($id)
