@@ -106,7 +106,7 @@ class CrudMedicos extends Component
     }
     public function limpiarCampos()
     {
-        $this->medico_id = '';
+        $this->medico_id = NULL;
         $this->doc_name = '';
         $this->apellido_paterno = '';
         $this->apellido_materno = '';
@@ -117,6 +117,6 @@ class CrudMedicos extends Component
         $this->cedula_profesional = '';
         $this->ssa = '';
         $this->cedula_especialidad = '';
-        $this->especialidad_id = '';
+        $this->especialidad_id = NULL;
     }
 }
