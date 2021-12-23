@@ -18,8 +18,13 @@
                 @include('livewire.users.modal-create-user')
             @endif
             <div class="overflow-hidden sm:px-6 lg:px-8">
-                <div>
-                    <input type="text" wire:model="search" placeholder="Buscar" class="mt-1 mb-3 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-3/6 shadow-sm sm:text-sm border-gray-300 rounded-md">
+                <div class="relative">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6 text-gray-600">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </span>
+                    <input type="text" wire:model="search" placeholder="Buscar" class="mt-1 mb-3 pl-10 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-96 lg:w-1/4 shadow-sm sm:text-sm border-gray-300 rounded-md">
                 </div>
                 <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                     <thead class="bg-gray-50">

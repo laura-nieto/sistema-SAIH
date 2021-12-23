@@ -21,7 +21,39 @@
                         @error('nombre')
                             <span class="error text-red-500">{{$message}}</span>
                         @enderror
-                    </div>            
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="ip_sucursal">IP</label>
+                        <input type="text" name="ip_sucursal" id="ip_sucursal" placeholder="Ingrese el IP"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('ip_sucursal')border-red-500 @enderror" wire:model="ip_sucursal">
+                        @error('ip_sucursal')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="servidor_sucursal">Servidor</label>
+                        <input type="text" name="servidor_sucursal" id="servidor_sucursal" placeholder="Ingrese el servidor"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('servidor_sucursal')border-red-500 @enderror" wire:model="servidor_sucursal">
+                        @error('servidor_sucursal')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="base_de_datos">Base de Datos</label>
+                        <input type="text" name="base_de_datos" id="base_de_datos" placeholder="Ingrese la Base de datos"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('base_de_datos')border-red-500 @enderror" wire:model="base_de_datos">
+                        @error('base_de_datos')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="conexion_ip">Conexión IP</label>
+                        <input type="text" name="conexion_ip" id="conexion_ip" placeholder="Ingrese la conexión IP"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('conexion_ip')border-red-500 @enderror" wire:model="conexion_ip">
+                        @error('conexion_ip')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
                 </form>
                 <div class="flex flex-row items-center justify-end p-5 mt-3">
                     <button

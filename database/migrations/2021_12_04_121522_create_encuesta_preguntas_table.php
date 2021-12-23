@@ -23,6 +23,7 @@ class CreateEncuestaPreguntasTable extends Migration
             $table->id();
             $table->foreignId('pregunta_id')->constrained('encuesta_preguntas')->onDelete('cascade');
             $table->string('respuesta');
+            $table->softDeletes('deleted_at');
             $table->timestamps();
         });
     }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bitacora;
 use App\Models\Sucursal;
 use Livewire\Component;
 
 class CrudSucursales extends Component
 {
-    public $nombre,$id_sucursal;
+    public $nombre,$ip_sucursal,$servidor_sucursal,$base_de_datos,$conexion_ip,$id_sucursal;
     public $search;
     public $modal = false;
     
@@ -27,6 +28,7 @@ class CrudSucursales extends Component
 
     public function crear()
     {
+        $this->resetErrorBag();
         $this->limpiarCampos();
         $this->abrirModal();
     }
@@ -36,6 +38,15 @@ class CrudSucursales extends Component
         Sucursal::updateOrCreate(['id'=>$this->id_sucursal],
         [
             'nombre'=>$this->nombre,
+            'ip_sucursal' => $this->ip_sucursal,
+            'servidor_sucursal' => $this->servidor_sucursal,
+            'base_de_datos' => $this->base_de_datos,
+            'conexion_ip' => $this->conexion_ip,
+        ]);
+        Bitacora::create([
+            'seccion' => 'Sucursales',
+            'descripcion' => 'Creación o Modificación',
+            'usuario_id' => Auth::id(),
         ]);
         $this->cerrarModal();
         $this->limpiarCampos();
@@ -45,11 +56,20 @@ class CrudSucursales extends Component
         $sucursal = Sucursal::findOrFail($id);
         $this->id_sucursal = $sucursal->id;
         $this->nombre = $sucursal->nombre;
+        $this->ip_sucursal = $sucursal->IP_sucursal;
+        $this->servidor_sucursal = $sucursal->servidor_sucursal;
+        $this->base_de_datos = $sucursal->base_de_datos;
+        $this->conexion_ip = $sucursal->conexion_IP;
         $this->abrirModal();
     }
     public function borrar($id)
     {
         Sucursal::findOrFail($id)->delete();
+        Bitacora::create([
+            'seccion' => 'Sucursales',
+            'descripcion' => 'Borrado',
+            'usuario_id' => Auth::id(),
+        ]);
     }
 
 
@@ -65,5 +85,9 @@ class CrudSucursales extends Component
     public function limpiarCampos()
     {
         $this->nombre = '';
+        $this->ip_sucursal = '';
+        $this->servidor_sucursal = '';
+        $this->base_de_datos = '';
+        $this->conexion_ip = '';
     }
 }

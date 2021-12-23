@@ -16,6 +16,10 @@ class CreateEmpresasTable extends Migration
         Schema::create('sucursales',function(Blueprint $table){
             $table->id();
             $table->string('nombre');
+            $table->string('IP_sucursal')->nullable();
+            $table->string('servidor_sucursal')->nullable();
+            $table->string('base_de_datos')->nullable();
+            $table->string('conexion_IP')->nullable();
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
@@ -34,7 +38,6 @@ class CreateEmpresasTable extends Migration
             $table->string('dom_pais')->nullable();
             $table->string('dom_referencia')->nullable();
             $table->string('representante')->nullable();
-            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
@@ -42,6 +45,7 @@ class CreateEmpresasTable extends Migration
             $table->id();
             $table->foreignId('empresa_id')->nullable()->constrained('empresas')->onDelete('cascade');
             $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
+            $table->softDeletes('deleted_at');
             $table->timestamps();
         });
         Schema::table('users',function(Blueprint $table){
@@ -50,6 +54,34 @@ class CreateEmpresasTable extends Migration
         Schema::create('servicios',function(Blueprint $table){
             $table->id();
             $table->string('nombre');
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
+        Schema::create('clientes',function(Blueprint $table){
+            $table->id();
+            $table->string('nombre')->nullable();
+            $table->string('razon_social')->nullable();
+            $table->string('dom_calle')->nullable();
+            $table->string('dom_noExterior')->nullable();
+            $table->string('dom_noInterior')->nullable();
+            $table->string('dom_colonia')->nullable();
+            $table->string('dom_localidad')->nullable();
+            $table->string('dom_municipio')->nullable();
+            $table->string('dom_estado')->nullable();
+            $table->string('dom_pais')->nullable();
+            $table->string('dom_referencia')->nullable();
+            $table->string('direccion')->nullable();
+            $table->string('ciudad')->nullable();
+            $table->string('RFC')->nullable();
+            $table->integer('numero_precio')->nullable();
+            $table->integer('cobrador_id')->nullable();
+            $table->integer('dias_credito')->nullable();
+            $table->string('cuenta')->nullable();
+            $table->string('cp')->nullable();
+            $table->string('telefono')->nullable();
+            $table->string('correo_electronico')->nullable();
+            $table->boolean('extranjero')->default(0);
+            $table->boolean('descuento_general')->default(0);
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
@@ -62,6 +94,10 @@ class CreateEmpresasTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('sucursales');
         Schema::dropIfExists('empresas');
+        Schema::dropIfExists('empresas_sucursales');
+        Schema::dropIfExists('servicios');
+        Schema::dropIfExists('clientes');
     }
 }

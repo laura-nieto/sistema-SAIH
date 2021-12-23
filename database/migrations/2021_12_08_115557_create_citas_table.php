@@ -23,7 +23,8 @@ class CreateCitasTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
-
+            
+            $table->softDeletes('deleted_at');
             $table->timestamps();
         });
     }

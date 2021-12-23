@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bitacora;
 use App\Models\Servicio;
 use Livewire\Component;
 
@@ -37,6 +38,11 @@ class CrudServicios extends Component
         [
             'nombre'=>$this->nombre,
         ]);
+        Bitacora::create([
+            'seccion' => 'Servicios',
+            'descripcion' => 'Creación o Modificación',
+            'usuario_id' => Auth::id(),
+        ]);
         $this->cerrarModal();
         $this->limpiarCampos();
     }
@@ -50,6 +56,11 @@ class CrudServicios extends Component
     public function borrar($id)
     {
         Servicio::findOrFail($id)->delete();
+        Bitacora::create([
+            'seccion' => 'Servicios',
+            'descripcion' => 'Borrado',
+            'usuario_id' => Auth::id(),
+        ]);
     }
 
 

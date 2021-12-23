@@ -17,7 +17,7 @@ class Empresa extends Model
      * @var string[]
      */
     protected $fillable = [
-        'nombre',
+        'nombre','direccion','dom_noExterior','dom_noInterior','colonia','rfc','telefono','ciudad','dom_municipio','dom_cp','dom_pais','dom_referencia','estado','representante'
     ];
 
     public function usuarios()

@@ -16,8 +16,6 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $role1 = Role::create(['name'=>'Administrador']);
-        // $role2 = Role::create(['name'=>'Colaborador']);
-        // $role3 = Role::create(['name'=>'Cliente']);
 
         // PERMISO PARA ROLES
         Permission::create(['name'=>'admin.roles.index',
@@ -100,5 +98,69 @@ class RoleSeeder extends Seeder
                             'description'=>'Editar Colaborador'])->syncRoles([$role1]);
         Permission::create(['name'=>'admin.colaboradores.destroy',
                             'description'=>'Eliminar Colaborador'])->syncRoles([$role1]);
+
+        // PERMISO PARA CLIENTES
+        Permission::create(['name'=>'admin.clientes.index',
+                'description'=>'Ver listado de Clientes'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.clientes.create',
+                'description'=>'Crear Cliente'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.clientes.edit',
+                'description'=>'Editar Cliente'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.clientes.destroy',
+                'description'=>'Eliminar Cliente'])->syncRoles([$role1]);
+
+        // PERMISO PARA TIPO MEMBRESIA
+        Permission::create(['name'=>'admin.tipo_membresia.index',
+                'description'=>'Ver listado de Tipos de Membresias'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.tipo_membresia.create',
+                'description'=>'Crear Tipo de Membresia'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.tipo_membresia.edit',
+                'description'=>'Editar Tipo de Membresia'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.tipo_membresia.destroy',
+                'description'=>'Eliminar Tipo de Membresia'])->syncRoles([$role1]);
+        
+        // PERMISO PARA PUESTO COLABORADOR
+        Permission::create(['name'=>'admin.puesto_colaborador.index',
+                'description'=>'Ver listado de Puestos de Colaboradores'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.puesto_colaborador.create',
+                'description'=>'Crear Puesto de Colaborador'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.puesto_colaborador.edit',
+                'description'=>'Editar Puesto de Colaborador'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.puesto_colaborador.destroy',
+                'description'=>'Eliminar Puesto de Colaborador'])->syncRoles([$role1]);
+        
+        // PERMISO PARA DEPARTAMENTO COLABORADOR
+        Permission::create(['name'=>'admin.departamento_colaborador.index',
+            'description'=>'Ver listado de Departamentos de Colaboradores'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.departamento_colaborador.create',
+            'description'=>'Crear Departamento de Colaborador'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.departamento_colaborador.edit',
+            'description'=>'Editar Departamento de Colaborador'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.departamento_colaborador.destroy',
+            'description'=>'Eliminar Departamento de Colaborador'])->syncRoles([$role1]);
+
+        // PERMISO PARA ESPECIALIDAD MEDICA
+        Permission::create(['name'=>'admin.especialidades_medicas.index',
+            'description'=>'Ver listado de Especialidades Médicas'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.especialidades_medicas.create',
+            'description'=>'Crear Especialidad Médica'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.especialidades_medicas.edit',
+            'description'=>'Editar Especialidad Médica'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.especialidades_medicas.destroy',
+            'description'=>'Eliminar Especialidad Médica'])->syncRoles([$role1]);
+
+        // PERMISO PARA MEDICOS
+        Permission::create(['name'=>'admin.medicos.index',
+            'description'=>'Ver listado de Medicos'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.medicos.create',
+            'description'=>'Crear Médico'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.medicos.edit',
+            'description'=>'Editar Médico'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.medicos.destroy',
+            'description'=>'Eliminar Médico'])->syncRoles([$role1]);
+
+        // PERMISO PARA BITACORA
+        Permission::create(['name'=>'admin.bitacora',
+            'description'=>'Ver Control de Cambios'])->syncRoles([$role1]);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\GeneralSettings;
 use App\Models\Sucursal;
+use Illuminate\Support\Facades\DB;
 
 class UserSeeder extends Seeder
 {
@@ -28,5 +29,14 @@ class UserSeeder extends Seeder
         GeneralSettings::create([]);
         Sucursal::create(['nombre' => 'Sucursal 1']);
         Sucursal::create(['nombre' => 'Sucursal 2']);
+
+        //ESTADOS CIVILES
+        DB::table('estados_civiles')->insert([
+            ['nombre'=>'Casado'],
+            ['nombre'=>'Divorciado'],
+            ['nombre'=>'Separado'],
+            ['nombre'=>'Soltero'],
+            ['nombre'=>'Viudo'],
+        ]);
     }
 }

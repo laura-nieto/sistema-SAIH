@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Bitacora;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -85,14 +86,23 @@ class CrudUser extends Component
             'empresa_id'=>$this->empresa_id == '' ? null : $this->empresa_id,
         ]);
         $user->roles()->sync([$this->role_id]);
+        Bitacora::create([
+            'seccion' => 'Usuarios',
+            'descripcion' => 'Creación o Modificación',
+            'usuario_id' => Auth::id(),
+        ]);
         $this->cerrarModal();
         $this->limpiarCampos();
     }
     public function borrar($id)
     {
         User::findOrFail($id)->delete();
+        Bitacora::create([
+            'seccion' => 'Usuarios',
+            'descripcion' => 'Borrado',
+            'usuario_id' => Auth::id(),
+        ]);
     }
-
 
 
     //FUNCIONES MODAL
@@ -107,6 +117,8 @@ class CrudUser extends Component
     public function limpiarCampos()
     {
         $this->nombre = '';
+        $this->id_user = '';
+        $this->id_empresa = '';
         $this->apellido = '';
         $this->email = '';
         $this->password = '';

@@ -12,7 +12,7 @@
                     </path>
                 </svg>
             </div>
-            <div class="flex flex-col px-6 py-5 bg-gray-50">
+            <div class="flex flex-col px-6 py-5 bg-gray-50 overflow-y-auto h-90 lg:h-auto">
                 <form action="" method="post" class="mb-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="apellido_paterno">Apellido Paterno</label>
@@ -50,7 +50,7 @@
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="sexo">Sexo</label>
                         <select name="sexo" id="sexo" wire:model="sexo"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            <option disabled selected value>Seleccione un sexo</option>
+                            <option selected value>Seleccione un sexo</option>
                             <option value="femenino">Femenino</option>
                             <option value="masculino">Masculino</option>
                         </select>
@@ -59,12 +59,10 @@
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="estado_civil">Estado Civil</label>
                         <select name="estado_civil" id="estado_civil" wire:model="estado_civil"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            <option disabled selected value>Seleccione un estado</option>
-                            <option value="1">Casado</option>
-                            <option value="2">Divorciado</option>
-                            <option value="3">Separado</option>
-                            <option value="4">Soltero</option>
-                            <option value="5">Viudo</option>
+                            <option selected value>Seleccione un estado</option>
+                            @foreach ($estados_civiles as $estado)
+                                <option value="{{$estado->id}}">{{$estado->nombre}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="flex flex-col">
@@ -91,27 +89,66 @@
                             <span class="error text-red-500">{{$message}}</span>
                         @enderror
                     </div>
+                    
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="status_cliente">Status del Cliente</label>
-                        <input type="text" name="status_cliente" id="status_cliente" placeholder="Ingrese un estado del cliente"
-                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('status_clientes')border-red-500 @enderror" wire:model="status_cliente">
-                        @error('status_cliente')
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="direccion">Dirección</label>
+                        <input type="text" name="direccion" id="direccion" placeholder="Ingrese una dirección"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('direccion')border-red-500 @enderror" wire:model="direccion">
+                        @error('direccion')
                             <span class="error text-red-500">{{$message}}</span>
                         @enderror
                     </div>
+
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="razon_desactivacion">Razón de Desactivación</label>
-                        <input type="text" name="razon_desactivacion" id="razon_desactivacion" placeholder="Ingrese una razón de desactivación"
-                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('razon_desactivacion')border-red-500 @enderror" wire:model="razon_desactivacion">
-                        @error('razon_desactivacion')
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="colonia">Colonia</label>
+                        <input type="text" name="direccion" id="colonia" placeholder="Ingrese una colonia"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('colonia')border-red-500 @enderror" wire:model="colonia">
+                        @error('colonia')
                             <span class="error text-red-500">{{$message}}</span>
                         @enderror
                     </div>
+
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="ciudad">Ciudad</label>
+                        <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese una ciudad"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('ciudad')border-red-500 @enderror" wire:model="ciudad">
+                        @error('ciudad')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="estado">Estado</label>
+                        <input type="text" name="estado" id="estado" placeholder="Ingrese una estado"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('estado')border-red-500 @enderror" wire:model="estado">
+                        @error('estado')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="pais">Pais</label>
+                        <input type="text" name="pais" id="pais" placeholder="Ingrese una pais"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('pais')border-red-500 @enderror" wire:model="pais">
+                        @error('pais')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="cp">CP</label>
+                        <input type="text" name="cp" id="cp" placeholder="Ingrese una cp"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('cp')border-red-500 @enderror" wire:model="cp">
+                        @error('cp')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
+
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="sucursal_id">Sucursal</label>
                         <select name="sucursal_id" id="sucursal_id" wire:model="sucursal_id"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            <option disabled selected value>Seleccione una sucursal</option>
+                            <option selected value>Seleccione una sucursal</option>
                             @foreach ($sucursales as $sucursal)
                             <option value="{{$sucursal->id}}">
                                 {{$sucursal->nombre}}
@@ -126,7 +163,7 @@
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="usuario_id">Usuario</label>
                         <select name="usuario_id" id="usuario_id" wire:model="usuario_id"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            <option disabled selected value>Seleccione una usuario</option>
+                            <option selected value>Seleccione una usuario</option>
                             @foreach ($usuarios as $usuario)
                                 <option value="{{$usuario->id}}">
                                     {{$usuario->apellido . " " . $usuario->nombre}}
@@ -138,13 +175,19 @@
                         @enderror
                     </div>
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="status">Status</label>
-                        <select name="status" id="status" wire:model="status"
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="cliente_id">Cliente</label>
+                        <select name="cliente_id" id="cliente_id" wire:model="cliente_id"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            <option disabled selected value>Seleccione un status</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>
+                            <option selected value>Seleccione una cliente</option>
+                            @foreach ($clientes as $cliente)
+                                <option value="{{$cliente->id}}">
+                                    {{$cliente->nombre}}
+                                </option>
+                            @endforeach
                         </select>
+                        @error('cliente_id')
+                            <span class="error text-red-500 mt-2">{{$message}}</span>
+                        @enderror
                     </div>
                 </form>
                 <div class="flex flex-row items-center justify-end p-5 mt-3">

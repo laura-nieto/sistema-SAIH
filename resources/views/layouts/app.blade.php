@@ -15,9 +15,11 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     @livewireStyles
-        @livewire('logo.colors')
-            <!-- Scripts -->
-            <script src="{{ mix('js/app.js') }}" defer></script>
+    @livewire('logo.colors')
+    <!-- Scripts -->
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <!-- ICON -->
+    <link rel="shortcut icon" href="{{asset('img/logo/SAIH-logo.png')}}"/>
 </head>
 
 <body class="font-sans antialiased">
@@ -60,9 +62,9 @@
     <main class="relative min-h-screen lg:flex bg-main color-main">
         <!-- SIDEBAR -->
         <div
-            class="sidebar hidden bg-white w-full h-full lg:h-auto lg:w-72 space-y-6 bg-nav color-nav absolute lg:static z-10">
+            class="sidebar hidden bg-white w-full h-full lg:w-72 space-y-6 bg-nav color-nav absolute z-10">
             <div class="h-32 p-10  border-gray-300 flex flex-col items-center justify-center"
-                style="background-image:url({{ asset('/img/header-purple.jpg') }});background-size:cover;">
+                style="background-image:url({{ asset('/img/header-blue.jpg') }});background-size:cover;">
 
                 <h4 class="text-white text-xl font-semibold">
                     {{ Auth::user()->nombre . " " . Auth::user()->apellido }}
@@ -123,6 +125,18 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('admin.bitacora')
+                            <li
+                                class="flex py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-white hover:text-black {{ (request()->is('control-de-cambios')) ? 'bg-white text-black' : '' }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                                <a href="{{route('admin.bitacora')}}" class="ml-2 w-full">
+                                    Control de Cambios
+                                </a>
+                            </li>
+                        @endcan                        
                     </ul>
                 </div>
                 <div>
@@ -138,50 +152,92 @@
 
                     <div role="menu" x-show="open" class="mt-2 space-y-2" aria-label="ABM">
                         <ul>
-                            <li class="mb-0.5">
-                                @can('admin.roles.index')
+                            @can('admin.roles.index')
+                                <li class="mb-0.5">
                                     <a href="{{ url('roles') }}" role="menuitem"
                                         class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('roles')) ? 'bg-white text-black' : '' }}">Roles</a>
-                                @endcan
-                            </li>
-                            <li class="mb-0.5">
-                                @can('admin.users.index')
+                                </li>
+                            @endcan
+                            @can('admin.users.index')
+                                <li class="mb-0.5">
                                     <a href="{{ url('users') }}" role="menuitem"
                                         class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('users')) ? 'bg-white text-black' : '' }}">Usuarios</a>
-                                @endcan
-                            </li>
-                            <li class="mb-0.5">
-                                @can('admin.servicios.index')
+                                </li>
+                            @endcan
+                            @can('admin.servicios.index')
+                                <li class="mb-0.5">
                                     <a href="{{ url('servicios') }}" role="menuitem"
                                         class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('servicios')) ? 'bg-white text-black' : '' }}">Servicios</a>
-                                @endcan
-                            </li>
-                            <li class="mb-0.5">
-                                @can('admin.sucursales.index')
+                                </li>
+                            @endcan
+                            @can('admin.sucursales.index')
+                                <li class="mb-0.5">
                                     <a href="{{ url('sucursales') }}" role="menuitem"
                                         class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('sucursales')) ? 'bg-white text-black' : '' }}">Sucursales</a>
-                                @endcan
-                            </li>
-                            <li class="mb-0.5">
-                                @can('admin.empresas.index')
+                                </li>
+                            @endcan
+                            @can('admin.empresas.index')
+                                <li class="mb-0.5">
                                     <a href="{{ url('empresas') }}" role="menuitem"
                                         class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('empresas')) ? 'bg-white text-black' : '' }}">Empresas</a>
-                                @endcan
-                            </li>
-                            <li class="mb-0.5">
-                                @can('admin.encuestas.index')
+                                </li>
+                            @endcan
+                            @can('admin.encuestas.index')
+                                <li class="mb-0.5">
                                     <a href="{{ url('encuesta') }}" role="menuitem"
                                         class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('encuesta')) ? 'bg-white text-black' : '' }}">Preguntas
                                         Encuesta</a>
-                                @endcan
-                            </li>
-                            <li class="mb-0.5">
-                                @can('admin.colaboradores.index')
+                                </li>
+                            @endcan
+                            @can('admin.colaboradores.index')
+                                <li class="mb-0.5">
                                     <a href="{{ url('colaboradores') }}" role="menuitem"
                                         class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('colaboradores')) ? 'bg-white text-black' : '' }}">Colaboradores
                                     </a>
-                                @endcan
-                            </li>
+                                </li>
+                            @endcan
+                            @can('admin.clientes.index')
+                                <li class="mb-0.5">
+                                    <a href="{{ url('clientes') }}" role="menuitem"
+                                        class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('clientes')) ? 'bg-white text-black' : '' }}">Clientes
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.departamento_colaborador.index')
+                                <li class="mb-0.5">
+                                    <a href="{{ url('departamento/colaboradores') }}" role="menuitem"
+                                        class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('departamento/colaboradores')) ? 'bg-white text-black' : '' }}">Departamento de Colaboradores
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.puesto_colaborador.index')
+                                <li class="mb-0.5">
+                                    <a href="{{ url('puesto/colaboradores') }}" role="menuitem"
+                                        class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('puesto/colaboradores')) ? 'bg-white text-black' : '' }}">Puesto de Colaboradores
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.tipo_membresia.index')
+                                <li class="mb-0.5">
+                                    <a href="{{ url('tipo-membresia') }}" role="menuitem"
+                                        class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('tipo-membresia')) ? 'bg-white text-black' : '' }}">Tipo de Membresías
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.especialidades_medicas.index')
+                                <li class="mb-0.5">
+                                    <a href="{{ url('especialidad-medica') }}" role="menuitem"
+                                        class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('especialidad-medica')) ? 'bg-white text-black' : '' }}">Especialidades Médicas
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.medicos.index')
+                                <li class="mb-0.5">
+                                    <a href="{{ url('medicos') }}" role="menuitem"
+                                        class="block py-2.5 px-4 transition duration-200 rounded hover:bg-white hover:text-black w-full {{ (request()->is('medicos')) ? 'bg-white text-black' : '' }}">Médicos
+                                    </a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </div>

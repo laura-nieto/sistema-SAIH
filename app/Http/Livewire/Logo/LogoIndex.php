@@ -12,7 +12,7 @@ class LogoIndex extends Component
     public function __construct()
     {
         if (GeneralSettings::first() == null || GeneralSettings::first()->logo == null) {
-            $this->logo = "/img/logo/Logo1.png";
+            $this->logo = "/img/logo/SAIH-logo.png";
         } else{
             $this->logo = "logos/" . GeneralSettings::first()->logo;
         }

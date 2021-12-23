@@ -15,6 +15,8 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        <!-- ICON -->
+        <link rel="shortcut icon" href="{{asset('img/logo/SAIH-logo.png')}}"/>
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
