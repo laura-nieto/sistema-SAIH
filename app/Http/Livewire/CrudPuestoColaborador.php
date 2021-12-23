@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Bitacora;
 use App\Models\PuestoColaborador;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class CrudPuestoColaborador extends Component
 {

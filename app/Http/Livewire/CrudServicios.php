@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Bitacora;
 use App\Models\Servicio;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class CrudServicios extends Component
 {

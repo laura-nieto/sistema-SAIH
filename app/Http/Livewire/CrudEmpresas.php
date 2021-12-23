@@ -6,6 +6,7 @@ use App\Models\Bitacora;
 use Livewire\Component;
 use App\Models\Empresa;
 use App\Models\Sucursal;
+use Illuminate\Support\Facades\Auth;
 
 class CrudEmpresas extends Component
 {

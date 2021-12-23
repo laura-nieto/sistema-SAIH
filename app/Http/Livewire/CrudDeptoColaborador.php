@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Bitacora;
 use App\Models\DepartamentoColaborador;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class CrudDeptoColaborador extends Component
 {

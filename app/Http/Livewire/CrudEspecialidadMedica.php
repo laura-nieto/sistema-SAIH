@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Bitacora;
 use App\Models\EspecialidadMedica;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class CrudEspecialidadMedica extends Component
 {

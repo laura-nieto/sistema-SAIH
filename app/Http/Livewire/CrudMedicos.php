@@ -6,6 +6,7 @@ use App\Models\Bitacora;
 use App\Models\EspecialidadMedica;
 use App\Models\Medico;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class CrudMedicos extends Component
 {
