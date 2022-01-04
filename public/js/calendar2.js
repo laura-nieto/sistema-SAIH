@@ -18558,6 +18558,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     eventClick: function eventClick(info) {
       axios.post(baseURL + '/evento/editar/' + info.event.id).then(function (respuesta) {
+        console.log(respuesta.data.sucursal_id);
         var start = respuesta.data.start,
             end = respuesta.data.end;
         start = start.split(' ');
@@ -18569,6 +18570,7 @@ document.addEventListener('DOMContentLoaded', function () {
         formulario2.hora_inicio.value = start[1];
         formulario2.hora_fin.value = end[1];
         formulario2.end.value = end[0];
+        formulario2.sucursal_id.value = respuesta.data.sucursal_id;
         document.getElementById('edit').classList.toggle("hidden");
       })["catch"](function (error) {
         if (error.response) {

@@ -4,9 +4,11 @@ use App\Http\Controllers\CitasController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Livewire\Bitacora;
+use App\Http\Livewire\Citas\Control;
 use App\Http\Livewire\CrudClientes;
 use App\Http\Livewire\CrudColaboradores;
 use App\Http\Livewire\CrudDeptoColaborador;
+use App\Http\Livewire\CrudDocumentacion;
 use App\Http\Livewire\CrudEmpresas;
 use App\Http\Livewire\CrudEspecialidadMedica;
 use App\Http\Livewire\CrudMedicos;
@@ -18,8 +20,12 @@ use App\Http\Livewire\CrudSucursales;
 use App\Http\Livewire\CrudTipoMembresia;
 use App\Http\Livewire\Logo\CrudSettings;
 use App\Http\Livewire\MandarEmail;
+use App\Http\Livewire\Encuesta\CrearEditarPregunta;
+use App\Http\Livewire\Encuesta\CrudCuestionarios;
+use App\Http\Livewire\Encuesta\ElegirCuestionario;
 use App\Http\Livewire\Encuesta\RealizarEncuesta;
 use App\Http\Livewire\Encuesta\VerEncuesta;
+use App\Http\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,20 +39,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('dashboard');
-    }else{
-        return redirect()->route('login');
-    }
-});
-
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-
+Route::get('/',Control::class)->name('home');
+// RUTAS CON LOGIN
 Route::middleware(['auth:sanctum', 'verified'])->group(function(){
-    Route::get('dashboard',[HomeController::class,'index'])->name('dashboard');
+    Route::get('dashboard',Home::class)->name('dashboard');
     Route::resource('roles',RoleController::class)->names('admin.roles');
     Route::get('roles/{id}/delete',[RoleController::class,'destroy'])->name('admin.role.destroy');
     Route::get('/users',CrudUser::class)->name('admin.users')->middleware('permission:admin.users.index');
@@ -55,9 +51,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/servicios',CrudServicios::class)->name('admin.servicios')->middleware('permission:admin.servicios.index');
     Route::get('/themes',CrudSettings::class)->name('admin.settings')->middleware('permission:admin.settings');
     Route::get('/enviar/email',MandarEmail::class)->name('enviar.email')->middleware('permission:admin.enviar.email');
-    Route::get('/encuesta',CrudEncuesta::class)->name('admin.encuesta')->middleware('permission:admin.encuestas.index');
-    Route::get('/realizar/encuesta',RealizarEncuesta::class)->name('realizar.encuesta')->middleware('permission:realizar.encuesta');
-    Route::get('/ver/encuesta',VerEncuesta::class)->name('ver.encuesta')->middleware('permission:ver.encuesta');
     Route::get('/colaboradores',CrudColaboradores::class)->name('admin.colaboradores')->middleware('permission:admin.colaboradores.index');
     Route::get('/clientes',CrudClientes::class)->name('admin.clientes')->middleware('permission:admin.clientes.index');
     Route::get('/departamento/colaboradores',CrudDeptoColaborador::class)->name('admin.departamento.colaborador')->middleware('permission:admin.departamento_colaborador.index');
@@ -65,7 +58,17 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/tipo-membresia',CrudTipoMembresia::class)->name('admin.tipo.membresia')->middleware('permission:admin.tipo_membresia.index');
     Route::get('/especialidad-medica',CrudEspecialidadMedica::class)->name('admin.especialidad.especialidad')->middleware('permission:admin.especialidades_medicas.index');
     Route::get('/medicos',CrudMedicos::class)->name('admin.medicos')->middleware('permission:admin.medicos.index');
-    Route::get('/control-de-cambios',Bitacora::class)->name('admin.bitacora');
+    Route::get('/control-de-cambios',Bitacora::class)->name('admin.bitacora')->middleware('permission:admin.bitacora');
+    Route::get('/documentacion',CrudDocumentacion::class)->name('admin.documentacion')->middleware('permission:admin.documentacion.index');
+
+    //ENCUESTA
+    Route::get('/preguntas',CrudEncuesta::class)->name('admin.encuesta')->middleware('permission:admin.preguntas.index');
+    Route::get('/pregunta/crear',CrearEditarPregunta::class)->name('admin.pregunta')->middleware('permission:admin.preguntas.create');
+    Route::get('/pregunta/editar/{id}',CrearEditarPregunta::class)->name('admin.pregunta.editar')->middleware('permission:admin.preguntas.edit');
+    Route::get('/cuestionario',CrudCuestionarios::class)->name('admin.cuestionario.index')->middleware('permission:admin.cuestionarios.index'); //AGREGAR MIDDLEWARE
+    Route::get('/realizar/encuesta',ElegirCuestionario::class)->name('realizar.encuesta')->middleware('permission:realizar.encuesta');
+    Route::get('/realizar/encuesta/{id}',RealizarEncuesta::class)->name('realizar.encuesta.preguntas')->middleware('permission:realizar.encuesta');
+    Route::get('/ver/encuesta',VerEncuesta::class)->name('ver.encuesta')->middleware('permission:ver.encuesta');
 
     // CITAS
     Route::post('/citas/{id}',[CitasController::class,'citasDashboard'])->name('admin.citas.citasDashboard');

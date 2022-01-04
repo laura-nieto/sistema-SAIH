@@ -6,8 +6,10 @@ use App\Models\Bitacora;
 use App\Models\Cliente;
 use App\Models\Colaborador;
 use App\Models\EstadoCivil;
+use App\Models\Paciente;
 use App\Models\Sucursal;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,11 +25,11 @@ class CrudColaboradores extends Component
 
     protected $rules = [
         'folio_tarjeta' => 'max:30',
-        'nombre' => 'max:30',
-        'apellido_paterno' => 'max:30',
-        'apellido_materno' => 'max:30',
-        'fecha_nacimiento' => 'date',
-        'sexo' => 'max:10',
+        'nombre' => 'required|max:30',
+        'apellido_paterno' => 'required|max:30',
+        'apellido_materno' => 'required|max:30',
+        'fecha_nacimiento' => 'required|date',
+        'sexo' => 'required|max:10',
         'correo_electronico' => 'email',
         'telefono' => 'max:10',
     ];
@@ -58,14 +60,15 @@ class CrudColaboradores extends Component
     }
     public function save()
     {
+        dd($this->sexo);
         $this->validate();
-        Colaborador::updateOrCreate(['id'=>$this->colaborador_id],
+        $colaborador = Colaborador::updateOrCreate(['id'=>$this->colaborador_id],
         [
             'folio_tarjeta' => $this->folio_tarjeta,
             'apellido_paterno' => $this->apellido_paterno,
             'apellido_materno' => $this->apellido_materno,
             'nombre'=>$this->nombre,
-            'fecha_nacimiento' => $this->fecha_nacimiento  == '' ? NULL : $this->fecha_nacimiento,
+            'fecha_nacimiento' => $this->fecha_nacimiento,
             'sexo' => $this->sexo,
             'estado_civil' => $this->estado_civil == '' ? NULL : $this->estado_civil,
             'correo_electronico' => $this->correo_electronico,
@@ -80,6 +83,17 @@ class CrudColaboradores extends Component
             'usuario_id' => $this->usuario_id  == '' ? NULL : $this->usuario_id,
             'cliente_id' => $this->cliente_id  == '' ? NULL : $this->cliente_id,
         ]);
+        if ($colaborador->wasRecentlyCreated) {
+            $paciente = new Paciente;
+            $paciente->Pac_ID = Paciente::max('Pac_ID') + 1;
+            $paciente->Pac_ApePaterno = $this->apellido_paterno;
+            $paciente->Pac_ApeMaterno = $this->apellido_materno;
+            $paciente->Pac_Nombre = $this->nombre;
+            $paciente->Pac_FecNacimiento = $this->fecha_nacimiento;
+            $paciente->Pac_Sexo = $this->sexo == 'femenino' ? 1 : 0;
+            $paciente->usuarioID = 1;
+            $paciente->save();
+        }
         Bitacora::create([
             'seccion' => 'Colaboradores',
             'descripcion' => 'Creación o Modificación',
@@ -137,22 +151,23 @@ class CrudColaboradores extends Component
     }
     public function limpiarCampos()
     {
-        $this->folio_tarjeta = '';
-        $this->apellido_paterno = '';
-        $this->apellido_materno = '';
-        $this->nombre = '';
-        $this->fecha_nacimiento = '';
-        $this->sexo = '';
-        $this->estado_civil = '';
-        $this->correo_electronico = '';
-        $this->direccion = '';
-        $this->colonia = '';
-        $this->ciudad = '';
-        $this->estado = '';
-        $this->pais = '';
-        $this->cp = '';
-        $this->telefono = '';
-        $this->sucursal_id = '';
-        $this->usuario_id = '';
+        $this->colaborador_id = NULL;
+        $this->folio_tarjeta = NULL;
+        $this->apellido_paterno = NULL;
+        $this->apellido_materno = NULL;
+        $this->nombre = NULL;
+        $this->fecha_nacimiento = NULL;
+        $this->sexo = NULL;
+        $this->estado_civil = NULL;
+        $this->correo_electronico = NULL;
+        $this->direccion = NULL;
+        $this->colonia = NULL;
+        $this->ciudad = NULL;
+        $this->estado = NULL;
+        $this->pais = NULL;
+        $this->cp = NULL;
+        $this->telefono = NULL;
+        $this->sucursal_id = NULL;
+        $this->usuario_id = NULL;
     }
 }

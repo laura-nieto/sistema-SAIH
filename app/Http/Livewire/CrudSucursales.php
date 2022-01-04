@@ -85,10 +85,11 @@ class CrudSucursales extends Component
     }
     public function limpiarCampos()
     {
-        $this->nombre = '';
-        $this->ip_sucursal = '';
-        $this->servidor_sucursal = '';
-        $this->base_de_datos = '';
-        $this->conexion_ip = '';
+        $this->id_sucursal = NULL;
+        $this->nombre = NULL;
+        $this->ip_sucursal = NULL;
+        $this->servidor_sucursal = NULL;
+        $this->base_de_datos = NULL;
+        $this->conexion_ip = NULL;
     }
 }

@@ -40,7 +40,7 @@
                     <tbody class="bg-white divide-y divide-gray-200">
                         @if(!$puestos->count())
                             <tr>
-                                <td class="px-6 py-4 border-b-2" colspan="5">No existen departamentos</td>
+                                <td class="px-6 py-4 border-b-2" colspan="5">No existen puestos</td>
                             </tr>
                         @else
                             @foreach($puestos as $puesto)

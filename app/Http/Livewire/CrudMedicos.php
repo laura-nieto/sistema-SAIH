@@ -107,16 +107,16 @@ class CrudMedicos extends Component
     public function limpiarCampos()
     {
         $this->medico_id = NULL;
-        $this->doc_name = '';
-        $this->apellido_paterno = '';
-        $this->apellido_materno = '';
-        $this->nombre = '';
-        $this->correo_electronico = '';
-        $this->telefono = '';
-        $this->celular = '';
-        $this->cedula_profesional = '';
-        $this->ssa = '';
-        $this->cedula_especialidad = '';
+        $this->doc_name = NULL;
+        $this->apellido_paterno = NULL;
+        $this->apellido_materno = NULL;
+        $this->nombre = NULL;
+        $this->correo_electronico = NULL;
+        $this->telefono = NULL;
+        $this->celular = NULL;
+        $this->cedula_profesional = NULL;
+        $this->ssa = NULL;
+        $this->cedula_especialidad = NULL;
         $this->especialidad_id = NULL;
     }
 }

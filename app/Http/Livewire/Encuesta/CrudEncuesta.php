@@ -7,16 +7,8 @@ use Livewire\Component;
 
 class CrudEncuesta extends Component
 {
-    public $pregunta,$id_pregunta;
     public $search;
-    public $modal = false;
 
-    protected $rules = [
-        'pregunta' => 'required',
-    ];
-    protected $messages = [
-        'required' => 'El campo es requerido.',
-    ];
 
     public function render()
     {
@@ -26,42 +18,15 @@ class CrudEncuesta extends Component
 
     public function crear()
     {
-        $this->limpiarCampos();
-        $this->abrirModal();
-    }
-    public function save()
-    {
-        $this->validate();
-        EncuestaPregunta::updateOrCreate(['id'=>$this->id_pregunta],
-        [
-            'pregunta'=>$this->pregunta,
-        ]);
-        $this->cerrarModal();
+        return redirect()->route('admin.pregunta');
     }
     public function editar($id)
     {
-        $pregunta = EncuestaPregunta::findOrFail($id);
-        $this->id_pregunta = $pregunta->id;
-        $this->pregunta = $pregunta->pregunta;
-        $this->abrirModal();
+        return redirect()->route('admin.pregunta.editar',$id);
     }
     public function borrar($id)
     {
         EncuestaPregunta::findOrFail($id)->delete();
     }
 
-
-    //FUNCIONES MODAL
-    public function abrirModal()
-    {
-        $this->modal = true;
-    }
-    public function cerrarModal()
-    {
-        $this->modal = false;
-    }
-    public function limpiarCampos()
-    {
-        $this->pregunta = '';
-    }
 }

@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 formulario2.hora_inicio.value = start[1];
                 formulario2.hora_fin.value = end[1];
                 formulario2.end.value = end[0];
+                formulario2.sucursal_id.value = respuesta.data.sucursal_id;
                 document.getElementById('edit').classList.toggle("hidden");
             })
             .catch((error)=>{

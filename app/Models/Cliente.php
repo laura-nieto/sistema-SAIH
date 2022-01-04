@@ -16,4 +16,9 @@ class Cliente extends Model
         'dom_referencia','direccion','ciudad','rfc','numero_precio','cobrador_id','dias_credito','cuenta','cp','telefono','correo_electronico','extranjero',
         'descuento_general',
     ];
+
+    public function sucursales()
+    {
+        return $this->belongsToMany(Sucursal::class,'clientes_sucursales','cliente_id','sucursal_id');
+    }
 }

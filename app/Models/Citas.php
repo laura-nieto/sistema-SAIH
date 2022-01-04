@@ -15,5 +15,7 @@ class Citas extends Model
         'title',
         'start',
         'end',
+        'sucursal_id',
+        'servicio_id'
     ];
 }

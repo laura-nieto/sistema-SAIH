@@ -2,13 +2,16 @@
 
 namespace App\Http\Livewire\Encuesta;
 
+use App\Models\Cuestionario;
 use App\Models\EncuestaPregunta;
 use Livewire\Component;
 
 class RealizarEncuesta extends Component
 {
-    public $count = 1;
+    public $count = 0;
     public $respuesta;
+    public $cuestionario_id,$pregunta_id;
+    
     protected $rules = [
         'respuesta' => 'required',
     ];
@@ -16,13 +19,23 @@ class RealizarEncuesta extends Component
         'required' => 'Debe ingresar una respuesta.',
     ];
 
+    public function mount($id)
+    {
+        $this->cuestionario_id = $id;
+    }
     public function render()
     {
-        $preguntas = EncuestaPregunta::withTrashed()->get();
-        
-        foreach ($preguntas as $pregunta) {
-            if ($pregunta->id == $this->count) {
+        $cuestionario = Cuestionario::findOrFail($this->cuestionario_id);
+
+        // PREGUNTAS DEL CUESTIONARIO
+        foreach (json_decode($cuestionario->preguntas) as $pregunta_cuestionario) {
+            $preguntas[] =  EncuestaPregunta::find($pregunta_cuestionario);
+        }
+        //MOSTRAR PREGUNTA
+        foreach ($preguntas as $index => $pregunta) {
+            if ($index == $this->count) {
                 if ($pregunta->deleted_at == null) {
+                    $this->pregunta_id = $pregunta->id;
                     return view('livewire.encuesta.realizar-encuesta',compact('pregunta'));
                 }else{
                     $this->count++;
@@ -31,30 +44,17 @@ class RealizarEncuesta extends Component
             }
         }
         return view('livewire.encuesta.fin-encuesta');
-        
-        //SI DEJARA REENDERIZAR ESTA SERIA LA MEJOR SOLUCION
-        // if ($pregunta != null) {
-        //     if ($pregunta->deleted_at == null) {
-        //         return view('livewire.encuesta.realizar-encuesta',compact('pregunta'));
-        //     }else{
-        //         $this->count++;
-        //         $this->render(); 
-         
-        //     }
-        // }else{
-        //     return view('livewire.encuesta.fin-encuesta');
-        // }
     }
 
     public function next()
     {
         $respuesta = $this->respuesta;
         $this->validate();
-        $pregunta = EncuestaPregunta::findOrFail($this->count);
+        $pregunta = EncuestaPregunta::findOrFail($this->pregunta_id);
         $pregunta->respuestas()->create([
             'respuesta'=>$respuesta
         ]);
-        $this->respuesta = "";
+        $this->respuesta = NULL;
         $this->count++;
     }
 }

@@ -39,7 +39,7 @@
                                 </p>
                             </div>
                         </div>
-                        @error('logo') <span class="error">{{ $message }}</span> @enderror
+                        @error('logo') <span class="error text-red-500">{{ $message }}</span> @enderror
                     </div>        
                 </form>
                 <div class="flex flex-row items-center justify-end p-5 mt-3">

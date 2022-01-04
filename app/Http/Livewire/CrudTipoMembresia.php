@@ -72,6 +72,7 @@ class CrudTipoMembresia extends Component
     }
     public function limpiarCampos()
     {
-        $this->nombre = '';
+        $this->colaborador_id = NULL;
+        $this->nombre = NULL;
     }
 }

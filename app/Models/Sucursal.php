@@ -17,8 +17,12 @@ class Sucursal extends Model
         'nombre','ip_sucursal','servidor_sucursal','base_de_datos','conexion_ip'
     ];
 
-    public function empresas()
+    public function clientes()
     {
-        return $this->belongsToMany(Empresa::class,'empresas_sucursales','sucursal_id','empresa_id');
+        return $this->belongsToMany(Cliente::class,'clientes_sucursales','sucursal_id','cliente_id');
+    }
+    public function usuarios()
+    {
+        return $this->belongsToMany(Sucursal::class,'sucursales_usuarios','sucursal_id','usuario_id');
     }
 }

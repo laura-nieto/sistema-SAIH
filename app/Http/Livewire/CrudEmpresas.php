@@ -5,20 +5,17 @@ namespace App\Http\Livewire;
 use App\Models\Bitacora;
 use Livewire\Component;
 use App\Models\Empresa;
-use App\Models\Sucursal;
 use Illuminate\Support\Facades\Auth;
 
 class CrudEmpresas extends Component
 {
     public $nombre,$direccion,$dom_noExterior,$dom_noInterior,$colonia,$rfc,$telefono,$ciudad,$dom_municipio,$dom_cp,$dom_pais,$dom_referencia,$estado,$representante;
-    public $id_empresa,$sucursales_id = [];
-    public $sucursales;
+    public $id_empresa;
     public $search;
     public $modal = false;
 
     protected $rules = [
         'nombre' => 'required|min:2',
-        'sucursales_id' => 'required',
     ];
     protected $messages = [
         'required' => 'El campo es requerido.',
@@ -35,7 +32,6 @@ class CrudEmpresas extends Component
     {
         $this->resetErrorBag();
         $this->limpiarCampos();
-        $this->sucursales = Sucursal::all();
         $this->abrirModal();
     }
     public function save()
@@ -57,7 +53,6 @@ class CrudEmpresas extends Component
             'dom_referencia' => $this->dom_referencia,
             'representante' => $this->representante,
         ]);
-        $empresa->sucursales()->sync($this->sucursales_id);
         Bitacora::create([
             'seccion' => 'Empresas',
             'descripcion' => 'Creación o Modificación',
@@ -67,7 +62,6 @@ class CrudEmpresas extends Component
     }
     public function editar($id)
     {
-        $this->sucursales = Sucursal::all();
         $empresa = Empresa::findOrFail($id);
         $this->id_empresa = $empresa->id;
         $this->nombre = $empresa->nombre;
@@ -84,7 +78,6 @@ class CrudEmpresas extends Component
         $this->dom_referencia = $empresa->dom_referencia;
         $this->estado = $empresa->estado;
         $this->representante = $empresa->representante;
-        $this->sucursales_id = $empresa->sucursales->pluck('id');
         $this->abrirModal();
     }
     public function borrar($id)
@@ -108,19 +101,20 @@ class CrudEmpresas extends Component
     }
     public function limpiarCampos()
     {
-        $this->nombre = '';
-        $this->direccion = '';
-        $this->dom_noExterior = '';
-        $this->dom_noInterior = '';
-        $this->colonia = '';
-        $this->rfc = '';
-        $this->telefono = '';
-        $this->ciudad = '';
-        $this->dom_municipio = '';
-        $this->dom_cp = '';
-        $this->dom_pais = '';
-        $this->dom_referencia = '';
-        $this->estado = '';
-        $this->representante = '';
+        $this->id_empresa = NULL;
+        $this->nombre = NULL;
+        $this->direccion = NULL;
+        $this->dom_noExterior = NULL;
+        $this->dom_noInterior = NULL;
+        $this->colonia = NULL;
+        $this->rfc = NULL;
+        $this->telefono = NULL;
+        $this->ciudad = NULL;
+        $this->dom_municipio = NULL;
+        $this->dom_cp = NULL;
+        $this->dom_pais = NULL;
+        $this->dom_referencia = NULL;
+        $this->estado = NULL;
+        $this->representante = NULL;
     }
 }

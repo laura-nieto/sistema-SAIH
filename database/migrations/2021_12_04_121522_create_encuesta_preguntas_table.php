@@ -16,6 +16,13 @@ class CreateEncuestaPreguntasTable extends Migration
         Schema::create('encuesta_preguntas', function (Blueprint $table) {
             $table->id();
             $table->string('pregunta');
+            $table->text('opciones')->nullable();
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
+        Schema::create('cuestionario',function(Blueprint $table){
+            $table->id();
+            $table->text('preguntas');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
@@ -35,6 +42,8 @@ class CreateEncuestaPreguntasTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('encuesta_respuestas');
+        Schema::dropIfExists('cuestionario');
         Schema::dropIfExists('encuesta_preguntas');
     }
 }

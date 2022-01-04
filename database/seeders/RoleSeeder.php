@@ -76,14 +76,22 @@ class RoleSeeder extends Seeder
                             'description'=>'Enviar Emails'])->syncRoles([$role1]);
 
         // PERMISO PARA ENCUESTAS
-        Permission::create(['name'=>'admin.encuestas.index',
+        Permission::create(['name'=>'admin.preguntas.index',
                             'description'=>'Ver listado de Preguntas de encuesta'])->syncRoles([$role1]);
-        Permission::create(['name'=>'admin.encuestas.create',
+        Permission::create(['name'=>'admin.preguntas.create',
                             'description'=>'Crear Pregunta de Encuesta'])->syncRoles([$role1]);
-        Permission::create(['name'=>'admin.encuestas.edit',
+        Permission::create(['name'=>'admin.preguntas.edit',
                             'description'=>'Editar Pregunta de Encuesta'])->syncRoles([$role1]);
-        Permission::create(['name'=>'admin.encuestas.destroy',
+        Permission::create(['name'=>'admin.preguntas.destroy',
                             'description'=>'Eliminar Pregunta de Encuesta'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.cuestionarios.index',
+                            'description'=>'Ver listado de Cuestionarios'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.cuestionarios.create',
+                            'description'=>'Crear cuestionarios'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.cuestionarios.edit',
+                            'description'=>'Editar Pregunta de Encuesta'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.cuestionarios.destroy',
+                            'description'=>'Eliminar cuestionarios'])->syncRoles([$role1]);
         Permission::create(['name'=>'realizar.encuesta',
                             'description'=>'Realizar Encuesta'])->syncRoles([$role1]);
         Permission::create(['name'=>'ver.encuesta',
@@ -162,5 +170,13 @@ class RoleSeeder extends Seeder
         // PERMISO PARA BITACORA
         Permission::create(['name'=>'admin.bitacora',
             'description'=>'Ver Control de Cambios'])->syncRoles([$role1]);
+        
+        // PERMISO PARA DOCUMENTACION
+        Permission::create(['name'=>'admin.documentacion.index',
+            'description'=>'Ver Documentación'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.documentacion.create',
+            'description'=>'Crear Documentación'])->syncRoles([$role1]);
+        Permission::create(['name'=>'admin.documentacion.destroy',
+            'description'=>'Eliminar Documentación'])->syncRoles([$role1]);
     }
 }

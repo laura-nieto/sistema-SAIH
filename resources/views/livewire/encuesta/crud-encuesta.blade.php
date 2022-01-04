@@ -7,16 +7,16 @@
             <x-success>{{ session('success') }}</x-success>
         @endif
         <x-seccion-white>
-            @can('admin.encuestas.create')
+            @can('admin.preguntas.create')
                 <div class="my-4 sm:px-6 lg:px-8 border-b-1 pb-3">
                     <button wire:click='crear()'
                     class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Crear
                     Nuevo</button>
                 </div>
             @endcan
-            @if ($modal)
+            {{-- @if ($modal)
                 @include('livewire.encuesta.modal-encuesta-pregunta')
-            @endif
+            @endif --}}
             <div class="overflow-hidden sm:px-6 lg:px-8">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-2">
@@ -31,6 +31,9 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                 Pregunta
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                Opciones
                             </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Acciones</span>
@@ -49,12 +52,15 @@
                                         <div class="text-sm text-gray-900">{{ $pregunta->pregunta }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ $pregunta->opciones == NULL ? 'No':'Sí' }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex justify-evenly">
-                                            @can('admin.encuestas.edit')
+                                            @can('admin.preguntas.edit')
                                                 <button wire:click='editar({{$pregunta->id}})'
                                                     class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Editar</button>
                                             @endcan
-                                            @can('admin.encuestas.destroy')
+                                            @can('admin.preguntas.destroy')
                                                 <button wire:click='borrar({{$pregunta->id}})'
                                                     class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Eliminar</button>
                                             @endcan

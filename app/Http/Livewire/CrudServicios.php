@@ -76,6 +76,7 @@ class CrudServicios extends Component
     }
     public function limpiarCampos()
     {
-        $this->nombre = '';
+        $this->id_servicio = NULL;
+        $this->nombre = NULL;
     }
 }

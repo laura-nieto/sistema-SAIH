@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\EnvioCita;
 use App\Models\Citas;
+use App\Models\GeneralSettings;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CitasController extends Controller
 {
@@ -21,7 +25,8 @@ class CitasController extends Controller
      */
     public function index()
     {
-        return view('citas.citas');
+        $servicios = Servicio::all();
+        return view('citas.citas',compact('servicios'));
     }
 
     /**
@@ -48,9 +53,12 @@ class CitasController extends Controller
             'hora_fin' => 'required',
             'apellido' => 'required',
             'nombre' => 'required',
+            'servicio_id' => 'required',
+            'email' => 'nullable|email',
         ];
         $mesage =[
-            'required' => 'Campo obligatorio'
+            'required' => 'Campo obligatorio',
+            'email' => 'Debe ingresar un email válido'
         ];
         $request->validate($rules,$mesage);
 
@@ -58,10 +66,23 @@ class CitasController extends Controller
         $evento->start = $request->start . ' ' . $request->hora_inicio;
         $evento->end = $request->start . ' ' . $request->hora_fin;
         $evento->title = $request->apellido . ' ' . $request->nombre;
+        $evento->servicio_id = $request->servicio_id;
         $evento->sucursal_id = $request->session()->get('sucursal');
         $evento->apellido = $request->apellido;
         $evento->nombre = $request->nombre;
         $evento->save();
+        
+        $servicio = Servicio::find($this->servicio)->nombre;
+        if ($request->has('email')) {
+            $logo = GeneralSettings::first()->logo;
+            if ($logo != null) {
+                $logo = '/logos/' . $logo;
+            }else{
+                $logo = '/img/logo/SAIH-logo.png';
+            }
+            $correo = new EnvioCita($logo,$request->nombre,$servicio,$request->start,$request->hora_inicio);
+            Mail::to($request->email)->send($correo);
+        }
     }
 
     /**
@@ -102,9 +123,11 @@ class CitasController extends Controller
             'hora_fin' => 'required',
             'apellido' => 'required',
             'nombre' => 'required',
+            'email' => 'nullable|email'
         ];
         $mesage =[
-            'required' => 'Campo obligatorio'
+            'required' => 'Campo obligatorio',
+            'email' => 'Debe ingresar un email válido'
         ];
         $request->validate($rules,$mesage);
 
@@ -112,6 +135,7 @@ class CitasController extends Controller
         $evento->start = $request->start . ' ' . $request->hora_inicio;
         $evento->end = $request->start . ' ' . $request->hora_fin;
         $evento->title = $request->apellido . ' ' . $request->nombre;
+        $evento->servicio_id = $request->servicio_id;
         $evento->sucursal_id = $request->session()->get('sucursal');
         $evento->apellido = $request->apellido;
         $evento->nombre = $request->nombre;

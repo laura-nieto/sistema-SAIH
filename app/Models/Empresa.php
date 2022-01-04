@@ -24,8 +24,4 @@ class Empresa extends Model
     {
         return $this->hasMany('App\Models\User');
     }
-    public function sucursales()
-    {
-        return $this->belongsToMany(Sucursal::class,'empresas_sucursales','empresa_id','sucursal_id');
-    }
 }

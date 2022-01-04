@@ -72,4 +72,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Empresa','empresa_id');
     }
+    public function sucursales()
+    {
+        return $this->belongsToMany(Sucursal::class,'sucursales_usuarios','usuario_id','sucursal_id');
+    }
 }

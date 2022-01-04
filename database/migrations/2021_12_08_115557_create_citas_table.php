@@ -18,11 +18,16 @@ class CreateCitasTable extends Migration
 
             $table->string('apellido');
             $table->string('nombre');
-            
+
+            //$table->date('fecha');
+            //$table->time('hora');
             $table->string('title',100);
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
+            
+            $table->foreignId('sucursal_id')->constrained('sucursales')->onDelete('cascade');
+            $table->foreignId('servicio_id')->constrained('servicios')->onDelete('cascade');
+            //$table->foreignId('medico_id')->nullable()->constrained('medicos')->onDelete('cascade');
             
             $table->softDeletes('deleted_at');
             $table->timestamps();

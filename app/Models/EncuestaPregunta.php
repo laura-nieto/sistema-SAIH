@@ -12,7 +12,7 @@ class EncuestaPregunta extends Model
     use SoftDeletes;
     
     protected $fillable = [
-        'pregunta',
+        'pregunta','opciones'
     ];
 
     public function respuestas()

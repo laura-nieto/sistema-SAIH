@@ -75,7 +75,8 @@ class CrudEspecialidadMedica extends Component
     }
     public function limpiarCampos()
     {
-        $this->especialidad = '';
-        $this->bitCat_lugar = '';
+        $this->especialidad_id = NULL;
+        $this->especialidad = NULL;
+        $this->bitCat_lugar = NULL;
     }
 }

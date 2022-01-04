@@ -52,6 +52,28 @@
                                 @enderror
                             </div>
                             <div class="flex flex-col">
+                                <label class="mb-2 mt-5 font-semibold text-gray-700" for="email">Correo Electrónico
+                                    Paciente</label>
+                                <input type="email" name="email" id="email" placeholder="Ingrese un correo electrónico"
+                                    class="bg-white text-black border border-gray-200 rounded shadow-sm @error('email')border-red-500 @enderror">
+                                @error('email')
+                                    <span class="error text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col mr-3">
+                                <label class="mb-2 mt-5 font-semibold text-gray-700" for="servicio_id">Servicios</label>
+                                <select name="servicio_id" id="servicio_id"
+                                    class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
+                                    <option selected value>Seleccione un servicio</option>
+                                    @foreach ($servicios as $servicio)
+                                        <option value="{{$servicio->id}}">{{$servicio->nombre}}</option>
+                                    @endforeach
+                                </select>
+                                @error('servicio_id')
+                                    <span class="error text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col">
                                 <label class="mb-2 mt-5 font-semibold text-gray-700" for="start">Día</label>
                                 <input type="date" name="start" id="start" placeholder="Ingrese un día"
                                     class="bg-white text-black border border-gray-200 rounded shadow-sm @error('start')border-red-500 @enderror">
@@ -136,6 +158,28 @@
                                 <input type="text" name="nombre" id="nombre" placeholder="Ingrese un nombre"
                                     class="bg-white text-black border border-gray-200 rounded shadow-sm @error('nombre')border-red-500 @enderror">
                                 @error('nombre')
+                                    <span class="error text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="mb-2 mt-5 font-semibold text-gray-700" for="email">Correo Electrónico
+                                    Paciente</label>
+                                <input type="email" name="email" id="email" placeholder="Ingrese un correo electrónico"
+                                    class="bg-white text-black border border-gray-200 rounded shadow-sm @error('email')border-red-500 @enderror">
+                                @error('email')
+                                    <span class="error text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="flex flex-col">
+                                <label class="mb-2 mt-5 font-semibold text-gray-700" for="servicio_id">Servicios</label>
+                                <select name="servicio_id" id="servicio_id"
+                                    class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
+                                    <option selected value>Seleccione un servicio</option>
+                                    @foreach ($servicios as $servicio)
+                                        <option value="{{$servicio->id}}">{{$servicio->nombre}}</option>
+                                    @endforeach
+                                </select>
+                                @error('servicio_id')
                                     <span class="error text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>

@@ -23,6 +23,12 @@ class CreateEmpresasTable extends Migration
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
+        Schema::create('sucursales_usuarios',function(Blueprint $table){
+            $table->id();
+            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
+            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->timestamps();
+        });
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
@@ -38,13 +44,6 @@ class CreateEmpresasTable extends Migration
             $table->string('dom_pais')->nullable();
             $table->string('dom_referencia')->nullable();
             $table->string('representante')->nullable();
-            $table->softDeletes('deleted_at');
-            $table->timestamps();
-        });
-        Schema::create('empresas_sucursales',function(Blueprint $table){
-            $table->id();
-            $table->foreignId('empresa_id')->nullable()->constrained('empresas')->onDelete('cascade');
-            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
@@ -82,6 +81,13 @@ class CreateEmpresasTable extends Migration
             $table->string('correo_electronico')->nullable();
             $table->boolean('extranjero')->default(0);
             $table->boolean('descuento_general')->default(0);
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
+        Schema::create('clientes_sucursales',function(Blueprint $table){
+            $table->id();
+            $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
+            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
