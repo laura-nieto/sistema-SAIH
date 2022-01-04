@@ -43,7 +43,7 @@
                 @endcan
                 @can('realizar.encuesta')
                     <div class="flex flex-wrap">
-                        <a href="{{ url('/citas') }}" class="w-full">
+                        <a href="{{ url('/citas/mostrar') }}" class="w-full">
                             <div class="min-h-full">
                                 <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
                                     <div class="rounded-full">
