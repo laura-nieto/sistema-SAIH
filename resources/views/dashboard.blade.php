@@ -83,6 +83,9 @@
         </div>
         <div class="lg:grid lg:grid-cols-6 lg:gap-4 mt-6">
             <div class="lg:col-span-3 flex flex-col">
+                <div class="mb-2 mt-4">
+                    <h3 class="text-xl">Búsqueda de Colaboradores</h3>
+                </div>
                 <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300">
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
