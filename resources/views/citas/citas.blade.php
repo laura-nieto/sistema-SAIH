@@ -60,7 +60,7 @@
                                     <span class="error text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="flex flex-col mr-3">
+                            <div class="flex flex-col">
                                 <label class="mb-2 mt-5 font-semibold text-gray-700" for="servicio_id">Servicios</label>
                                 <select name="servicio_id" id="servicio_id"
                                     class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">

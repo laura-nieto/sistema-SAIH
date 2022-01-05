@@ -82,6 +82,7 @@
             </div>
         </div>
         <div class="lg:grid lg:grid-cols-6 lg:gap-4 mt-6">
+            <!-- COLUMNA -->
             <div class="lg:col-span-3 flex flex-col">
                 <div class="mb-2 mt-4">
                     <h3 class="text-xl">Búsqueda de Colaboradores</h3>
@@ -103,7 +104,8 @@
                         <tbody>
                             @if(!$colaboradores->count())
                                 <tr>
-                                    <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen colaboradores</td>
+                                    <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen
+                                        colaboradores</td>
                                 </tr>
                             @else
                                 @foreach($colaboradores as $colaborador)
@@ -113,7 +115,9 @@
                                             <div class="text-lg text-gray-800 font-medium">
                                                 {{ $colaborador->apellido_paterno . ' ' . $colaborador->apellido_materno . ' ' . $colaborador->nombre }}
                                             </div>
-                                            <div class="text-lg text-gray-500">{{ Carbon\Carbon::parse($colaborador->fecha_nacimiento)->format('d-m-Y') }}</div>
+                                            <div class="text-lg text-gray-500">
+                                                {{ Carbon\Carbon::parse($colaborador->fecha_nacimiento)->format('d-m-Y') }}
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -121,36 +125,71 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- TOKEN PARA CALENDARIO --}}
-                {{-- <input type="hidden" name="_token" id="tokenCalendario" value="{{ csrf_token() }}"/>
-                --}}
-                {{-- <div id="citasHoy" class="lg:col-span-4"></div> --}}
-                {{-- <div class="mt-3 lg:mt-0 lg:block lg:col-start-5 lg:col-span-2 md:grid md:grid-cols-4 md:gap-4"> --}}
-                {{-- CARD --}}
-                {{-- <div class="mb-3 md:col-span-2">
-                        <a href="{{ url('/ver/encuesta') }}" class="flex text-white rounded
-                overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform
-                hover:scale-100
-                cursor-pointer">
-                <div class="py-3 px-4 bg-green-500 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                        <path fill-rule="evenodd"
-                            d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                            clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div class="px-4 py-3 bg-green-400 w-full">
-                    <h5 class="text-2xl font-semibold">{{ $respuestas }}</h5>
-                    <p class="font-medium">Encuestas Realizadas</p>
-                </div>
-                </a>
-            </div> --}}
-            {{-- CARD --}}
-            {{-- </div> --}}
+            </div>
 
+            <!-- COLUMNA -->
+            <div class="lg:col-span-3 flex flex-col">
+                <div class="mb-2 mt-4">
+                    <h3 class="text-xl">Farmacia</h3>
+                </div>
+                <div class="w-full overflow-auto shadow bg-white" id="journal-scroll">
+                    <table class="w-full">
+                        <tbody>
+                            @if(!$ventas->count())
+                                <tr>
+                                    <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen
+                                        ventas</td>
+                                </tr>
+                            @else
+                                @foreach($ventas as $venta)
+                                    <tr class="relative transform scale-100 text-base border-b-2 border-blue-100 cursor-default bg-opacity-25">
+                                        <td class="whitespace-no-wrap px-6 py-2">
+                                            <div class="text-black">{{ Carbon\Carbon::parse($venta->Fecha_venta)->format('d-m-Y')}}</div>
+                                            <div class="text-black">{{ Carbon\Carbon::parse($venta->Hora_venta)->format('H:m')}}</div>
+                                        </td>
+                                        <td class="whitespace-no-wrap px-6 py-2">
+                                            <div class="leading-5 text-black font-semibold">Total: ${{(int)$venta->TotalVenta}}</div>
+                                            <div class="leading-5 text-black">Cantidad de Productos: {{(int)$venta->TotalProductos}}</div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
-        {{-- @section('js')
+</div>
+{{-- TOKEN PARA CALENDARIO --}}
+{{-- <input type="hidden" name="_token" id="tokenCalendario" value="{{ csrf_token() }}"/>
+--}}
+{{-- <div id="citasHoy" class="lg:col-span-4"></div> --}}
+{{-- <div class="mt-3 lg:mt-0 lg:block lg:col-start-5 lg:col-span-2 md:grid md:grid-cols-4 md:gap-4"> --}}
+{{-- CARD --}}
+{{-- <div class="mb-3 md:col-span-2">
+                        <a href="{{ url('/ver/encuesta') }}" class="flex text-white rounded
+overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform
+hover:scale-100
+cursor-pointer">
+<div class="py-3 px-4 bg-green-500 flex items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" viewBox="0 0 20 20" fill="currentColor">
+        <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+        <path fill-rule="evenodd"
+            d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+            clip-rule="evenodd" />
+    </svg>
+</div>
+<div class="px-4 py-3 bg-green-400 w-full">
+    <h5 class="text-2xl font-semibold">{{ $respuestas }}</h5>
+    <p class="font-medium">Encuestas Realizadas</p>
+</div>
+</a>
+</div> --}}
+{{-- CARD --}}
+{{-- </div> --}}
+
+{{-- @section('js')
 @if(Auth::user()->hasRole(1))
                     <script type="text/javascript">
                         const baseURL = {!! json_encode(url('/')) !!}
@@ -163,5 +202,4 @@
                     </script>
 @endif
                 <script src="{{ asset('js/calendar-home.js') }}" defer></script>
-        @endsection--}}
-</div>
+@endsection--}}

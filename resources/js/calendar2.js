@@ -103,6 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
         axios.post(baseURL + '/evento/eliminar/'+formulario2.id.value)
         .then((respuesta)=>{
             document.getElementById('edit').classList.toggle("hidden");
+            eventSource.refetch()
         })
         .catch((error)=>{
             if (error.response) {

@@ -14,4 +14,9 @@ class Ventas extends Model
     protected $table = 'dbo.Ventas';
     
     public $timestamps = false;
+
+    public function ventaDetalle()
+    {
+        return $this->hasOne(VentasDetalle::class,'id_ventadetalle');
+    }
 }

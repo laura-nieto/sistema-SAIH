@@ -1516,9 +1516,6 @@ select {
 .flex-wrap {
 	flex-wrap: wrap;
 }
-.flex-nowrap {
-	flex-wrap: nowrap;
-}
 .items-start {
 	align-items: flex-start;
 }
@@ -1709,6 +1706,10 @@ select {
 .border-gray-100 {
 	--tw-border-opacity: 1;
 	border-color: rgba(243, 244, 246, var(--tw-border-opacity));
+}
+.border-blue-100 {
+	--tw-border-opacity: 1;
+	border-color: rgba(219, 234, 254, var(--tw-border-opacity));
 }
 .border-red-500 {
 	--tw-border-opacity: 1;

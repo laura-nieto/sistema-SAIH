@@ -30,7 +30,7 @@ class CrudColaboradores extends Component
         'apellido_materno' => 'required|max:30',
         'fecha_nacimiento' => 'required|date',
         'sexo' => 'required|max:10',
-        'correo_electronico' => 'email',
+        'correo_electronico' => 'nullable|email',
         'telefono' => 'max:10',
     ];
     protected $messages = [
@@ -38,6 +38,7 @@ class CrudColaboradores extends Component
         'max' => 'El campo tiene como máximo :max caracteres.',
         'integer' => 'El campo debe ser numérico',
         'between' => 'La opción ingresada no está dentro de los valores aceptados',
+        'email' => 'Debe ingresar un correo electrónico válido'
     ];
 
     public function render()
@@ -60,7 +61,6 @@ class CrudColaboradores extends Component
     }
     public function save()
     {
-        dd($this->sexo);
         $this->validate();
         $colaborador = Colaborador::updateOrCreate(['id'=>$this->colaborador_id],
         [

@@ -14,4 +14,9 @@ class VentasDetalle extends Model
     protected $table = 'dbo.VentasDetalle';
     
     public $timestamps = false;
+
+    public function venta()
+    {
+        return $this->belongsTo(Ventas::class,'id_ventadetalle');
+    }
 }
