@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
         $admin->sucursales()->sync([1,2]);
 
         //SERVICIOS
-        Servicio::create(['nombre' => 'Turno Médico']);
+        Servicio::create(['nombre' => 'Cita Médica']);
         Servicio::create(['nombre' => 'Estudio']);
 
         //ESTADOS CIVILES

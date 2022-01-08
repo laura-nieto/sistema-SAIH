@@ -93,7 +93,7 @@ class Control extends Component
             }else{
                 $logo = '/img/logo/SAIH-logo.png';
             }
-            $correo = new EnvioCita($logo,$this->nombre,$servicio,$this->start,$this->hora_inicio);
+            $correo = new EnvioCita($logo,$this->nombre,$servicio,$this->fecha,$this->hora);
             Mail::to($this->email)->send($correo);
         }
         session()->flash('success','Se realizó la reserva para la cita.');

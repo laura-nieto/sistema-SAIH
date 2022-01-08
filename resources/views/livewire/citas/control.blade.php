@@ -4,7 +4,7 @@
             {{ __('Turnos Médicos') }}
         </x-slot>
         @if(session('success'))
-            <x-success>{{ session('success') }}</x-success>
+            <x-success>Cita programada, si ingresó un correo electrónico le llegara un recordatorio.</x-success>
         @endif
         @if(session('error'))
             <x-error>{{ session('error') }}</x-error>

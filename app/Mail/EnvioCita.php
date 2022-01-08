@@ -11,6 +11,8 @@ class EnvioCita extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $logo,$nombre,$servicio,$dia,$hora;
+    
     /**
      * Create a new message instance.
      *
@@ -32,6 +34,6 @@ class EnvioCita extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('mail.envio-cita');
     }
 }

@@ -16,6 +16,9 @@
             </div>
             <div class="flex flex-col px-6 py-5 bg-gray-50">
                 <form action="" method="post" class="mb-3">
+                    @error('fecha')
+                        <span class="error text-red-500">- La fecha ingresada debe ser posterior a la actual.</span>
+                    @enderror
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="apellido">Apellido</label>
                         <input type="text" name="apellido" id="apellido" placeholder="Ingrese un apellido" wire:model='apellido'

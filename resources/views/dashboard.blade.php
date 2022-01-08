@@ -135,7 +135,11 @@
                 <div class="w-full overflow-auto shadow bg-white" id="journal-scroll">
                     <table class="w-full">
                         <tbody>
-                            @if(!$ventas->count())
+                            <tr>
+                                <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen
+                                    ventas</td>
+                            </tr>
+                            {{-- @if(!$ventas->count())
                                 <tr>
                                     <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen
                                         ventas</td>
@@ -153,7 +157,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif
+                            @endif --}}
                         </tbody>
                     </table>
                 </div>

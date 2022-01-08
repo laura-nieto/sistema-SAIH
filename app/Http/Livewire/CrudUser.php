@@ -80,9 +80,11 @@ class CrudUser extends Component
         $rules = [
             'nombre' => 'required|min:2',
             'apellido' => 'required|min:2',
-            'email' => 'required|email|unique:users,email', //PARA POSTGRES
-            //'email' => 'required|email|unique:users,email,'.$this->id_user,
+            //'email' => 'required|email|unique:users,email', //PARA POSTGRES
+            'email' => 'required|email|unique:users,email,'.$this->id_user,
             'password' => 'required|min:6',
+            'role_id' => 'required',
+            'sucursales_id' => 'required',
         ];
         $this->validate($rules);
         $user = User::updateOrCreate(['id'=>$this->id_user],
