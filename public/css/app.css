@@ -1707,10 +1707,6 @@ select {
 	--tw-border-opacity: 1;
 	border-color: rgba(243, 244, 246, var(--tw-border-opacity));
 }
-.border-blue-100 {
-	--tw-border-opacity: 1;
-	border-color: rgba(219, 234, 254, var(--tw-border-opacity));
-}
 .border-red-500 {
 	--tw-border-opacity: 1;
 	border-color: rgba(239, 68, 68, var(--tw-border-opacity));
@@ -1726,6 +1722,10 @@ select {
 .border-red-400 {
 	--tw-border-opacity: 1;
 	border-color: rgba(248, 113, 113, var(--tw-border-opacity));
+}
+.border-blue-100 {
+	--tw-border-opacity: 1;
+	border-color: rgba(219, 234, 254, var(--tw-border-opacity));
 }
 .bg-white {
 	--tw-bg-opacity: 1;

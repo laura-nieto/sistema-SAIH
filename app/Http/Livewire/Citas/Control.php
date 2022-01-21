@@ -33,6 +33,7 @@ class Control extends Component
     public $messages = [
         'required' => 'El campo es requerido',
         'email' => 'Debe ingresar una dirección de correo válida',
+        'after' => 'La fecha ingresada debe ser después de hoy'
     ];
 
     public function mount()
