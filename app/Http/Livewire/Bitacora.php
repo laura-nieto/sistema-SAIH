@@ -9,7 +9,7 @@ class Bitacora extends Component
 {
     public function render()
     {
-        $bitacora = ModelsBitacora::all();
+        $bitacora = ModelsBitacora::orderBy('created_at','desc')->get();
         return view('livewire.bitacora',compact('bitacora'));
     }
 }

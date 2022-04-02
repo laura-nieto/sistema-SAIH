@@ -104,7 +104,7 @@
                         <tbody>
                             @if(!$colaboradores->count())
                                 <tr>
-                                    <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen
+                                    <td class="px-6 py-4 text-gray-800 font-medium" colspan="5">No existen
                                         colaboradores</td>
                                 </tr>
                             @else
@@ -112,12 +112,14 @@
                                     <tr
                                         class="relative transform scale-100 text-xs py-1 border-b-2 cursor-default bg-opacity-25">
                                         <td class="px-3 py-2 whitespace-no-wrap">
-                                            <div class="text-lg text-gray-800 font-medium">
-                                                {{ $colaborador->apellido_paterno . ' ' . $colaborador->apellido_materno . ' ' . $colaborador->nombre }}
-                                            </div>
-                                            <div class="text-lg text-gray-500">
-                                                {{ Carbon\Carbon::parse($colaborador->fecha_nacimiento)->format('d-m-Y') }}
-                                            </div>
+                                            <a href="{{route('colaborador.show',$colaborador->id)}}">
+                                                <div class="text-lg text-gray-800 font-medium">
+                                                    {{ $colaborador->apellido_paterno . ' ' . $colaborador->apellido_materno . ' ' . $colaborador->nombre }}
+                                                </div>
+                                                <div class="text-lg text-gray-500">
+                                                    {{ Carbon\Carbon::parse($colaborador->fecha_nacimiento)->format('d-m-Y') }}
+                                                </div>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -135,11 +137,7 @@
                 <div class="w-full overflow-auto shadow bg-white" id="journal-scroll">
                     <table class="w-full">
                         <tbody>
-                            <tr>
-                                <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen
-                                    ventas</td>
-                            </tr>
-                            {{-- @if(!$ventas->count())
+                            @if(!$ventas->count())
                                 <tr>
                                     <td class="px-6 py-4 border-b-2 text-gray-800 font-medium" colspan="5">No existen
                                         ventas</td>
@@ -157,7 +155,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            @endif --}}
+                            @endif
                         </tbody>
                     </table>
                 </div>

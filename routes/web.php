@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CitasController;
+use App\Http\Controllers\ColaboradorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Livewire\Bitacora;
@@ -52,6 +53,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/themes',CrudSettings::class)->name('admin.settings')->middleware('permission:admin.settings');
     Route::get('/enviar/email',MandarEmail::class)->name('enviar.email')->middleware('permission:admin.enviar.email');
     Route::get('/colaboradores',CrudColaboradores::class)->name('admin.colaboradores')->middleware('permission:admin.colaboradores.index');
+    Route::get('/colaborador/{colaborador}',[ColaboradorController::class,'show'])->name('colaborador.show')->middleware('permission:admin.colaboradores.index');
     Route::get('/clientes',CrudClientes::class)->name('admin.clientes')->middleware('permission:admin.clientes.index');
     Route::get('/departamento/colaboradores',CrudDeptoColaborador::class)->name('admin.departamento.colaborador')->middleware('permission:admin.departamento_colaborador.index');
     Route::get('/puesto/colaboradores',CrudPuestoColaborador::class)->name('admin.puesto.colaborador')->middleware('permission:admin.puesto_colaborador.index');

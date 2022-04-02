@@ -18521,7 +18521,6 @@ axios.defaults.headers.common = {
 };
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('agenda');
-  console.log('aca');
   var formulario = document.getElementById('formulario'); // Formulario para creación
 
   var formulario2 = document.getElementById('formulario2'); // Formulario para edición y borrado

@@ -83,17 +83,17 @@ class CrudColaboradores extends Component
             'usuario_id' => $this->usuario_id  == '' ? NULL : $this->usuario_id,
             'cliente_id' => $this->cliente_id  == '' ? NULL : $this->cliente_id,
         ]);
-        if ($colaborador->wasRecentlyCreated) {
-            $paciente = new Paciente;
-            $paciente->Pac_ID = Paciente::max('Pac_ID') + 1;
-            $paciente->Pac_ApePaterno = $this->apellido_paterno;
-            $paciente->Pac_ApeMaterno = $this->apellido_materno;
-            $paciente->Pac_Nombre = $this->nombre;
-            $paciente->Pac_FecNacimiento = $this->fecha_nacimiento;
-            $paciente->Pac_Sexo = $this->sexo == 'femenino' ? 1 : 0;
-            $paciente->usuarioID = 1;
-            $paciente->save();
-        }
+        // if ($colaborador->wasRecentlyCreated) {
+        //     $paciente = new Paciente;
+        //     $paciente->Pac_ID = Paciente::max('Pac_ID') + 1;
+        //     $paciente->Pac_ApePaterno = $this->apellido_paterno;
+        //     $paciente->Pac_ApeMaterno = $this->apellido_materno;
+        //     $paciente->Pac_Nombre = $this->nombre;
+        //     $paciente->Pac_FecNacimiento = $this->fecha_nacimiento;
+        //     $paciente->Pac_Sexo = $this->sexo == 'femenino' ? 1 : 0;
+        //     $paciente->usuarioID = 1;
+        //     $paciente->save();
+        // }
         Bitacora::create([
             'seccion' => 'Colaboradores',
             'descripcion' => 'Creación o Modificación',
