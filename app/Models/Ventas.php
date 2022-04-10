@@ -19,4 +19,8 @@ class Ventas extends Model
     {
         return $this->hasOne(VentasDetalle::class,'id_ventadetalle');
     }
+    public function paciente()
+    {
+        return $this->belongsTo(PacienteIngresos::class,'IngresoID','id_venta');
+    }
 }

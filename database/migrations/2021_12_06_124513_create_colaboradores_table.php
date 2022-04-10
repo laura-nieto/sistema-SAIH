@@ -20,6 +20,7 @@ class CreateColaboradoresTable extends Migration
         });
         Schema::create('colaboradores', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('paciente_id')->unsigned()->nullable();
             //$table->foreignId('miembro_id')->constrained('')->onDelete('cascade');
             $table->string('folio_tarjeta',30)->nullable();
             $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
@@ -41,12 +42,6 @@ class CreateColaboradoresTable extends Migration
             $table->char('telefono',10)->nullable();
             $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
             $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->softDeletes('deleted_at');
-            $table->timestamps();
-        });
-        Schema::create('tipo_membresia',function(Blueprint $table){
-            $table->id();
-            $table->string('nombre');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });

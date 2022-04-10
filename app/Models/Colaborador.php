@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,5 +34,9 @@ class Colaborador extends Model
     public function usuario()
     {
         return $this->belongsTo(User::class,'usuario_id');
+    }
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class,'paciente_id');
     }
 }

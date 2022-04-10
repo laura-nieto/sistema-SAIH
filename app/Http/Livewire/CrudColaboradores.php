@@ -32,6 +32,7 @@ class CrudColaboradores extends Component
         'sexo' => 'required|max:10',
         'correo_electronico' => 'nullable|email',
         'telefono' => 'max:10',
+        'cliente_id' => 'required',
     ];
     protected $messages = [
         'required' => 'El campo es requerido.',
@@ -81,19 +82,21 @@ class CrudColaboradores extends Component
             'cp' => $this->cp,
             'sucursal_id'=> $this->sucursal_id  == '' ? NULL : $this->sucursal_id,
             'usuario_id' => $this->usuario_id  == '' ? NULL : $this->usuario_id,
-            'cliente_id' => $this->cliente_id  == '' ? NULL : $this->cliente_id,
+            'cliente_id' => $this->cliente_id,
         ]);
-        // if ($colaborador->wasRecentlyCreated) {
-        //     $paciente = new Paciente;
-        //     $paciente->Pac_ID = Paciente::max('Pac_ID') + 1;
-        //     $paciente->Pac_ApePaterno = $this->apellido_paterno;
-        //     $paciente->Pac_ApeMaterno = $this->apellido_materno;
-        //     $paciente->Pac_Nombre = $this->nombre;
-        //     $paciente->Pac_FecNacimiento = $this->fecha_nacimiento;
-        //     $paciente->Pac_Sexo = $this->sexo == 'femenino' ? 1 : 0;
-        //     $paciente->usuarioID = 1;
-        //     $paciente->save();
-        // }
+        if ($colaborador->wasRecentlyCreated) {
+            $paciente = new Paciente;
+            $paciente->Pac_ID = Paciente::max('Pac_ID') + 1;
+            $paciente->Pac_ApePaterno = $this->apellido_paterno;
+            $paciente->Pac_ApeMaterno = $this->apellido_materno;
+            $paciente->Pac_Nombre = $this->nombre;
+            $paciente->Pac_FecNacimiento = $this->fecha_nacimiento;
+            $paciente->Pac_Sexo = $this->sexo == 'femenino' ? 1 : 0;
+            $paciente->usuarioID = 1;
+            $paciente->save();
+            $colaborador->paciente_id = $paciente->Pac_ID;
+            $colaborador->save();
+        }
         Bitacora::create([
             'seccion' => 'Colaboradores',
             'descripcion' => 'Creación o Modificación',
@@ -120,6 +123,7 @@ class CrudColaboradores extends Component
         $this->estado = $colaborador->estado;
         $this->pais = $colaborador->pais;
         $this->cp = $colaborador->cp;
+        $this->cliente_id = $colaborador->cliente_id;
 
         $this->sucursal_id = $colaborador->sucursal_id;
         $this->usuario_id = $colaborador->usuario_id;
@@ -169,5 +173,6 @@ class CrudColaboradores extends Component
         $this->telefono = NULL;
         $this->sucursal_id = NULL;
         $this->usuario_id = NULL;
+        $this->cliente_id = NULL;
     }
 }

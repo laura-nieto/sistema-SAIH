@@ -183,6 +183,21 @@
                         @enderror
                     </div>
                     <div class="flex flex-col">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="tipo_cliente">Tipo Cliente</label>
+                        <select name="tipo_cliente" id="tipo_cliente" wire:model="tipo_cliente"
+                            class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
+                            <option selected value>Seleccione un tipo de cliente</option>
+                            @foreach ($tipo_membresias as $membresia)
+                                <option value="{{$membresia->id}}">
+                                    {{$membresia->nombre}}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('tipo_cliente')
+                            <span class="error text-red-500 mt-2">{{$message}}</span>
+                        @enderror
+                    </div>
+                    <div class="flex flex-col justify-end ml-3">
                         <label class="inline-flex items-center mt-3">
                             <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="extranjero" value="1">
                             <span class="ml-2 text-gray-700">Extranjero</span>
@@ -191,7 +206,7 @@
                             <span class="error text-red-500 mt-2">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col justify-end">
                         <label class="inline-flex items-center mt-3">
                             <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="descuento_general" value="1">
                             <span class="ml-2 text-gray-700">Descuento General</span>

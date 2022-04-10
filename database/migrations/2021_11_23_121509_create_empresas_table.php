@@ -56,6 +56,12 @@ class CreateEmpresasTable extends Migration
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });
+        Schema::create('tipo_membresia',function(Blueprint $table){
+            $table->id();
+            $table->string('nombre');
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
         Schema::create('clientes',function(Blueprint $table){
             $table->id();
             $table->string('nombre')->nullable();
@@ -81,6 +87,7 @@ class CreateEmpresasTable extends Migration
             $table->string('correo_electronico')->nullable();
             $table->boolean('extranjero')->default(0);
             $table->boolean('descuento_general')->default(0);
+            $table->foreignId('tipo_cliente')->nullable()->constrained('tipo_membresia')->onDelete('cascade');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });

@@ -16,4 +16,9 @@ class TipoMembresia extends Model
     protected $fillable = [
         'nombre'
     ];
+
+    public function clientes()
+    {
+        return $this->hasMany(Cliente::class,'tipo_cliente');
+    }
 }

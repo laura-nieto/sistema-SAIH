@@ -1,7 +1,7 @@
 <div class="w-full">
     <div class="py-12 flex-1 px-2 md:px-10">
         <x-slot name="header">
-            {{ __('Turnos Médicos') }}
+            {{ __('Servicios Médicos') }}
         </x-slot>
         @if(session('success'))
             <x-success>Cita programada, si ingresó un correo electrónico le llegara un recordatorio.</x-success>

@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Bitacora;
 use App\Models\Cliente;
 use App\Models\Sucursal;
+use App\Models\TipoMembresia;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -14,6 +15,7 @@ class CrudClientes extends Component
     public $nombre,$razon_social,$dom_calle,$dom_noExterior,$dom_noInterior,$dom_colonia,$dom_localidad,$dom_municipio,$dom_estado,$dom_pais,$dom_referencia;
     public $direccion,$ciudad,$rfc,$numero_precio,$cobrador_id,$dias_credito,$cuenta,$cp,$telefono,$correo_electronico,$extranjero,$descuento_general;
     public $sucursales_id=[];
+    public $tipo_membresias,$tipo_cliente;
     public $modal = false;
     public $search;
         
@@ -29,6 +31,7 @@ class CrudClientes extends Component
     public function mount()
     {
         $this->sucursales = Sucursal::all();
+        $this->tipo_membresias = TipoMembresia::all();
     }
     public function render()
     {
@@ -70,6 +73,7 @@ class CrudClientes extends Component
             'correo_electronico' => $this->correo_electronico,
             'extranjero' => $this->extranjero  == '' ? 0 : $this->extranjero,
             'descuento_general' => $this->descuento_general == '' ? 0 : $this->descuento_general,
+            'tipo_cliente' => $this->tipo_cliente,
         ]);
         $cliente->sucursales()->sync($this->sucursales_id);
         Bitacora::create([
@@ -107,6 +111,7 @@ class CrudClientes extends Component
         $this->extranjero = $cliente->extranjero;
         $this->descuento_general = $cliente->descuento_general;
         $this->sucursales_id = $cliente->sucursales->pluck('id');
+        $this->tipo_cliente = $cliente->tipo_cliente;
         $this->abrirModal();
     }
     public function borrar($id)
@@ -154,5 +159,6 @@ class CrudClientes extends Component
         $this->extranjero = NULL;
         $this->descuento_general = NULL;
         $this->sucursales_id = [];
+        $this->tipo_cliente = NULL;
     }
 }

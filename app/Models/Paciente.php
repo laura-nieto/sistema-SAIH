@@ -15,4 +15,14 @@ class Paciente extends Model
     
     public $timestamps = false;
 
+    protected $primaryKey = 'Pac_id';
+
+    public function ingresos()
+    {
+        return $this->hasMany(PacienteIngresos::class,'PacientID','Pac_ID');
+    }
+    public function colaborador()
+    {
+        return $this->hasOne(Colaborador::class,'paciente_id','Pac_ID');
+    }
 }
