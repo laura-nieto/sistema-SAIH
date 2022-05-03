@@ -185,7 +185,7 @@
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="tipo_cliente">Tipo Cliente</label>
                         <select name="tipo_cliente" id="tipo_cliente" wire:model="tipo_cliente"
-                            class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
+                            class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none @error('tipo_cliente')border-red-500 @enderror">
                             <option selected value>Seleccione un tipo de cliente</option>
                             @foreach ($tipo_membresias as $membresia)
                                 <option value="{{$membresia->id}}">

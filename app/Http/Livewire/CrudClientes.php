@@ -22,6 +22,7 @@ class CrudClientes extends Component
     public $rules = [
         'nombre' => 'required|min:2',
         'correo_electronico' => 'email',
+        'tipo_cliente' => 'required',
     ];
     public $messages = [
         'required' => 'El campo es requerido',

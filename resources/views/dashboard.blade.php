@@ -81,20 +81,49 @@
                 @endcan
             </div>
         </div>
-        <div class="mt-6">
+        <div class="mt-6 overflow-x-scroll pb-5">
             <div class="mb-2 mt-4">
                 <h3 class="text-xl">Búsqueda de Colaboradores</h3>
             </div>
-            <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300">
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-2">
-                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+            <div class="flex">
+                {{-- SEARCH COLABORADOR --}}
+                <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300 mr-3 w-96">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                             stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6 text-gray-600">
-                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </span>
-                    <input type="text" wire:model="search_colaboradores" placeholder="Buscar"
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </span>
+                        <input type="text" wire:model="search_colaboradores" placeholder="Buscar colaborador"
                         class="pl-10 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300">
+                    </div>
+                </div>
+                {{-- SEARCH INGRESO --}}
+                <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300 mr-3 w-96">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6 text-gray-600">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </span>
+                        <input type="text" wire:model.lazy="search_ingreso" placeholder="Buscar Ingreso"
+                        class="pl-10 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300">
+                    </div>
+                </div>
+                {{-- SEARCH DATE --}}
+                <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300 w-96">
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6 text-gray-600">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </span>
+                        <input type="date" wire:model.debounce.1000ms="search_date" placeholder="Buscar día"
+                        class="pl-10 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300">
+                    </div>
                 </div>
             </div>
             <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
@@ -110,13 +139,52 @@
                             Nombre Colaborador
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            Cliente
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            Estatus Colaborador
+                            Tipo de Cliente
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Número Expediente
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Número Cuenta
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Fecha de ingreso
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Hora de ingreso
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Fecha de egreso
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Hora de egreso
+                        </th>
+                        {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Servicio
+                        </th> --}}
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Diagnóstico
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Médico atendido
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Cliente
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Cortesía
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Cómo nos encontró
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Detalle nos encontró
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Venta Farmacia
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                            Estatus Colaborador
                         </th>
                     </tr>
                 </thead>
@@ -126,46 +194,256 @@
                             <td class="px-6 py-4 border-b-2" colspan="10">No existen colaboradores</td>
                         </tr>
                     @else
-                        @foreach($colaboradores as $colaborador)
+                        @foreach($colaboradores as $colaborador){{-- colaborador es ingreso si search_date o search_ingreso tienen una busqueda --}}
+                            @if (!$colaborador->paciente->colaborador)
+                                @continue
+                            @endif
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{{ route('colaborador.show',$colaborador->id) }}">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->id }}</div>
-                                    </a>
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->paciente->colaborador->id}}
+                                        @else
+                                            {{ $colaborador->id }}                                            
+                                        @endif
+                                    </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{{ route('colaborador.show',$colaborador->id) }}">                                        
-                                        <div class="text-sm text-gray-900">{{ $colaborador->folio_tarjeta }}</div>
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{{ route('colaborador.show',$colaborador->id) }}">                                        
-                                        <div class="text-sm text-gray-900">
-                                            {{ $colaborador->apellido_paterno . " "  . $colaborador->apellido_materno . " " . $colaborador->nombre }}
-                                        </div>
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm text-gray-900">{{ $colaborador->clientes->nombre }}
+                                <td class="px-6 py-4 whitespace-nowrap">                                      
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{ $colaborador->paciente->colaborador->folio_tarjeta }}
+                                        @else
+                                            {{ $colaborador->folio_tarjeta }}                                                
+                                        @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{{ route('colaborador.show',$colaborador->id) }}">                                        
-                                        <div class="text-sm text-gray-900">
-                                            {{ $colaborador->estado === null ? '-' : $colaborador->estado }}
-                                        </div>
-                                    </a>
+                                    @php
+                                        if($search_ingreso || $search_date){
+                                            $colaboradorReal = $colaborador->paciente->colaborador;
+                                        }else{
+                                            $colaboradorReal = $colaborador;
+                                        }
+                                    @endphp
+                                    <div class="text-sm text-gray-900 cursor-pointer" wire:click='show_colaborador({{$colaboradorReal}})'>                                        
+                                        @if ($search_ingreso || $search_date)
+                                            {{ $colaboradorReal->apellido_paterno . " "  . $colaboradorReal->apellido_materno . " " . $colaboradorReal->nombre }}
+                                        @else
+                                            {{ $colaborador->apellido_paterno . " "  . $colaborador->apellido_materno . " " . $colaborador->nombre }}
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="{{ route('colaborador.show',$colaborador->id) }}">                                        
-                                        <div class="text-sm text-gray-900"> {{ $colaborador->paciente_id }} </div>
-                                    </a>
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->paciente->colaborador->clientes->tipo_membresia->nombre }}
+                                        @else
+                                            {{ $colaborador->clientes->tipo_membresia->nombre }}
+                                        @endif
+                                    </div>
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap">               
+                                    <div class="text-sm text-gray-900"> 
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->PacientID}}
+                                        @else
+                                            {{ $colaborador->paciente_id }} 
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900"> 
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->IngresoID}}
+                                        @else
+                                            @if ($colaborador->paciente->ingresos)
+                                                {{ $colaborador->paciente->ingresos->last()->IngresoID }}
+                                            @else
+                                                -
+                                            @endif
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                   <div class="text-sm text-gray-900"> 
+                                        @if ($search_ingreso || $search_date)
+                                            {{ Carbon\Carbon::parse($colaborador->Date_In)->format('d-m-Y') }}
+                                        @else
+                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_In)->format('d-m-Y') }}
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900"> 
+                                        @if ($search_ingreso)
+                                            {{ Carbon\Carbon::parse($colaborador->Hour_In)->format('H:i:s') }}                                          
+                                        @else
+                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_In)->format('H:i:s') }}
+                                        @endif
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900"> 
+                                        @if ($search_ingreso || $search_date)
+                                            {{ Carbon\Carbon::parse($colaborador->Date_Out)->format('d-m-Y') }}                                             
+                                        @else
+                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_Out)->format('d-m-Y') }}
+                                        @endif
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{ Carbon\Carbon::parse($colaborador->Hour_Out)->format('H:i:s') }}    
+                                        @else
+                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_Out)->format('H:i:s') }}
+                                        @endif
+                                    </div>
+                                </td>
+                                {{-- <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            asd
+                                        @else
+                                            servicio
+                                        @endif
+                                    </div>
+                                </td> --}}
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{ $colaborador->Diag_Desc }}                                         
+                                        @else
+                                            {{ $colaborador->paciente->ingresos->last()->Diag_Desc }}
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->medico_atendido()}}
+                                        @else
+                                            {{ $colaborador->paciente->ingresos->last()->medico_atendido() }}
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    @php
+                                        if($search_ingreso || $search_date){
+                                            $cliente = $colaborador->paciente->colaborador->clientes;
+                                        }else{
+                                            $cliente = $colaborador->clientes;
+                                        }
+                                    @endphp
+                                    <div class="text-sm text-gray-900 cursor-pointer" wire:click='show_cliente({{$cliente}})'>
+                                        @if ($search_ingreso || $search_date)
+                                            {{ $cliente->nombre }}
+                                        @else
+                                            {{ $colaborador->clientes->nombre }}
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{ $colaborador->AplicaCortesia ? 'Sí':'No' }}
+                                        @else
+                                            {{ $colaborador->paciente->ingresos->last()->AplicaCortesia ? 'Sí':'No' }}
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->como_nos_encontro()}}                                             
+                                        @else
+                                            {{ $colaborador->paciente->ingresos->last()->como_nos_encontro() }}
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->detalle_encontro()}}
+                                        @else
+                                            {{ $colaborador->paciente->ingresos->last()->detalle_encontro() }}
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            @if ($colaborador->venta)    
+                                                <div class="md:col-span-2 justify-self-center mb-2 mt-2">
+                                                    <button wire:click='show_venta({{$colaborador->venta}})'
+                                                    class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                                        Ver venta
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        @else
+                                            @if ($colaborador->paciente->ingresos->last()->venta)
+                                                <div class="md:col-span-2 justify-self-center mb-2 mt-2">
+                                                    <button wire:click='show_venta({{$colaborador->paciente->ingresos->last()->venta}})'
+                                                    class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                                        Ver venta
+                                                    </button>
+                                                </div>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        @if ($search_ingreso || $search_date)
+                                            {{$colaborador->paciente->colaborador->estado === null ? '-' : $colaborador->paciente->colaborador->estado }}
+                                        @else
+                                            {{ $colaborador->estado === null ? '-' : $colaborador->estado }}
+                                        @endif
+                                    </div>
+                                </td>
+                                
                             </tr>
                         @endforeach
                     @endif
                 </tbody>
             </table>
+        </div>
+        {{-- Paginado --}}
+        <div class="mt-5"> 
+            {{ $colaboradores->links() }}
+        </div>
+    </div>
+    @if ($modal_colaborador)
+        @include('modales-dashboard.colaborador')
+    @endif
+    @if ($modal_cliente)
+        @include('modales-dashboard.cliente')
+    @endif
+    @if ($modal_venta)
+        @include('modales-dashboard.venta')
+    @endif
+    {{-- Procesando informacion --}}
+    <div wire:loading>
+        <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
+            <!-- component -->
+            <div class="flex justify-center h-screen items-center bg-gray-200 bg-opacity-75 antialiased">
+                <div
+                    class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg shadow-xl">
+                    <div class="flex items-center justify-center w-full h-full bg-white">
+                        <div class="flex justify-center items-center space-x-1 text-sm text-gray-700 p-10">
+                            <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
+                                <path clip-rule='evenodd'
+                                    d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z'
+                                    fill='currentColor' fill-rule='evenodd' />
+                            </svg>
+                            <div>Procesando ...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

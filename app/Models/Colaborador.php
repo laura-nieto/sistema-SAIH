@@ -11,6 +11,8 @@ class Colaborador extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    
+    protected $connection = 'mysql';
    
     protected $table = 'colaboradores';
    

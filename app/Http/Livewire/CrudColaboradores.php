@@ -90,7 +90,7 @@ class CrudColaboradores extends Component
             $paciente->Pac_ApePaterno = $this->apellido_paterno;
             $paciente->Pac_ApeMaterno = $this->apellido_materno;
             $paciente->Pac_Nombre = $this->nombre;
-            $paciente->Pac_FecNacimiento = $this->fecha_nacimiento;
+            $paciente->Pac_FecNacimiento = Carbon::parse($this->fecha_nacimiento)->format('Y-m-d H:m');
             $paciente->Pac_Sexo = $this->sexo == 'femenino' ? 1 : 0;
             $paciente->usuarioID = 1;
             $paciente->save();

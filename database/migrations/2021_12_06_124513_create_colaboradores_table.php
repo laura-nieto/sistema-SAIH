@@ -92,7 +92,6 @@ class CreateColaboradoresTable extends Migration
     {
         Schema::dropIfExists('colaboradores');
         Schema::dropIfExists('estados_civiles');
-        Schema::dropIfExists('tipo_membresia');
         Schema::dropIfExists('puesto_colaborador');
         Schema::dropIfExists('departamento_colaborador');
         Schema::dropIfExists('especialidades_medicas');

@@ -36,10 +36,10 @@ class JetstreamServiceProvider extends ServiceProvider
         Jetstream::deleteUsersUsing(DeleteUser::class);
 
         // LOGIN
-        Fortify::loginView(function () {
+        /*Fortify::loginView(function () {
             $sucursales = Sucursal::all();
             return view('auth.login',compact('sucursales'));
-        });
+        });*/
 
         Fortify::authenticateUsing(function (Request $request) {
             $user = User::where('email', $request->email)->first();

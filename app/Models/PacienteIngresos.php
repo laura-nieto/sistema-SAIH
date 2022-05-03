@@ -20,7 +20,7 @@ class PacienteIngresos extends Model
 
     public function paciente()
     {
-        return $this->belongsTo(Paciente::class,'PacientID','IngresoID');
+        return $this->belongsTo(Paciente::class,'PacientID');
     }
     public function venta()
     {

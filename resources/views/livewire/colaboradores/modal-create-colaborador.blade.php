@@ -6,7 +6,7 @@
             <div
                 class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg">
                 <p class="font-semibold text-gray-800">Crear Colaborador</p>
-                <svg wire:click="cerrarModal()" class="w-6 h-6" fill="none" stroke="currentColor"
+                <svg wire:click="cerrarModal()" class="w-6 h-6 text-gray-700 cursor-pointer" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                     </path>

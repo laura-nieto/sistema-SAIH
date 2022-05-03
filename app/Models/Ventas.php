@@ -13,6 +13,8 @@ class Ventas extends Model
 
     protected $table = 'dbo.Ventas';
     
+    protected $primaryKey = 'id_venta';
+    
     public $timestamps = false;
 
     public function ventaDetalle()
