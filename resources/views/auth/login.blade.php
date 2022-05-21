@@ -128,6 +128,7 @@
 
             axios.post(urlVerificar,data)
             .then((respuesta)=>{
+                document.getElementById('error').classList.add('hidden');
                 formLogin.classList.add('hidden');
                 formBtn.classList.add('hidden');
                 formBtn.classList.add('hidden');

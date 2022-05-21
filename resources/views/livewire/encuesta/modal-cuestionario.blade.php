@@ -27,10 +27,12 @@
                     <button
                         class="px-4 mr-3 py-2 font-semibold border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-400"
                         wire:click.prevent="cerrarModal()">Cancelar</button>
-                    <button wire:click.prevent='save()'
+                    @if (!$preguntas->isEmpty())    
+                        <button wire:click.prevent='save()'
                         class="px-4 py-2 font-semibold border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         Crear
-                    </button>
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>

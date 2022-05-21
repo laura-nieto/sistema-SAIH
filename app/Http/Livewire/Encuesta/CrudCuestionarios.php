@@ -42,6 +42,10 @@ class CrudCuestionarios extends Component
         $this->preguntas = EncuestaPregunta::all();
         $this->abrirModal();
     }
+    public function borrar($id)
+    {
+        Cuestionario::findOrFail($id)->delete();
+    }
     //FUNCIONES MODAL
     public function abrirModal()
     {

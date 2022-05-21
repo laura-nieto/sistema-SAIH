@@ -90,12 +90,17 @@ class CrudColaboradores extends Component
             $paciente->Pac_ApePaterno = $this->apellido_paterno;
             $paciente->Pac_ApeMaterno = $this->apellido_materno;
             $paciente->Pac_Nombre = $this->nombre;
-            $paciente->Pac_FecNacimiento = Carbon::parse($this->fecha_nacimiento)->format('Y-m-d H:m');
+            $paciente->Pac_FecNacimiento = Carbon::parse($this->fecha_nacimiento)->format('d-m-Y H:i:s'); //Si tira error de smalltime cambiar a Y-m-d
             $paciente->Pac_Sexo = $this->sexo == 'femenino' ? 1 : 0;
             $paciente->usuarioID = 1;
-            $paciente->save();
-            $colaborador->paciente_id = $paciente->Pac_ID;
-            $colaborador->save();
+            
+            if ($paciente->save()) {
+                $colaborador->paciente_id = $paciente->Pac_ID;
+                $colaborador->save();
+            }else{
+                $colaborador->delete();
+                session()->flash('error', 'Ocurrió un error, vuelva a intentarlo');
+            }
         }
         Bitacora::create([
             'seccion' => 'Colaboradores',

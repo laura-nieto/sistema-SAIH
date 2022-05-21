@@ -74,7 +74,7 @@
                             </div>
                             <div class="px-4 py-3 bg-green-400 w-full">
                                 <h5 class="text-2xl font-semibold">{{ $respuestas }}</h5>
-                                <p class="font-medium">Encuestas Realizadas</p>
+                                <p class="font-medium">Respuestas</p>
                             </div>
                         </a>
                     </div>
@@ -195,7 +195,7 @@
                         </tr>
                     @else
                         @foreach($colaboradores as $colaborador){{-- colaborador es ingreso si search_date o search_ingreso tienen una busqueda --}}
-                            @if (!$colaborador->paciente->colaborador)
+                            @if (!$colaborador->paciente || !$colaborador->paciente->colaborador)
                                 @continue
                             @endif
                             <tr>
@@ -256,7 +256,7 @@
                                         @if ($search_ingreso || $search_date)
                                             {{$colaborador->IngresoID}}
                                         @else
-                                            @if ($colaborador->paciente->ingresos)
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
                                                 {{ $colaborador->paciente->ingresos->last()->IngresoID }}
                                             @else
                                                 -
@@ -269,7 +269,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{ Carbon\Carbon::parse($colaborador->Date_In)->format('d-m-Y') }}
                                         @else
-                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_In)->format('d-m-Y') }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_In)->format('d-m-Y') }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -278,7 +282,11 @@
                                         @if ($search_ingreso)
                                             {{ Carbon\Carbon::parse($colaborador->Hour_In)->format('H:i:s') }}                                          
                                         @else
-                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_In)->format('H:i:s') }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_In)->format('H:i:s') }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -288,7 +296,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{ Carbon\Carbon::parse($colaborador->Date_Out)->format('d-m-Y') }}                                             
                                         @else
-                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_Out)->format('d-m-Y') }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_Out)->format('d-m-Y') }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -298,7 +310,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{ Carbon\Carbon::parse($colaborador->Hour_Out)->format('H:i:s') }}    
                                         @else
-                                            {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_Out)->format('H:i:s') }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_Out)->format('H:i:s') }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -316,7 +332,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{ $colaborador->Diag_Desc }}                                         
                                         @else
-                                            {{ $colaborador->paciente->ingresos->last()->Diag_Desc }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ $colaborador->paciente->ingresos->last()->Diag_Desc }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -325,7 +345,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{$colaborador->medico_atendido()}}
                                         @else
-                                            {{ $colaborador->paciente->ingresos->last()->medico_atendido() }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ $colaborador->paciente->ingresos->last()->medico_atendido() }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -350,7 +374,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{ $colaborador->AplicaCortesia ? 'Sí':'No' }}
                                         @else
-                                            {{ $colaborador->paciente->ingresos->last()->AplicaCortesia ? 'Sí':'No' }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ $colaborador->paciente->ingresos->last()->AplicaCortesia ? 'Sí':'No' }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -359,7 +387,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{$colaborador->como_nos_encontro()}}                                             
                                         @else
-                                            {{ $colaborador->paciente->ingresos->last()->como_nos_encontro() }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ $colaborador->paciente->ingresos->last()->como_nos_encontro() }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -368,7 +400,11 @@
                                         @if ($search_ingreso || $search_date)
                                             {{$colaborador->detalle_encontro()}}
                                         @else
-                                            {{ $colaborador->paciente->ingresos->last()->detalle_encontro() }}
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                {{ $colaborador->paciente->ingresos->last()->detalle_encontro() }}
+                                            @else
+                                                -
+                                            @endif
                                         @endif
                                     </div>
                                 </td>
@@ -384,13 +420,15 @@
                                                 </div>
                                             @endif
                                         @else
-                                            @if ($colaborador->paciente->ingresos->last()->venta)
-                                                <div class="md:col-span-2 justify-self-center mb-2 mt-2">
-                                                    <button wire:click='show_venta({{$colaborador->paciente->ingresos->last()->venta}})'
-                                                    class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                                                        Ver venta
-                                                    </button>
-                                                </div>
+                                            @if (!$colaborador->paciente->ingresos->isEmpty())
+                                                @if ($colaborador->paciente->ingresos->last()->venta)
+                                                    <div class="md:col-span-2 justify-self-center mb-2 mt-2">
+                                                        <button wire:click='show_venta({{$colaborador->paciente->ingresos->last()->venta}})'
+                                                            class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                                            Ver venta
+                                                        </button>
+                                                    </div>
+                                                @endif
                                             @endif
                                         @endif
                                     </div>

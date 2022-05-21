@@ -17,6 +17,8 @@ class Paciente extends Model
 
     protected $primaryKey = 'Pac_ID';
 
+    public $incrementing = false;
+
     public function ingresos()
     {
         return $this->hasMany(PacienteIngresos::class,'PacientID','Pac_ID')->orderBy('Date_In');

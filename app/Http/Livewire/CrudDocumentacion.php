@@ -42,7 +42,7 @@ class CrudDocumentacion extends Component
         Documentacion::create([
             'documento' => $nameImg
         ]);
-        $this->imagen->storeAs('documentacion',$nameImg);
+        $this->imagen->storeAs('images_documentacion',$nameImg);
         Bitacora::create([
             'seccion' => 'Documentación',
             'descripcion' => 'Creación',

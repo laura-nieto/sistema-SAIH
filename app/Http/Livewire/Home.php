@@ -28,7 +28,7 @@ class Home extends Component
 
     public function render()
     {
-        $respuestas = EncuestaRespuesta::all()->groupBy('pregunta_id')->first() == null ? '0':EncuestaRespuesta::all()->groupBy('pregunta_id')->first()->count(); //TOTAL RESPUESTAS
+        $respuestas = EncuestaRespuesta::all()->count(); //TOTAL RESPUESTAS
         
         if ($this->search_ingreso) {
             $colaboradores = PacienteIngresos::where('IngresoID',$this->search_ingreso)

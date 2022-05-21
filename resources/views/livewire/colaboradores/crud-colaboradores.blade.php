@@ -6,6 +6,9 @@
         @if(session('success'))
             <x-success>{{ session('success') }}</x-success>
         @endif
+        @if(session('error'))
+            <x-error>{{ session('error') }}</x-error>
+        @endif
         <x-seccion-white>
             @can('admin.colaboradores.create')
                 <div class="my-4 sm:px-6 lg:px-8 border-b-1 pb-3">
