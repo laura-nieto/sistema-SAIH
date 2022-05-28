@@ -16,4 +16,9 @@ class DepartamentoColaborador extends Model
     protected $fillable = [
         'nombre'
     ];
+
+    public function colaborador()
+    {
+        return $this->hasMany(Colaborador::class,'departamento_id');
+    }
 }

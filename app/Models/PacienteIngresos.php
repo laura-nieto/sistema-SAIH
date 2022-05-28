@@ -15,8 +15,10 @@ class PacienteIngresos extends Model
     protected $table = 'dbo.IngresosPacientes';
     
     public $timestamps = false;
-
+    
     protected $primaryKey = 'IngresoID';
+    
+    public $incrementing = false;
 
     public function paciente()
     {

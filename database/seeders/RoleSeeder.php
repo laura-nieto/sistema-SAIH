@@ -178,5 +178,17 @@ class RoleSeeder extends Seeder
             'description'=>'Crear Documentación'])->syncRoles([$role1]);
         Permission::create(['name'=>'admin.documentacion.destroy',
             'description'=>'Eliminar Documentación'])->syncRoles([$role1]);
+
+        // PERMISO PARA REPORTES
+        Permission::create(['name'=>'reportes.index',
+            'description'=>'Ver Reportes'])->syncRoles([$role1]);
+
+        // PERMISO PARA INGRESO PACIENTES
+        Permission::create(['name'=>'admin.ingresar.pacientes',
+            'description'=>'Ingresar Pacientes'])->syncRoles([$role1]);
+
+        // PERMISO PARA VER CALENDARIO
+        Permission::create(['name'=>'calendario.index',
+            'description'=>'Ver Calendario'])->syncRoles([$role1]);
     }
 }

@@ -18,10 +18,21 @@ class CreateColaboradoresTable extends Migration
             $table->string('nombre',10);
             $table->timestamps();
         });
+        Schema::create('puesto_colaborador',function(Blueprint $table){
+            $table->id();
+            $table->string('nombre');
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
+        Schema::create('departamento_colaborador',function(Blueprint $table){
+            $table->id();
+            $table->string('nombre');
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
         Schema::create('colaboradores', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('paciente_id')->unsigned()->nullable();
-            //$table->foreignId('miembro_id')->constrained('')->onDelete('cascade');
             $table->string('folio_tarjeta',30)->nullable();
             $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
             $table->string('apellido_paterno',30)->nullable();
@@ -40,20 +51,16 @@ class CreateColaboradoresTable extends Migration
             $table->string('cp')->nullable();
             $table->string('correo_electronico',50)->nullable();
             $table->char('telefono',10)->nullable();
+            // $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
+            $table->foreignId('puesto_id')->nullable()->constrained('puesto_colaborador')->onDelete('cascade');
+            $table->foreignId('departamento_id')->nullable()->constrained('departamento_colaborador')->onDelete('cascade');
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
+        Schema::create('colaboradores_sucursales',function(Blueprint $table){
+            $table->id();
+            $table->foreignId('colaborador_id')->nullable()->constrained('colaboradores')->onDelete('cascade');
             $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
-            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->softDeletes('deleted_at');
-            $table->timestamps();
-        });
-        Schema::create('puesto_colaborador',function(Blueprint $table){
-            $table->id();
-            $table->string('nombre');
-            $table->softDeletes('deleted_at');
-            $table->timestamps();
-        });
-        Schema::create('departamento_colaborador',function(Blueprint $table){
-            $table->id();
-            $table->string('nombre');
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });

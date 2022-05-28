@@ -56,6 +56,9 @@
                         @endif
                     </tbody>
                 </table>
+                <div class="mt-2">
+                    {{ $bitacora->links() }}
+                </div>
             </div>
         </x-sesccion-white>
     </div>

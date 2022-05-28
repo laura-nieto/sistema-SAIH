@@ -13,22 +13,6 @@ class CreateEmpresasTable extends Migration
      */
     public function up()
     {
-        Schema::create('sucursales',function(Blueprint $table){
-            $table->id();
-            $table->string('nombre');
-            $table->string('IP_sucursal')->nullable();
-            $table->string('servidor_sucursal')->nullable();
-            $table->string('base_de_datos')->nullable();
-            $table->string('conexion_IP')->nullable();
-            $table->softDeletes('deleted_at');
-            $table->timestamps();
-        });
-        Schema::create('sucursales_usuarios',function(Blueprint $table){
-            $table->id();
-            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
-            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->timestamps();
-        });
         Schema::create('empresas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
@@ -45,6 +29,23 @@ class CreateEmpresasTable extends Migration
             $table->string('dom_referencia')->nullable();
             $table->string('representante')->nullable();
             $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
+        Schema::create('sucursales',function(Blueprint $table){
+            $table->id();
+            $table->string('nombre');
+            $table->string('IP_sucursal')->nullable();
+            $table->string('servidor_sucursal')->nullable();
+            $table->string('base_de_datos')->nullable();
+            $table->string('conexion_IP')->nullable();
+            $table->foreignId('empresa_id')->nullable()->constrained('empresas')->onDelete('cascade');
+            $table->softDeletes('deleted_at');
+            $table->timestamps();
+        });
+        Schema::create('sucursales_usuarios',function(Blueprint $table){
+            $table->id();
+            $table->foreignId('sucursal_id')->nullable()->constrained('sucursales')->onDelete('cascade');
+            $table->foreignId('usuario_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
         Schema::table('users',function(Blueprint $table){
@@ -75,7 +76,6 @@ class CreateEmpresasTable extends Migration
             $table->string('dom_estado')->nullable();
             $table->string('dom_pais')->nullable();
             $table->string('dom_referencia')->nullable();
-            $table->string('direccion')->nullable();
             $table->string('ciudad')->nullable();
             $table->string('RFC')->nullable();
             $table->integer('numero_precio')->nullable();

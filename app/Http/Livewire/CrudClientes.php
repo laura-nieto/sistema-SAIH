@@ -13,7 +13,7 @@ class CrudClientes extends Component
 {
     public $cliente_id;
     public $nombre,$razon_social,$dom_calle,$dom_noExterior,$dom_noInterior,$dom_colonia,$dom_localidad,$dom_municipio,$dom_estado,$dom_pais,$dom_referencia;
-    public $direccion,$ciudad,$rfc,$numero_precio,$cobrador_id,$dias_credito,$cuenta,$cp,$telefono,$correo_electronico,$extranjero,$descuento_general;
+    public $ciudad,$rfc,$numero_precio,$cobrador_id,$dias_credito,$cuenta,$cp,$telefono,$correo_electronico,$extranjero,$descuento_general;
     public $sucursales_id=[];
     public $tipo_membresias,$tipo_cliente;
     public $modal = false;
@@ -62,7 +62,6 @@ class CrudClientes extends Component
             'dom_estado' => $this->dom_estado,
             'dom_pais' => $this->dom_pais,
             'dom_referencia' => $this->dom_referencia,
-            'direccion' => $this->direccion,
             'ciudad' => $this->ciudad,
             'RFC' => $this->rfc,
             'numero_precio' => $this->numero_precio == '' ? NULL : $this->numero_precio,
@@ -99,7 +98,6 @@ class CrudClientes extends Component
         $this->dom_estado = $cliente->dom_estado;
         $this->dom_pais = $cliente->dom_pais;
         $this->dom_referencia = $cliente->dom_referencia;
-        $this->direccion = $cliente->direccion;
         $this->ciudad = $cliente->ciudad;
         $this->rfc = $cliente->RFC;
         $this->numero_precio = $cliente->numero_precio;

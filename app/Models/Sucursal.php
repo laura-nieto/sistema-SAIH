@@ -14,7 +14,7 @@ class Sucursal extends Model
     protected $table = 'sucursales';
 
     protected $fillable = [
-        'nombre','ip_sucursal','servidor_sucursal','base_de_datos','conexion_ip'
+        'nombre','IP_sucursal','servidor_sucursal','base_de_datos','conexion_IP','empresa_id'
     ];
 
     public function clientes()
@@ -24,5 +24,13 @@ class Sucursal extends Model
     public function usuarios()
     {
         return $this->belongsToMany(Sucursal::class,'sucursales_usuarios','sucursal_id','usuario_id');
+    }
+    public function colaboradores()
+    {
+        return $this->belongsToMany(Sucursal::class,'colaboradores_sucursales','sucursal_id','colaborador_id');
+    }
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class,'empresa_id');
     }
 }

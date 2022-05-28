@@ -16,4 +16,9 @@ class PuestoColaborador extends Model
     protected $fillable = [
         'nombre'
     ];
+
+    public function colaborador()
+    {
+        return $this->hasMany(Colaborador::class,'puesto_id');
+    }
 }

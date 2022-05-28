@@ -5,8 +5,10 @@ namespace App\Http\Livewire;
 use App\Models\Bitacora;
 use App\Models\Cliente;
 use App\Models\Colaborador;
+use App\Models\DepartamentoColaborador;
 use App\Models\EstadoCivil;
 use App\Models\Paciente;
+use App\Models\PuestoColaborador;
 use App\Models\Sucursal;
 use App\Models\User;
 use Carbon\Carbon;
@@ -16,11 +18,13 @@ use Illuminate\Support\Facades\Auth;
 class CrudColaboradores extends Component
 {
     public $colaborador_id;
-    public $folio_tarjeta,$apellido_paterno,$apellido_materno,$nombre,$fecha_nacimiento,$sexo,$estado_civil,$correo_electronico,$telefono,$sucursal_id,$usuario_id,$cliente_id;
+    public $folio_tarjeta,$apellido_paterno,$apellido_materno,$nombre,$fecha_nacimiento,$sexo,$estado_civil,$correo_electronico,$telefono,
+            $puesto_id,$departamento_id,$cliente_id;
     public $direccion,$colonia,$ciudad,$estado,$pais,$cp;
+    public $sucursales_id=[];
 
     public $modal = false;
-    public $sucursales, $usuarios,$estados_civiles,$clientes;
+    public $sucursales, $puestos,$departamentos,$estados_civiles,$clientes;
     public $search;
 
     protected $rules = [
@@ -33,6 +37,8 @@ class CrudColaboradores extends Component
         'correo_electronico' => 'nullable|email',
         'telefono' => 'max:10',
         'cliente_id' => 'required',
+        'departamento_id' => 'required',
+        'puesto_id' => 'required',
     ];
     protected $messages = [
         'required' => 'El campo es requerido.',
@@ -55,7 +61,8 @@ class CrudColaboradores extends Component
         $this->resetErrorBag();
         $this->limpiarCampos();
         $this->sucursales = Sucursal::all();
-        $this->usuarios = User::all();
+        $this->puestos = PuestoColaborador::all();
+        $this->departamentos = DepartamentoColaborador::all();
         $this->estados_civiles = EstadoCivil::all();
         $this->clientes = Cliente::all();
         $this->abrirModal();
@@ -80,8 +87,9 @@ class CrudColaboradores extends Component
             'estado' => $this->estado,
             'pais' => $this->pais,
             'cp' => $this->cp,
-            'sucursal_id'=> $this->sucursal_id  == '' ? NULL : $this->sucursal_id,
-            'usuario_id' => $this->usuario_id  == '' ? NULL : $this->usuario_id,
+            // 'sucursal_id'=> $this->sucursal_id  == '' ? NULL : $this->sucursal_id,
+            'puesto_id' => $this->puesto_id,
+            'departamento_id' => $this->departamento_id,
             'cliente_id' => $this->cliente_id,
         ]);
         if ($colaborador->wasRecentlyCreated) {
@@ -130,11 +138,13 @@ class CrudColaboradores extends Component
         $this->cp = $colaborador->cp;
         $this->cliente_id = $colaborador->cliente_id;
 
-        $this->sucursal_id = $colaborador->sucursal_id;
-        $this->usuario_id = $colaborador->usuario_id;
+        // $this->sucursal_id = $colaborador->sucursal_id;
+        $this->departamento_id = $colaborador->departamento_id;
+        $this->puesto_id = $colaborador->puesto_id;
 
         $this->sucursales = Sucursal::all();
-        $this->usuarios = User::all();
+        $this->puestos = PuestoColaborador::all();
+        $this->departamentos = DepartamentoColaborador::all();
         $this->estados_civiles = EstadoCivil::all();
         $this->clientes = Cliente::all();
 
@@ -176,8 +186,9 @@ class CrudColaboradores extends Component
         $this->pais = NULL;
         $this->cp = NULL;
         $this->telefono = NULL;
-        $this->sucursal_id = NULL;
-        $this->usuario_id = NULL;
+        // $this->sucursal_id = NULL;
+        $this->puesto_id = NULL;
+        $this->departamento_id = NULL;
         $this->cliente_id = NULL;
     }
 }

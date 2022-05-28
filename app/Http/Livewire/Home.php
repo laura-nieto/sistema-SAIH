@@ -35,8 +35,12 @@ class Home extends Component
             ->paginate(10);
         }elseif($this->search_date){
             $date = Carbon::parse($this->search_date)->format('Y-d-m H:i:s');
-            $colaboradores = PacienteIngresos::where('Date_In',$date)
-            ->paginate(10);
+            $colaboradores = PacienteIngresos::where('Date_In',$date)->paginate(15);
+            foreach ($colaboradores as $key => $ingreso) { // No esta soportado el whereHas entre dos bb.dd diferentes
+                if (!$ingreso->paciente->colaborador) {
+                    $colaboradores->forget($key);
+                }
+            }
         }else{
             $colaboradores = Colaborador::where('apellido_materno','like','%'.$this->search_colaboradores.'%')
             ->orWhere('apellido_paterno','like','%'.$this->search_colaboradores.'%')

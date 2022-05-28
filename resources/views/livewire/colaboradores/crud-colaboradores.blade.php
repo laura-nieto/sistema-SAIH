@@ -84,7 +84,10 @@
                                 Sucursal
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                Usuario
+                                Puesto
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                Departamento
                             </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Acciones</span>
@@ -148,10 +151,19 @@
                                         <div class="text-sm text-gray-900">{{ $colaborador->telefono }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->sucursales != null ? $colaborador->sucursales->nombre : '' }}</div>
+                                        <div class="text-sm text-gray-900">
+                                            @if ($colaborador->sucursales->isNotEmpty())
+                                                @foreach ($colaborador->sucursales as $sucursal)
+                                                    {{$sucursal->nombre}}, 
+                                                @endforeach
+                                            @endif
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->usuario != null ? $colaborador->usuario->id : '' }}</div>
+                                        <div class="text-sm text-gray-900">{{ $colaborador->puesto->nombre }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ $colaborador->departamento->nombre }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex justify-evenly">

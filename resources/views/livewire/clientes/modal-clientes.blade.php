@@ -103,14 +103,6 @@
                         @enderror
                     </div>
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="direccion">Direccion</label>
-                        <input type="text" name="direccion" id="direccion" placeholder="Ingrese la direccion"
-                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('direccion')border-red-500 @enderror" wire:model="direccion">
-                        @error('direccion')
-                            <span class="error text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="ciudad">Ciudad</label>
                         <input type="text" name="ciudad" id="ciudad" placeholder="Ingrese la ciudad"
                             class="bg-white text-black border border-gray-200 rounded shadow-sm @error('ciudad')border-red-500 @enderror" wire:model="ciudad">

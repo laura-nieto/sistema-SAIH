@@ -3,18 +3,20 @@
 namespace App\Http\Livewire;
 
 use App\Models\Bitacora;
+use App\Models\Empresa;
 use App\Models\Sucursal;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
 class CrudSucursales extends Component
 {
-    public $nombre,$ip_sucursal,$servidor_sucursal,$base_de_datos,$conexion_ip,$id_sucursal;
-    public $search;
+    public $nombre,$ip_sucursal,$servidor_sucursal,$base_de_datos,$conexion_ip,$id_sucursal,$empresa_id;
+    public $search, $empresas;
     public $modal = false;
     
     protected $rules = [
         'nombre' => 'required|min:2',
+        'empresa_id'=>'required',
     ];
     protected $messages = [
         'required' => 'El campo es requerido.',
@@ -43,6 +45,7 @@ class CrudSucursales extends Component
             'servidor_sucursal' => $this->servidor_sucursal,
             'base_de_datos' => $this->base_de_datos,
             'conexion_IP' => $this->conexion_ip,
+            'empresa_id' => $this->empresa_id,
         ]);
         Bitacora::create([
             'seccion' => 'Sucursales',
@@ -61,6 +64,7 @@ class CrudSucursales extends Component
         $this->servidor_sucursal = $sucursal->servidor_sucursal;
         $this->base_de_datos = $sucursal->base_de_datos;
         $this->conexion_ip = $sucursal->conexion_IP;
+        $this->empresa_id = $sucursal->empresa_id;
         $this->abrirModal();
     }
     public function borrar($id)
@@ -77,6 +81,7 @@ class CrudSucursales extends Component
     //FUNCIONES MODAL
     public function abrirModal()
     {
+        $this->empresas = Empresa::all();
         $this->modal = true;
     }
     public function cerrarModal()
@@ -91,5 +96,6 @@ class CrudSucursales extends Component
         $this->servidor_sucursal = NULL;
         $this->base_de_datos = NULL;
         $this->conexion_ip = NULL;
+        $this->empresa_id = NULL;
     }
 }

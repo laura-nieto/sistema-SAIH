@@ -14,9 +14,8 @@
                                         <img src="{{ asset('/img/email-png.png') }}" alt=""
                                             class="w-12 lg:w-16 w-min-3">
                                     </div>
-
                                     <div class="ml-5">
-                                        <h4 class="text-2xl font-semibold text-gray-700">Enviar Email</h4>
+                                        <h4 class="text-2xl font-semibold text-gray-700">Configuración y envío de correos</h4>
                                     </div>
                                 </div>
                             </div>
@@ -32,16 +31,15 @@
                                         <img src="{{ asset('/img/test-png.png') }}" alt=""
                                             class="w-12 lg:w-16 w-min-3">
                                     </div>
-
                                     <div class="ml-5">
-                                        <h4 class="text-2xl font-semibold text-gray-700">Realizar Encuesta</h4>
+                                        <h4 class="text-2xl font-semibold text-gray-700">Realizar/Ver Encuesta</h4>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                 @endcan
-                @can('realizar.encuesta')
+                @can('calendario.index')
                     <div class="flex flex-wrap">
                         <a href="{{ url('/citas/mostrar') }}" class="w-full">
                             <div class="min-h-full">
@@ -50,16 +48,49 @@
                                         <img src="{{ asset('/img/medical-png.jpg') }}" alt=""
                                             class="w-12 lg:w-16 w-min-3">
                                     </div>
-
                                     <div class="ml-5">
-                                        <h4 class="text-2xl font-semibold text-gray-700">Citas Médicas</h4>
+                                        <h4 class="text-2xl font-semibold text-gray-700">Agenda de Citas/Reservaciones</h4>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
                 @endcan
-                @can('ver.encuesta')
+                @can('admin.documentacion.index')
+                    <div class="flex flex-wrap">
+                        <a href="{{ url('/documentacion') }}" class="w-full">
+                            <div class="min-h-full">
+                                <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+                                    <div class="rounded-full">
+                                        <img src="{{ asset('/img/document-png.png') }}" alt=""
+                                            class="w-12 lg:w-16 w-min-3">
+                                    </div>
+                                    <div class="ml-5">
+                                        <h4 class="text-2xl font-semibold text-gray-700">Subir Documentos/Expedientes</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endcan
+                @can('reportes.index')
+                    <div class="flex flex-wrap">
+                        <a href="{{ url('/reportes') }}" class="w-full">
+                            <div class="min-h-full">
+                                <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
+                                    <div class="rounded-full">
+                                        <img src="{{ asset('/img/report-png.png') }}" alt=""
+                                            class="w-12 lg:w-16 w-min-3">
+                                    </div>
+                                    <div class="ml-5">
+                                        <h4 class="text-2xl font-semibold text-gray-700">Reportes</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endcan
+                {{-- @can('ver.encuesta')
                     <div class="mb-3 lg:col-start-4">
                         <a href="{{ url('/ver/encuesta') }}"
                             class="flex text-white rounded overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-100 cursor-pointer">
@@ -78,14 +109,14 @@
                             </div>
                         </a>
                     </div>
-                @endcan
+                @endcan --}}
             </div>
         </div>
         <div class="mt-6 overflow-x-scroll pb-5">
             <div class="mb-2 mt-4">
                 <h3 class="text-xl">Búsqueda de Colaboradores</h3>
             </div>
-            <div class="flex">
+            <div class="flex items-center">
                 {{-- SEARCH COLABORADOR --}}
                 <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300 mr-3 w-96">
                     <div class="relative">
@@ -113,7 +144,7 @@
                     </div>
                 </div>
                 {{-- SEARCH DATE --}}
-                <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300 w-96">
+                <div class="bg-white text-sm text-gray-500 font-bold shadow border-b border-gray-300 mr-3 w-96">
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -125,6 +156,14 @@
                         class="pl-10 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300">
                     </div>
                 </div>
+                {{-- INGRESAR PACIENTE --}}
+                @can('admin.ingresar.pacientes')
+                    <div>
+                        <a href="{{url('/ingresar/paciente')}}" class="px-4 py-2 bg-yellow-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                            Ingresar Paciente SAIH
+                        </a>
+                    </div>
+                @endcan
             </div>
             <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                 <thead class="bg-gray-50">
@@ -139,13 +178,13 @@
                             Nombre Colaborador
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            Tipo de Cliente
+                            Convenio
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Número Expediente
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                            Número Cuenta
+                            No Ingreso SAIH
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Fecha de ingreso
@@ -174,12 +213,12 @@
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Cortesía
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Cómo nos encontró
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Detalle nos encontró
-                        </th>
+                        </th> --}}
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Venta Farmacia
                         </th>
@@ -382,7 +421,7 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                {{-- <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
                                         @if ($search_ingreso || $search_date)
                                             {{$colaborador->como_nos_encontro()}}                                             
@@ -407,7 +446,7 @@
                                             @endif
                                         @endif
                                     </div>
-                                </td>
+                                </td> --}}
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
                                         @if ($search_ingreso || $search_date)

@@ -24,4 +24,8 @@ class Empresa extends Model
     {
         return $this->hasMany('App\Models\User');
     }
+    public function sucursal()
+    {
+        return $this->hasMany(Sucursal::class,'empresa_id');
+    }
 }

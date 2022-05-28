@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultasController;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RedireccionController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Livewire\Bitacora;
 use App\Http\Livewire\Citas\Control;
@@ -27,6 +28,7 @@ use App\Http\Livewire\Encuesta\ElegirCuestionario;
 use App\Http\Livewire\Encuesta\RealizarEncuesta;
 use App\Http\Livewire\Encuesta\VerEncuesta;
 use App\Http\Livewire\Home;
+use App\Http\Livewire\IngresoPaciente;
 use App\Http\Livewire\VerColaborador;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +75,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/realizar/encuesta',ElegirCuestionario::class)->name('realizar.encuesta')->middleware('permission:realizar.encuesta');
     Route::get('/realizar/encuesta/{id}',RealizarEncuesta::class)->name('realizar.encuesta.preguntas')->middleware('permission:realizar.encuesta');
     Route::get('/ver/encuesta',VerEncuesta::class)->name('ver.encuesta')->middleware('permission:ver.encuesta');
+    Route::get('/elegir/encuesta',function(){
+        return view('redireccionEncuesta');
+    })->name('redireccion_encuesta');
 
     // CITAS
     Route::post('/citas/{id}',[CitasController::class,'citasDashboard'])->name('admin.citas.citasDashboard');
@@ -81,4 +86,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::post('/evento/editar/{id}',[CitasController::class,'edit']);
     Route::post('/evento/actualizar/{id}',[CitasController::class,'update']);
     Route::post('/evento/eliminar/{id}',[CitasController::class,'destroy']);
+
+    // INGRESO
+    Route::get('/ingresar/paciente',IngresoPaciente::class)->name('ingreso.paciente')->middleware('permission:admin.ingresar.pacientes');
+
+    // REPORTES
+    Route::get('/reportes',[ReportesController::class,'index'])->name('reportes.index')->middleware('permission:reportes.index');
+    Route::post('/reportes/cuestionario',[ReportesController::class,'reportes_cuestionario'])->name('reportes.cuestionario')->middleware('permission:reportes.index');
+    Route::post('/reportes/colaborador',[ReportesController::class,'reportes_colaborador'])->name('reportes.index')->middleware('permission:reportes.index');
 });

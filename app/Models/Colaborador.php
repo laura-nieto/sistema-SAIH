@@ -18,7 +18,7 @@ class Colaborador extends Model
    
     protected $fillable = [
         'folio_tarjeta','apellido_paterno','apellido_materno','nombre','fecha_nacimiento','sexo','estado_civil','correo_electronico','telefono',
-        'direccion','colonia','ciudad','estado','pais','cp','sucursal_id','usuario_id','cliente_id'
+        'direccion','colonia','ciudad','estado','pais','cp','sucursal_id','puesto_id','colaborador_id','cliente_id'
     ];
 
     public function estado_civil_r()
@@ -31,14 +31,18 @@ class Colaborador extends Model
     }
     public function sucursales()
     {
-        return $this->belongsTo(Sucursal::class,'sucursal_id');
-    }
-    public function usuario()
-    {
-        return $this->belongsTo(User::class,'usuario_id');
+        return $this->belongsToMany(Sucursal::class,'colaboradores_sucursales','colaborador_id','sucursal_id');
     }
     public function paciente()
     {
         return $this->belongsTo(Paciente::class,'paciente_id');
+    }
+    public function puesto()
+    {
+        return $this->belongsTo(PuestoColaborador::class,'puesto_id');
+    }
+    public function departamento()
+    {
+        return $this->belongsTo(DepartamentoColaborador::class,'departamento_id');
     }
 }

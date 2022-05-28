@@ -143,34 +143,33 @@
                             <span class="error text-red-500">{{$message}}</span>
                         @enderror
                     </div>
-
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="sucursal_id">Sucursal</label>
-                        <select name="sucursal_id" id="sucursal_id" wire:model="sucursal_id"
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="puesto_id">Puesto</label>
+                        <select name="puesto_id" id="puesto_id" wire:model="puesto_id"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            <option selected value>Seleccione una sucursal</option>
-                            @foreach ($sucursales as $sucursal)
-                            <option value="{{$sucursal->id}}">
-                                {{$sucursal->nombre}}
-                            </option>
+                            <option selected value>Seleccione una puesto</option>
+                            @foreach ($puestos as $puesto)
+                                <option value="{{$puesto->id}}">
+                                    {{$puesto->nombre}}
+                                </option>
                             @endforeach
                         </select>
-                        @error('sucursal_id')
+                        @error('puesto_id')
                             <span class="error text-red-500 mt-2">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="usuario_id">Usuario</label>
-                        <select name="usuario_id" id="usuario_id" wire:model="usuario_id"
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="departamento_id">Departamento</label>
+                        <select name="departamento_id" id="departamento_id" wire:model="departamento_id"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            <option selected value>Seleccione una usuario</option>
-                            @foreach ($usuarios as $usuario)
-                                <option value="{{$usuario->id}}">
-                                    {{$usuario->apellido . " " . $usuario->nombre}}
+                            <option selected value>Seleccione una departamento</option>
+                            @foreach ($departamentos as $departamento)
+                                <option value="{{$departamento->id}}">
+                                    {{$departamento->nombre}}
                                 </option>
                             @endforeach
                         </select>
-                        @error('usuario_id')
+                        @error('departamento_id')
                             <span class="error text-red-500 mt-2">{{$message}}</span>
                         @enderror
                     </div>
@@ -189,6 +188,18 @@
                             <span class="error text-red-500 mt-2">{{$message}}</span>
                         @enderror
                     </div>
+                    <div class="flex flex-col md:col-span-2">
+                        <label class="mb-2 mt-3 font-semibold text-gray-700">Sucursales</label>
+                        @foreach ($sucursales as $sucursal)
+                            <label class="inline-flex items-center mt-3">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="sucursales_id" value="{{$sucursal->id}}" name='{{$sucursal->id}}'>
+                                <span class="ml-2 text-gray-700" for='{{$sucursal->id}}'>{{$sucursal->nombre}}</span>
+                            </label>
+                        @endforeach
+                        @error('sucursales_id')
+                            <span class="error text-red-500 mt-2">{{$message}}</span>
+                        @enderror
+                    </div>  
                 </form>
                 <div class="flex flex-row items-center justify-end p-5 mt-3">
                     <button
