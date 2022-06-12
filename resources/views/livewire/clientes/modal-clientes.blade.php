@@ -127,14 +127,6 @@
                         @enderror
                     </div>
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="cobrador_id">Cobrador</label>
-                        <input type="number" name="cobrador_id" id="cobrador_id" placeholder="Ingrese el cobrador"
-                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('cobrador_id')border-red-500 @enderror" wire:model="cobrador_id">
-                        @error('cobrador_id')
-                            <span class="error text-red-500">{{$message}}</span>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="dias_credito">Días Crédito</label>
                         <input type="number" name="dias_credito" id="dias_credito" placeholder="Ingrese el número de dias credito"
                             class="bg-white text-black border border-gray-200 rounded shadow-sm @error('dias_credito')border-red-500 @enderror" wire:model="dias_credito">
@@ -189,23 +181,25 @@
                             <span class="error text-red-500 mt-2">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="flex flex-col justify-end ml-3">
-                        <label class="inline-flex items-center mt-3">
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="extranjero" value="1">
-                            <span class="ml-2 text-gray-700">Extranjero</span>
-                        </label>
-                        @error('extranjero')
+                    <div class="flex flex-col md:justify-end">
+                        <div class="flex flex-col justify-end">
+                            <label class="inline-flex items-center mt-3">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="extranjero" value="1">
+                                <span class="ml-2 text-gray-700">Extranjero</span>
+                            </label>
+                            @error('extranjero')
                             <span class="error text-red-500 mt-2">{{$message}}</span>
-                        @enderror
-                    </div>
-                    <div class="flex flex-col justify-end">
-                        <label class="inline-flex items-center mt-3">
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="descuento_general" value="1">
-                            <span class="ml-2 text-gray-700">Descuento General</span>
-                        </label>
-                        @error('descuento_general')
-                            <span class="error text-red-500 mt-2">{{$message}}</span>
-                        @enderror
+                            @enderror
+                        </div>
+                        <div class="flex flex-col justify-end">
+                            <label class="inline-flex items-center mt-3">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="descuento_general" value="1">
+                                <span class="ml-2 text-gray-700">Descuento General</span>
+                            </label>
+                            @error('descuento_general')
+                                <span class="error text-red-500 mt-2">{{$message}}</span>
+                            @enderror
+                        </div>
                     </div>
                     <div class="flex flex-col md:col-span-2">
                         <label class="mb-2 mt-3 font-semibold text-gray-700">Sucursales</label>

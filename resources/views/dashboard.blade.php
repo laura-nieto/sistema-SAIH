@@ -7,7 +7,7 @@
             <div class="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center sm:justify-start">
                 @can('admin.enviar.email')
                     <div class="flex flex-wrap">
-                        <a href="{{ url('/enviar/email') }}" class="w-full">
+                        <a href="{{ url('/email') }}" class="w-full">
                             <div class="min-h-full">
                                 <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
                                     <div class="rounded-full">
@@ -24,7 +24,7 @@
                 @endcan
                 @can('realizar.encuesta')
                     <div class="flex flex-wrap">
-                        <a href="{{ url('/realizar/encuesta') }}" class="w-full">
+                        <a href="{{ url('/elegir/encuesta') }}" class="w-full">
                             <div class="min-h-full">
                                 <div class="flex items-center px-5 py-6 shadow-sm rounded-md bg-white">
                                     <div class="rounded-full">

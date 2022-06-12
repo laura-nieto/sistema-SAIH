@@ -79,7 +79,6 @@ class CreateEmpresasTable extends Migration
             $table->string('ciudad')->nullable();
             $table->string('RFC')->nullable();
             $table->integer('numero_precio')->nullable();
-            $table->integer('cobrador_id')->nullable();
             $table->integer('dias_credito')->nullable();
             $table->string('cuenta')->nullable();
             $table->string('cp')->nullable();

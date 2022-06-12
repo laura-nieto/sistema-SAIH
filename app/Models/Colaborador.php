@@ -18,7 +18,7 @@ class Colaborador extends Model
    
     protected $fillable = [
         'folio_tarjeta','apellido_paterno','apellido_materno','nombre','fecha_nacimiento','sexo','estado_civil','correo_electronico','telefono',
-        'direccion','colonia','ciudad','estado','pais','cp','sucursal_id','puesto_id','colaborador_id','cliente_id'
+        'direccion','colonia','ciudad','estado','pais','cp','is_active','sucursal_id','puesto_id','departamento_id','cliente_id'
     ];
 
     public function estado_civil_r()

@@ -6,7 +6,7 @@
         <x-seccion-white>
             <div class="mb-2">
                 <h1 class="text-xl"> 
-                    @if ($fecha)
+                    @if (isset($fecha))
                         Fecha: {{ Carbon\Carbon::parse($fecha)->format('d-m-Y')}}
                     @endif
                 </h1>

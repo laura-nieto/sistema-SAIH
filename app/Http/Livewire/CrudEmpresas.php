@@ -2,10 +2,14 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\Baja;
 use App\Models\Bitacora;
+use App\Models\ConfigEmail;
 use Livewire\Component;
 use App\Models\Empresa;
+use App\Models\Sucursal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class CrudEmpresas extends Component
 {
@@ -82,7 +86,8 @@ class CrudEmpresas extends Component
     }
     public function borrar($id)
     {
-        Empresa::findOrFail($id)->delete();
+        $empresa = Empresa::findOrFail($id);
+        $empresa->delete();
         Bitacora::create([
             'seccion' => 'Empresas',
             'descripcion' => 'Borrado',

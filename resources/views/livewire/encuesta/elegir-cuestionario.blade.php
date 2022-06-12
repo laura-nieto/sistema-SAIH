@@ -9,7 +9,7 @@
                     <ul class="divide-y divide-gray-300">
                         @foreach($cuestionarios as $cuestionario)
                         <li class="p-4 cursor-pointer {{$cuestionario_id == $cuestionario->id ? 'bg-blue-200' : 'hover:bg-gray-100'}}" wire:click="change({{$cuestionario->id}})">
-                            Cuestionario {{ $cuestionario->id }}
+                            {{ $cuestionario->nombre }}
                         </li>
                         @endforeach
                     </ul>

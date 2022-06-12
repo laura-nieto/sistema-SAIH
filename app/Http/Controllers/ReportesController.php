@@ -43,18 +43,23 @@ class ReportesController extends Controller
     {
         $tipo_reporte = $request->colaborador;
         switch ($tipo_reporte) {
-            case 1:
+            case 1: //por medico
                 # code...
                 break;
-            case 2:
+            case 2: //por cliente
+                $ingresos = collect();
                 $cliente_id = $request->cliente;
+                $cliente = Cliente::findOrFail($cliente_id);
                 $colaboradores = Colaborador::where('cliente_id',$cliente_id)->get();
-                dd($colaboradores);
-                foreach ($variable as $key => $value) {
-                    # code...
+                foreach ($colaboradores as $colaborador){
+                    $ingresos = $ingresos->merge($colaborador->paciente->ingresos); //buscar como paginar $ingresos
                 }
+                $data = [
+                    'ingresos' => $ingresos,
+                    'cliente' => $cliente
+                ];
                 break;
-            case 3:
+            case 3: //por fecha
                 $date = Carbon::parse($request->fecha)->format('d-m-Y H:i:s');
                 $ingresos = PacienteIngresos::where('Date_In',$date)->paginate(15);
                 foreach ($ingresos as $key => $ingreso) { // No esta soportado el whereHas entre dos bb.dd diferentes
@@ -67,7 +72,7 @@ class ReportesController extends Controller
                     'fecha' => $request->fecha
                 ];
                 break;
-            case 4:
+            case 4: //por diagnostico
                 return back()->with('error','Aun trabajamos en ello :(');
                 break;
             default:

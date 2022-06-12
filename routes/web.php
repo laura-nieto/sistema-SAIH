@@ -7,6 +7,7 @@ use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Livewire\Bitacora;
 use App\Http\Livewire\Citas\Control;
+use App\Http\Livewire\ConfigEmail;
 use App\Http\Livewire\CrudClientes;
 use App\Http\Livewire\CrudColaboradores;
 use App\Http\Livewire\CrudDeptoColaborador;
@@ -55,7 +56,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/empresas',CrudEmpresas::class)->name('admin.empresas')->middleware('permission:admin.empresas.index');
     Route::get('/servicios',CrudServicios::class)->name('admin.servicios')->middleware('permission:admin.servicios.index');
     Route::get('/themes',CrudSettings::class)->name('admin.settings')->middleware('permission:admin.settings');
-    Route::get('/enviar/email',MandarEmail::class)->name('enviar.email')->middleware('permission:admin.enviar.email');
     Route::get('/colaboradores',CrudColaboradores::class)->name('admin.colaboradores')->middleware('permission:admin.colaboradores.index');
     Route::get('/colaborador/{colaborador}',VerColaborador::class)->name('colaborador.show')->middleware('permission:admin.colaboradores.index');
     Route::get('/clientes',CrudClientes::class)->name('admin.clientes')->middleware('permission:admin.clientes.index');
@@ -94,4 +94,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/reportes',[ReportesController::class,'index'])->name('reportes.index')->middleware('permission:reportes.index');
     Route::post('/reportes/cuestionario',[ReportesController::class,'reportes_cuestionario'])->name('reportes.cuestionario')->middleware('permission:reportes.index');
     Route::post('/reportes/colaborador',[ReportesController::class,'reportes_colaborador'])->name('reportes.index')->middleware('permission:reportes.index');
+
+    // EMAIL
+    Route::get('/email',function(){
+        return view('redireccionEmail');
+    })->name('vista.email')->middleware('permission:admin.email');
+    Route::get('/enviar/email',MandarEmail::class)->name('enviar.email')->middleware('permission:admin.enviar.email');
+    Route::get('/configuracion/email',ConfigEmail::class)->name('config.email')->middleware('permission:admin.email');
 });

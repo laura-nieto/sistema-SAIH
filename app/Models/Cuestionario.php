@@ -14,6 +14,6 @@ class Cuestionario extends Model
     protected $table = 'cuestionario';
    
     protected $fillable = [
-        'preguntas'
+        'nombre','preguntas'
     ];
 }

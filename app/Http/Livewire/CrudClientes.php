@@ -2,26 +2,30 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\Alta;
+use App\Mail\Baja;
 use App\Models\Bitacora;
 use App\Models\Cliente;
+use App\Models\ConfigEmail;
 use App\Models\Sucursal;
 use App\Models\TipoMembresia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class CrudClientes extends Component
 {
     public $cliente_id;
     public $nombre,$razon_social,$dom_calle,$dom_noExterior,$dom_noInterior,$dom_colonia,$dom_localidad,$dom_municipio,$dom_estado,$dom_pais,$dom_referencia;
-    public $ciudad,$rfc,$numero_precio,$cobrador_id,$dias_credito,$cuenta,$cp,$telefono,$correo_electronico,$extranjero,$descuento_general;
+    public $ciudad,$rfc,$numero_precio,$dias_credito,$cuenta,$cp,$telefono,$correo_electronico,$extranjero,$descuento_general;
     public $sucursales_id=[];
     public $tipo_membresias,$tipo_cliente;
     public $modal = false;
-    public $search;
+    public $search , $deleted = false;
         
     public $rules = [
         'nombre' => 'required|min:2',
-        'correo_electronico' => 'email',
+        'correo_electronico' => 'required|email',
         'tipo_cliente' => 'required',
     ];
     public $messages = [
@@ -36,7 +40,11 @@ class CrudClientes extends Component
     }
     public function render()
     {
-        $clientes = Cliente::where('nombre','like','%'.$this->search.'%')->get();
+        if (!$this->deleted) {
+            $clientes = Cliente::where('nombre','like','%'.$this->search.'%')->get();
+        }else{
+            $clientes = Cliente::withTrashed()->where('nombre','like','%'.$this->search.'%')->get();
+        }
         return view('livewire.clientes.crud-clientes',compact('clientes'));
     }
 
@@ -65,7 +73,6 @@ class CrudClientes extends Component
             'ciudad' => $this->ciudad,
             'RFC' => $this->rfc,
             'numero_precio' => $this->numero_precio == '' ? NULL : $this->numero_precio,
-            'cobrador_id' => $this->cobrador_id == '' ? NULL : $this->cobrador_id,
             'dias_credito'=> $this->dias_credito == '' ? NULL : $this->dias_credito,
             'cuenta' => $this->cuenta,
             'cp' => $this->cp,
@@ -76,6 +83,35 @@ class CrudClientes extends Component
             'tipo_cliente' => $this->tipo_cliente,
         ]);
         $cliente->sucursales()->sync($this->sucursales_id);
+        if ($cliente->wasRecentlyCreated) {
+            // ENVIO DE MAIL
+            $data = [
+                'nombre'=>$cliente->nombre,
+                'razon_social' => $cliente->razon_social,
+                'dom_calle' => $cliente->dom_calle,
+                'dom_noExterior' => $cliente->dom_noExterior,
+                'dom_noInterior' => $cliente->dom_noInterior,
+                'dom_colonia' => $cliente->dom_colonia,
+                'dom_localidad' => $cliente->dom_localidad,
+                'dom_municipio' => $cliente->dom_municipio,
+                'dom_estado' => $cliente->dom_estado,
+                'dom_pais' => $cliente->dom_pais,
+                'dom_referencia' => $cliente->dom_referencia,
+                'ciudad' => $cliente->ciudad,
+                'RFC' => $cliente->rfc,
+                'cuenta' => $cliente->cuenta,
+                'cp' => $cliente->cp,
+                'telefono' => $cliente->telefono,
+                'correo_electronico' => $cliente->correo_electronico,
+                'tipo_cliente' => $cliente->tipo_membresia->nombre,
+            ];
+            $config = ConfigEmail::where('model','cliente')->where('tipo','alta')->first();
+            if ($config->active) {
+                $usuario = Auth::user()->apellido . ' ' . Auth::user()->nombre;
+                $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
+                Mail::to($cliente->correo_electronico)->send(new Alta('colaborador',$cliente->nombre,$usuario,$sede,$data));
+            } 
+        }
         Bitacora::create([
             'seccion' => 'Clientes',
             'descripcion' => 'Creación o Modificación',
@@ -101,7 +137,6 @@ class CrudClientes extends Component
         $this->ciudad = $cliente->ciudad;
         $this->rfc = $cliente->RFC;
         $this->numero_precio = $cliente->numero_precio;
-        $this->cobrador_id = $cliente->cobrador_id;
         $this->dias_credito = $cliente->dias_credito;
         $this->cuenta = $cliente->cuenta;
         $this->cp = $cliente->cp;
@@ -115,7 +150,14 @@ class CrudClientes extends Component
     }
     public function borrar($id)
     {
-        Cliente::findOrFail($id)->delete();
+        $cliente = Cliente::findOrFail($id);
+        $cliente->delete();
+        $config = ConfigEmail::where('model','cliente')->where('tipo','baja')->first();
+        if ($config->active) {
+            $usuario = Auth::user()->apellido . ' ' . Auth::user()->nombre;
+            $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
+            Mail::to($cliente->correo_electronico)->send(new Baja('empresa',$cliente->nombre,$usuario,$sede));
+        }
         Bitacora::create([
             'seccion' => 'Clientes',
             'descripcion' => 'Borrado',
@@ -149,7 +191,6 @@ class CrudClientes extends Component
         $this->ciudad = NULL;
         $this->rfc = NULL;
         $this->numero_precio = NULL;
-        $this->cobrador_id = NULL;
         $this->dias_credito = NULL;
         $this->cuenta = NULL;
         $this->cp = NULL;

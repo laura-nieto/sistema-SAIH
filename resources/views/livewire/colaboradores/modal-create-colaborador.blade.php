@@ -188,6 +188,21 @@
                             <span class="error text-red-500 mt-2">{{$message}}</span>
                         @enderror
                     </div>
+                    {{-- <div class="flex flex-col mt-3">
+                        <div  x-data="{value:'1', offValue: '0', onValue:'1'}">
+                            <div class="flex items-center m-2 cursor-pointer cm-toggle-wrapper"  x-on:click="value = (value == onValue ? offValue : onValue);">
+                                <span class="font-semibold mr-1 text-gray-700">
+                                    Desactivo
+                                </span>
+                                <div class="rounded-full w-8 h-4 p-0.5" :class="{'bg-red-500': value == offValue,'bg-green-500': value == onValue}">
+                                    <div class="rounded-full w-3 h-3 bg-white transform mx-auto duration-300 ease-in-out" :class="{'-translate-x-2': value == offValue,'translate-x-2': value == onValue}"></div>
+                                </div>
+                                <span class="font-semibold ml-1 text-gray-700">
+                                    Activo
+                                </span>
+                            </div>
+                        </div>
+                    </div> --}}
                     <div class="flex flex-col md:col-span-2">
                         <label class="mb-2 mt-3 font-semibold text-gray-700">Sucursales</label>
                         @foreach ($sucursales as $sucursal)

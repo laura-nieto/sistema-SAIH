@@ -14,6 +14,14 @@
             </div>
             <div class="flex flex-col px-6 py-5 bg-gray-50">
                 <form action="" method="post" class="mb-3">
+                    <div class="flex flex-col mb-5">
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="nombre">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" placeholder="Ingrese el nombre"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm @error('nombre')border-red-500 @enderror" wire:model="nombre">
+                        @error('nombre')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
+                    </div>
                     @foreach ($preguntas as $pregunta)
                         <div class="flex flex-col">
                             <label class="inline-flex items-center">

@@ -22,6 +22,7 @@ class CreateEncuestaPreguntasTable extends Migration
         });
         Schema::create('cuestionario',function(Blueprint $table){
             $table->id();
+            $table->string('nombre');
             $table->text('preguntas');
             $table->softDeletes('deleted_at');
             $table->timestamps();

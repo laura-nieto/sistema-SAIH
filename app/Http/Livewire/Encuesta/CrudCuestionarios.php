@@ -9,7 +9,7 @@ use Livewire\Component;
 class CrudCuestionarios extends Component
 {
     public $cuestionario_id, $id_preguntas=[];
-    public $preguntas;
+    public $preguntas,$nombre;
     public $search, $modal = false;
 
     public function render()
@@ -30,6 +30,7 @@ class CrudCuestionarios extends Component
         // $this->validate();
         Cuestionario::updateOrCreate(['id'=>$this->cuestionario_id],
         [
+            'nombre' => $this->nombre,
             'preguntas'=> json_encode($this->id_preguntas),
         ]);
         $this->cerrarModal();
@@ -38,6 +39,7 @@ class CrudCuestionarios extends Component
     {
         $cuestionario = Cuestionario::findOrFail($id);
         $this->cuestionario_id = $cuestionario->id;
+        $this->nombre = $cuestionario->nombre;
         $this->id_preguntas = json_decode($cuestionario->preguntas);
         $this->preguntas = EncuestaPregunta::all();
         $this->abrirModal();
@@ -57,6 +59,7 @@ class CrudCuestionarios extends Component
     }
     public function limpiarCampos()
     {
+        $this->nombre = NULL;
         $this->cuestionario_id = NULL;
         $this->id_preguntas = [];
     }
