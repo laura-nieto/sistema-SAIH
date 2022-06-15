@@ -16,16 +16,16 @@ class ReportesController extends Controller
     public function index()
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        // $medicos = DboMedicos::all()->mapWithKeys(function($item,$key){
-        //     return [$item['DoctorID'] =>  $item['Doc_Name']];
-        // });
-        $diagnosticos = Diagnosticos::all()->mapWithKeys(function($item,$key){
-            return [$item['ClaveId'] =>  $item['NombreDiagnostico']];
+        $medicos = DboMedicos::all()->mapWithKeys(function($item,$key){
+            return [$item['DoctorID'] =>  $item['Doc_Name']];
         });
+        // $diagnosticos = Diagnosticos::all()->mapWithKeys(function($item,$key){
+        //     return [$item['ClaveId'] =>  $item['NombreDiagnostico']];
+        // });
         $data = [
             'clientes' => $clientes,
-            //'medicos' => $medicos,
-            'diagnosticos' => $diagnosticos,
+            'medicos' => $medicos,
+            //'diagnosticos' => $diagnosticos,
         ];
         return view('reportes.index',$data);
     }
