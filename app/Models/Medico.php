@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Medico extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
    
     protected $fillable = [
         'doc_name','apellido_paterno','apellido_materno','nombre','telefono','celular','correo_electronico','cedula_profesional','ssa','cedula_especialidad','especialidad_id'

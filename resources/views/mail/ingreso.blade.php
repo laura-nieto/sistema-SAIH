@@ -6,8 +6,9 @@
     @endslot
     # Estimado/a
 
-    El {{$tipo}} {{$info}} ha sido dado de baja en nuestro sistema el día {{$dia}} a las {{$hora}} por el usuario {{$usuario}} en {{$sede}}
+    Usted a sido ingresado a la plataforma de SAIH. Muestre el siguiente código a la recepción:
 
+    {{ url('/colaborador/').$colaborador_id}}
 
     Atentamente,
     Equipo de SAIH.

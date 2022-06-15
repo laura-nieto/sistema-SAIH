@@ -6,7 +6,7 @@
     @endslot
     # Estimado/a
 
-    Su {{$tipo}} {{$info_principal}} ha sido dado de alta en nuestro sistema el día {{$dia}} a las {{$hora}} por el usuario {{$usuario}} en {{$sede}}
+    El {{$tipo}} {{$info_principal}} ha sido dado de alta en nuestro sistema el día {{$dia}} a las {{$hora}} por el usuario {{$usuario}} en {{$sede}}
 
     La información compartida es:
 

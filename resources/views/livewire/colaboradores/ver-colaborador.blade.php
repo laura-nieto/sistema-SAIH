@@ -104,21 +104,19 @@
                                 </div>
                                 <div class="grid md:grid-cols-2 py-2">
                                     <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Estado</div>
-                                        <div class="px-4 py-2">
-                                            {{ $colaborador->estado === null ? '-' : $colaborador->estado }}
-                                        </div>
+                                        <div class="px-4 py-2 font-semibold">Puesto</div>
+                                        <div class="px-4 py-2">{{ $colaborador->puesto->nombre }}</div>
                                     </div>
+                                    <div class="grid grid-cols-2">
+                                        <div class="px-4 py-2 font-semibold">Departamento</div>
+                                        <div class="px-4 py-2">{{ $colaborador->departamento->nombre }}</div>
+                                    </div>
+                                </div>
+                                <div class="grid md:grid-cols-2 py-2">
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Sucursal</div>
                                         <div class="px-4 py-2">
                                             {{ $colaborador->sucursal === null ? 'No tiene asignada una sucursal' : $colaborador->sucursal->nombre }}
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Usuario</div>
-                                        <div class="px-4 py-2">
-                                            {{ $colaborador->usuario_id === null ? 'No tiene usuario' : $colaborador->usuario_id }}
                                         </div>
                                     </div>
                                 </div>
@@ -201,12 +199,6 @@
                                         <div class="px-4 py-2 font-semibold">Dom Referencia</div>
                                         <div class="px-4 py-2">{{ $cliente->dom_referencia }}</div>
                                     </div>
-                                </div>
-                                <div class="grid md:grid-cols-2 mb-2">
-                                    <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Dirección</div>
-                                        <div class="px-4 py-2">{{ $cliente->direccion }}</div>
-                                    </div>
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Ciudad</div>
                                         <div class="px-4 py-2">{{ $cliente->ciudad }}</div>
@@ -220,10 +212,6 @@
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Número Precio</div>
                                         <div class="px-4 py-2">{{ $cliente->numero_precio }}</div>
-                                    </div>
-                                    <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Cobrador ID</div>
-                                        <div class="px-4 py-2">{{ $cliente->cobrador_id }}</div>
                                     </div>
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Días Crédito</div>
@@ -262,7 +250,7 @@
                                         </div>
                                     </div>
                                     <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Membresía del Colaborador</div>
+                                        <div class="px-4 py-2 font-semibold">Tipo de Cliente</div>
                                         <div class="px-4 py-2">{{ $cliente->tipo_membresia->nombre }}</div>
                                     </div>
                                 </div>
@@ -297,7 +285,7 @@
                             @foreach($ingresos as $ingreso)
                                 <div class="grid md:grid-cols-2 py-2">
                                     <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Número Cuenta</div>
+                                        <div class="px-4 py-2 font-semibold">Ingreso ID</div>
                                         <div class="px-4 py-2">{{ $ingreso->IngresoID }}</div>
                                     </div>
                                     <br>
@@ -337,14 +325,6 @@
                                     <div class="grid grid-cols-2">
                                         <div class="px-4 py-2 font-semibold">Cortesía</div>
                                         <div class="px-4 py-2">{{ $ingreso->medico_atendido() }}</div>
-                                    </div>
-                                    <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Cómo nos encontró</div>
-                                        <div class="px-4 py-2">{{ $ingreso->como_nos_encontro() }}</div>
-                                    </div>
-                                    <div class="grid grid-cols-2">
-                                        <div class="px-4 py-2 font-semibold">Detalle Nos Encontró</div>
-                                        <div class="px-4 py-2">{{ $ingreso->detalle_encontro() }}</div>
                                     </div>
                                     @if ($ingreso->venta)
                                         <div class="md:col-span-2 justify-self-center mb-2 mt-2">

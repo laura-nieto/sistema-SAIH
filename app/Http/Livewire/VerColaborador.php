@@ -23,7 +23,7 @@ class VerColaborador extends Component
     }
     public function render()
     {
-        $ingresos = PacienteIngresos::where('PacientID',$this->colaborador->paciente_id)->orderBy('Date_in', 'desc')->paginate(3);
+        $ingresos = PacienteIngresos::where('PacientID',$this->colaborador->paciente_id)->orderBy('Date_in', 'desc')->paginate(5);
         return view('livewire.colaboradores.ver-colaborador',compact('ingresos'));
     }
     public function show(PacienteIngresos $ingreso)

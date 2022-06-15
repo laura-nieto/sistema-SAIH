@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="py-12 flex-1 p-10">
         <x-slot name="header">
-            {{ __('Reportes cuestionario') }}
+            {{ __('Reportes colaborador') }}
         </x-slot>
         <x-seccion-white>
             <div class="mb-2">
@@ -9,13 +9,18 @@
                     @if (isset($fecha))
                         Fecha: {{ Carbon\Carbon::parse($fecha)->format('d-m-Y')}}
                     @endif
+                    @if (isset($cliente))
+                        Cliente: {{$cliente->nombre}}
+                    @endif
+                    @if (isset($cliente))
+                        Médico: {{$doctor->Doc_name}}
+                    @endif
                 </h1>
             </div>
             <div>
                 @if(!$ingresos->count())
-                    <h5 class="p-4 text-lg font-semibold">No hay respuestas para la fecha</h5>
+                    <h5 class="p-4 text-lg font-semibold">No hay respuestas</h5>
                 @else
-
                     <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                         <thead class="bg-gray-50">
                             <tr>
@@ -110,6 +115,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                @endif
+            </div>
+            <div>
+                @if ($ingresos->hasPages())
+                    {{ $ingresos->links() }}
                 @endif
             </div>
             <div class="mt-5">

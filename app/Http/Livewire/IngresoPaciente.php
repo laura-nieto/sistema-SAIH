@@ -14,8 +14,8 @@ class IngresoPaciente extends Component
     public $modal=false;
 
     protected $rules = [
-        'fecha_egreso' => 'required|date',
-        'hora_egreso' => 'required|date_format:H:i',
+        // 'fecha_egreso' => 'required|date',
+        // 'hora_egreso' => 'required|date_format:H:i',
         'fecha_ingreso' => 'required|date',
         'hora_ingreso' => 'required|date_format:H:i:s',
     ];
@@ -46,7 +46,7 @@ class IngresoPaciente extends Component
     }
     public function ingresar(){
         $this->validate();
-        $this->fecha_egreso = Carbon::parse($this->fecha_egreso)->format('d-m-Y H:i:s');  //Para que no tire error sqlserver
+        //$this->fecha_egreso = Carbon::parse($this->fecha_egreso)->format('d-m-Y H:i:s');  //Para que no tire error sqlserver
         $fecha_ingreso = Carbon::parse($this->fecha_ingreso)->format('d-m-Y H:i:s');  //Para que no tire error sqlserver
         
         $ingreso = new PacienteIngresos;
@@ -54,11 +54,12 @@ class IngresoPaciente extends Component
         $ingreso->PacientID = $this->colaborador->paciente_id;
         $ingreso->Date_In = $fecha_ingreso;
         $ingreso->Hour_In = $this->hora_ingreso;
-        $ingreso->Date_Out = $this->fecha_egreso;
-        $ingreso->Hour_Out = $this->hora_egreso;
+        //$ingreso->Date_Out = $this->fecha_egreso;
+        //$ingreso->Hour_Out = $this->hora_egreso;
         $ingreso->Subsecuente = 0;
         $ingreso->Defuncion = 0;
         $ingreso->Paquete = 0;
+        $ingreso->estatus = 'A';
         $ingreso->DocId = 1;
 
         if ($ingreso->save()) {

@@ -92,8 +92,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
     // REPORTES
     Route::get('/reportes',[ReportesController::class,'index'])->name('reportes.index')->middleware('permission:reportes.index');
-    Route::post('/reportes/cuestionario',[ReportesController::class,'reportes_cuestionario'])->name('reportes.cuestionario')->middleware('permission:reportes.index');
-    Route::post('/reportes/colaborador',[ReportesController::class,'reportes_colaborador'])->name('reportes.index')->middleware('permission:reportes.index');
+    Route::get('/reportes/cuestionario',[ReportesController::class,'reportes_cuestionario'])->name('reportes.cuestionario')->middleware('permission:reportes.index');
+    Route::get('/reportes/colaborador',[ReportesController::class,'reportes_colaborador'])->name('reportes.index')->middleware('permission:reportes.index');
 
     // EMAIL
     Route::get('/email',function(){

@@ -76,6 +76,26 @@
                     </tbody>
                 </table>
             </div>
+            <div wire:loading wire:target="ingresar">
+                <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
+                    <!-- component -->
+                    <div class="flex justify-center h-screen items-center bg-gray-200 bg-opacity-75 antialiased">
+                        <div
+                            class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg shadow-xl bg-white">
+                            <div class="flex items-center justify-center w-full h-full">
+                                <div class="flex justify-center items-center space-x-1 text-sm text-gray-700 p-10">
+                                    <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
+                                        <path clip-rule='evenodd'
+                                            d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z'
+                                            fill='currentColor' fill-rule='evenodd' />
+                                    </svg>
+                                    <div>Procesando ...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </x-seccion-white>
     </div>
 </div>

@@ -32,7 +32,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="flex">
+                    {{-- <div class="flex">
                         <div class="flex flex-col w-1/2 mr-2">
                             <label class="mb-2 mt-5 font-semibold text-gray-700" for="fecha_egreso">Fecha de Egreso</label>
                             <input type="date" name="fecha_egreso" id="fecha_egreso" placeholder="Fecha de Egreso" min="1940-01-01"
@@ -49,7 +49,7 @@
                                 <span class="error text-red-500">{{$message}}</span>
                             @enderror
                         </div>
-                    </div>      
+                    </div>       --}}
                 </form>
                 <div class="flex flex-row items-center justify-end p-5 mt-3">
                     <button

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Colaborador;
+use App\Models\DboMedicos;
+use App\Models\Diagnosticos;
 use App\Models\EncuestaRespuesta;
 use App\Models\PacienteIngresos;
 use Carbon\Carbon;
@@ -14,8 +16,16 @@ class ReportesController extends Controller
     public function index()
     {
         $clientes = Cliente::orderBy('nombre')->get();
+        // $medicos = DboMedicos::all()->mapWithKeys(function($item,$key){
+        //     return [$item['DoctorID'] =>  $item['Doc_Name']];
+        // });
+        $diagnosticos = Diagnosticos::all()->mapWithKeys(function($item,$key){
+            return [$item['ClaveId'] =>  $item['NombreDiagnostico']];
+        });
         $data = [
-            'clientes' => $clientes
+            'clientes' => $clientes,
+            //'medicos' => $medicos,
+            'diagnosticos' => $diagnosticos,
         ];
         return view('reportes.index',$data);
     }
@@ -44,16 +54,22 @@ class ReportesController extends Controller
         $tipo_reporte = $request->colaborador;
         switch ($tipo_reporte) {
             case 1: //por medico
-                # code...
+                $doctor = DboMedicos::findOrFail($request->medico);
+                $colaboradores = Colaborador::all()->mapWithKeys(function ($item, $key) {
+                    return [$key => $item['paciente_id']];
+                })->toArray();
+                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->where('DocId',$request->medico)->paginate(15);
+                $data = [
+                    'ingresos' => $ingresos,
+                    'doctor' => $doctor,
+                ];
                 break;
             case 2: //por cliente
-                $ingresos = collect();
-                $cliente_id = $request->cliente;
-                $cliente = Cliente::findOrFail($cliente_id);
-                $colaboradores = Colaborador::where('cliente_id',$cliente_id)->get();
-                foreach ($colaboradores as $colaborador){
-                    $ingresos = $ingresos->merge($colaborador->paciente->ingresos); //buscar como paginar $ingresos
-                }
+                $cliente = Cliente::findOrFail($request->cliente);
+                $colaboradores = Colaborador::where('cliente_id',$request->cliente)->get()->mapWithKeys(function ($item, $key) {
+                    return [$key => $item['paciente_id']];
+                })->toArray();
+                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->paginate(15);
                 $data = [
                     'ingresos' => $ingresos,
                     'cliente' => $cliente
@@ -61,12 +77,10 @@ class ReportesController extends Controller
                 break;
             case 3: //por fecha
                 $date = Carbon::parse($request->fecha)->format('d-m-Y H:i:s');
-                $ingresos = PacienteIngresos::where('Date_In',$date)->paginate(15);
-                foreach ($ingresos as $key => $ingreso) { // No esta soportado el whereHas entre dos bb.dd diferentes
-                    if (!$ingreso->paciente->colaborador) {
-                        $ingresos->forget($key);
-                    }
-                }
+                $colaboradores = Colaborador::all()->mapWithKeys(function ($item, $key) {
+                    return [$key => $item['paciente_id']];
+                })->toArray();
+                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->where('Date_In',$date)->paginate(15);
                 $data = [
                     'ingresos'=> $ingresos,
                     'fecha' => $request->fecha

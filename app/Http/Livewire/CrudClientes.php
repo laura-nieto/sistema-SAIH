@@ -109,7 +109,7 @@ class CrudClientes extends Component
             if ($config->active) {
                 $usuario = Auth::user()->apellido . ' ' . Auth::user()->nombre;
                 $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
-                Mail::to($cliente->correo_electronico)->send(new Alta('colaborador',$cliente->nombre,$usuario,$sede,$data));
+                Mail::to($cliente->correo_electronico)->send(new Alta('cliente',$cliente->nombre,$usuario,$sede,$data));
             } 
         }
         Bitacora::create([
