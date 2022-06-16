@@ -57,7 +57,7 @@
                                 x-init="init()"
                                 @click.away="closeListbox()"
                                 @keydown.escape="closeListbox()"
-                                class="relative w-full"
+                                class="relative w-80"
                             >
                                 <span>
                                     <div
@@ -65,7 +65,7 @@
                                         @click="toggleListboxVisibility()"
                                         :aria-expanded="open"
                                         aria-haspopup="listbox"
-                                        class="relative z-0 w-full py-2 pl-3 pr-10 text-left transition duration-150 ease-in-out bg-white border border-gray-200 rounded cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
+                                        class="relative z-0 w-full py-2 pl-3 pr-8 text-left transition duration-150 ease-in-out bg-white border border-gray-200 rounded cursor-default focus:outline-none focus:shadow-outline-blue focus:border-blue-300"
                                     >
                                         <span
                                             x-show="! open"
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         {{-- SELECT DIAGNOSTICO --}}
-                        <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="colaborador == 1" x-transition>
+                        {{-- <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="colaborador == 1" x-transition>
                             <label class="mb-2 font-semibold text-gray-700" for="cliente">Diagnostico</label>
                             <input type="hidden" name="diagnostico" id="input_diagnostico">
                             <div
@@ -241,7 +241,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         {{-- Reportes por Cuestionario --}}
                         <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="cuestionario == 1 || colaborador == 3" x-transition>
                             <label class="mb-2 font-semibold text-gray-700" for="fecha">Ingrese la fecha</label>

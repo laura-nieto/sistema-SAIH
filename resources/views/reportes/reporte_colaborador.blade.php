@@ -12,7 +12,7 @@
                     @if (isset($cliente))
                         Cliente: {{$cliente->nombre}}
                     @endif
-                    @if (isset($cliente))
+                    @if (isset($doctor))
                         Médico: {{$doctor->Doc_name}}
                     @endif
                 </h1>
