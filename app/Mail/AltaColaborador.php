@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use PDF as PDF;
 
 class AltaColaborador extends Mailable
 {
@@ -15,7 +16,7 @@ class AltaColaborador extends Mailable
     
     public $subject = 'Información de alta';
 
-    public $logo,$dia,$hora,$colaborador,$codigo_qr;
+    public $logo,$dia,$hora,$colaborador;
 
     /**
      * Create a new message instance.
@@ -30,8 +31,8 @@ class AltaColaborador extends Mailable
         $this->hora = $dia->format('H:i');
         $this->colaborador = $colaborador;
         $url = route('colaborador.show',$colaborador->id);
-        $this->qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
-
+        $qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
+        $this->pdf = PDF::loadView('pdf.codigo_qr', ['logo'=>$this->logo,'qr'=>$qr]);
     }
 
     /**
@@ -45,8 +46,7 @@ class AltaColaborador extends Mailable
             'logo' => $this->logo,
             'dia' => $this->dia,
             'colaborador_nombre' => $this->colaborador->nombre,
-            'codigo_qr' => $this->qr,
         ];
-        return $this->markdown('mail.altaColaborador')->with($data);
+        return $this->markdown('mail.altaColaborador')->with($data)->attachData($this->pdf->output(),'codigo_qr.pdf',['mime' => 'application/pdf']);
     }
 }

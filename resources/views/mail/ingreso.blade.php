@@ -8,7 +8,7 @@
 
 Usted a sido ingresado a la plataforma de SAIH. Muestre el siguiente código QR a la recepción.
 
-<img src="{{$codigo_qr}}" alt="" width="200px" height="200px">
+
 
 Atentamente,
 Equipo de SAIH.

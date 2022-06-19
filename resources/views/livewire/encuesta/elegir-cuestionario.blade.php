@@ -26,8 +26,8 @@
                                 </li>
                             @endforeach
                         </ol>
-                        <div class="flex justify-between px-4 mt-3">
-                            <div class="">
+                        <div class="flex justify-between items-end px-4 mt-3">
+                            <div>
                                 <label class="mb-2 font-semibold text-gray-700" for="cliente">Colaborador</label>
                                 <input type="hidden" name="colaborador" id="input_colaborador">
                                 <div
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="flex justify-end">
+                            <div>
                                 <button wire:click='elegir({{$cuestionario_id}})'
                                 class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Elegir
                                 </button>

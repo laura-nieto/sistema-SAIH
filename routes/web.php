@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultasController;
-use App\Http\Controllers\RedireccionController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Livewire\Bitacora;

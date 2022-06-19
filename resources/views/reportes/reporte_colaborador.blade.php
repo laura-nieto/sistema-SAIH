@@ -16,7 +16,7 @@
                         Médico: {{$doctor->Doc_name}}
                     @endif
                     @if (isset($diagnostico))
-                        Médico: {{$diagnostico}}
+                        Diagnostico: {{$diagnostico}}
                     @endif
                 </h1>
             </div>

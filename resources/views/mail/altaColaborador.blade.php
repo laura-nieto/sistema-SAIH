@@ -6,9 +6,9 @@
 @endslot
 # Estimado/a {{$colaborador->apellido_paterno . ' ' . $colaborador->nombre}}
 
-Usted a sido dado de alta el día {{$dia . ' ' . $hora}}. A continuación le dejamos un código QR que debe presentar cuando se presente al hospital deseado.
+Usted a sido dado de alta el día {{$dia . ' ' . $hora}}. Le dejamos adjuntado en este correo un código QR que debe presentar cuando se presente al hospital deseado.
 
-<img src="{{$codigo_qr}}" alt="" width="200px" height="200px">
+
 
 Atentamente,
 Equipo de SAIH.

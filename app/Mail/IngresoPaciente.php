@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use PDF as PDF;
 
 class IngresoPaciente extends Mailable
 {
@@ -30,7 +31,8 @@ class IngresoPaciente extends Mailable
         $this->sede = $sede;
         $this->colaborador = $colaborador;
         $url = route('colaborador.show',$colaborador->id);
-        $this->qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
+        $qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
+        $this->pdf = PDF::loadView('pdf.codigo_qr', ['logo'=>$this->logo,'qr'=>$qr]);
     }
 
     /**
@@ -44,8 +46,7 @@ class IngresoPaciente extends Mailable
             'logo' => $this->logo,
             'dia' => $this->dia,
             'colaborador_nombre' => $this->colaborador->nombre,
-            'codigo_qr' => $this->qr,
         ];
-        return $this->markdown('mail.ingreso')->with($data);
+        return $this->markdown('mail.ingreso')->with($data)->attachData($this->pdf->output(),'codigo_qr.pdf',['mime' => 'application/pdf']);
     }
 }
