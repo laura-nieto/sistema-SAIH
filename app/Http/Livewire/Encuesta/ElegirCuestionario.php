@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Encuesta;
 
+use App\Models\Colaborador;
 use App\Models\Cuestionario;
 use App\Models\EncuestaPregunta;
 use Livewire\Component;
@@ -10,7 +11,13 @@ class ElegirCuestionario extends Component
 {
     public $cuestionario_id;
     public $preguntas;
+    public $colaboradores,$colaborador_id;
 
+    public function mount(){
+        $this->colaboradores = Colaborador::all()->mapWithKeys(function($item,$key){
+            return [$item['id'] =>  $item['apellido_paterno'] . ' ' . $item['nombre']];
+        });
+    }
     public function render()
     {
         $cuestionarios = Cuestionario::all();
@@ -29,6 +36,7 @@ class ElegirCuestionario extends Component
 
     public function elegir($id)
     {
+        session(['colaborador_id'=>$this->colaborador_id]);
         return redirect()->route('realizar.encuesta.preguntas',$id);
     }
 }

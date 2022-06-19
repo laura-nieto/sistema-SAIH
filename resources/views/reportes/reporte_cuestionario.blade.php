@@ -5,7 +5,12 @@
         </x-slot>
         <x-seccion-white>
             <div class="mb-2">
-                <h1 class="text-xl"> Fecha: {{$fecha}} </h1>
+                @if(isset($fecha))
+                    <h1 class="text-xl"> Fecha: {{$fecha}} </h1>
+                @endif
+                @if(isset($cliente))
+                    <h1 class="text-xl"> Cliente: {{$cliente}} </h1>
+                @endif
             </div>
             <div>
                 @if(!$respuestas->count())

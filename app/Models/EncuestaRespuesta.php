@@ -11,11 +11,19 @@ class EncuestaRespuesta extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'respuesta',
+        'cuestionario_id','respuesta','colaborador_id',
     ];
 
     public function pregunta()
     {
         return $this->belongsTo(EncuestaPregunta::class,'pregunta_id');
+    }
+    public function cuestionario()
+    {
+        return $this->belongsTo(Cuestionario::class,'cuestionario_id');
+    }
+    public function colaborador()
+    {
+        return $this->belongsTo(Colaborador::class,'colaborador_id');
     }
 }

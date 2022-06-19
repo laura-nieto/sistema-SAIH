@@ -195,8 +195,10 @@
                                                     class="px-4 py-2 mr-1 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Editar</button>
                                             @endcan
                                             @can('admin.clientes.destroy')
-                                                <button wire:click='borrar({{$cliente->id}})'
-                                                    class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Eliminar</button>
+                                                @if($cliente->deleted_at == null)
+                                                    <button wire:click='abrirModalDelete({{$cliente->id}})'
+                                                        class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Eliminar</button>
+                                                @endif
                                             @endcan
                                         </div>
                                     </td>
@@ -206,8 +208,8 @@
                     </tbody>
                 </table>
             </div>
-            <div wire:loading wire:target="save">
-                <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
+            <div wire:loading wire:target="save,borrar">
+                <div class="fixed z-20 inset-0 overflow-y-auto ease-out duration-400">
                     <!-- component -->
                     <div class="flex justify-center h-screen items-center bg-gray-200 bg-opacity-75 antialiased">
                         <div
@@ -226,6 +228,9 @@
                     </div>
                 </div>
             </div>
+            @if($modal_delete)
+                @include('livewire.modal-delete')
+            @endif
         </x-sesccion-white>
     </div>
 </div>

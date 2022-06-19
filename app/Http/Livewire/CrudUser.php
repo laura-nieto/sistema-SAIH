@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class CrudUser extends Component
 {
     public $nombre,$apellido,$email,$password,$id_user,$id_empresa,$sucursales_id=[];
-    public $modal = false;
+    public $modal = false, $modal_delete = false , $delete_id;
     public $search;
     public $roles,$role_id;
     public $sucurales,$empresas,$empresa_id;
@@ -112,18 +112,26 @@ class CrudUser extends Component
             'seccion' => 'Usuarios',
             'descripcion' => 'Borrado',
             'usuario_id' => Auth::id(),
-        ]);
+        ]);  
+        $this->delete_id = null;
+        $this->cerrarModal();
+        session()->flash('message', 'El usuario fue borrado.');
     }
-
 
     //FUNCIONES MODAL
     public function abrirModal()
     {
         $this->modal = true;
     }
+    public function abrirModalDelete($id)
+    {
+        $this->delete_id = $id;
+        $this->modal_delete = true;
+    }
     public function cerrarModal()
     {
         $this->modal = false;
+        $this->modal_delete = false;
     }
     public function limpiarCampos()
     {

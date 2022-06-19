@@ -81,12 +81,15 @@
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="especialidad_id">Especialidad</label>
                         <select name="especialidad_id" id="especialidad_id" wire:model="especialidad_id"
-                            class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
+                            class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none @error('especialidad_id')border-red-500 @enderror">
                             <option value="">Elija una especialidad</option>
                             @foreach ($especialidades as $especialidad)
                                 <option value="{{$especialidad->id}}">{{$especialidad->especialidad}}</option>
                             @endforeach
                         </select>
+                        @error('especialidad_id')
+                            <span class="error text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col">
                         <label class="mb-2 mt-5 font-semibold text-gray-700" for="cedula_especialidad">Cédula Especialidad</label>

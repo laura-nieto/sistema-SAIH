@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class CrudEspecialidadMedica extends Component
 {
     public $especialidad_id,$especialidad,$bitCat_lugar;
-    public $modal = false;
+    public $modal = false, $modal_delete = false , $delete_id;
     public $search;
         
     public $rules = [
@@ -62,6 +62,9 @@ class CrudEspecialidadMedica extends Component
             'descripcion' => 'Borrado',
             'usuario_id' => Auth::id(),
         ]);
+        $this->delete_id = null;
+        $this->cerrarModal();
+        session()->flash('message', 'La especialidad fue borrada.');
     }
     
     //FUNCIONES MODAL
@@ -69,9 +72,15 @@ class CrudEspecialidadMedica extends Component
     {
         $this->modal = true;
     }
+    public function abrirModalDelete($id)
+    {
+        $this->delete_id = $id;
+        $this->modal_delete = true;
+    }
     public function cerrarModal()
     {
         $this->modal = false;
+        $this->modal_delete = false;
     }
     public function limpiarCampos()
     {

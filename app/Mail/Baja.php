@@ -12,6 +12,8 @@ class Baja extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $subject = 'Información de baja';
+
     public $logo,$dia,$hora,$tipo,$info,$usuario,$sede;
 
     /**
@@ -47,6 +49,6 @@ class Baja extends Mailable
             'usuario' => $this->usuario,
             'sede' => $this->sede,
         ];
-        return $this->markdown('mail.baja')->subject('Información de baja')->with($data);
+        return $this->markdown('mail.baja')->with($data);
     }
 }

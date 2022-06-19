@@ -7,31 +7,31 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class Alta extends Mailable
+class AltaColaborador extends Mailable
 {
     use Queueable, SerializesModels;
-
+    
     public $subject = 'Información de alta';
 
-    public $logo,$dia,$hora,$tipo,$info_principal,$usuario,$sede,$info;
+    public $logo,$dia,$hora,$colaborador,$codigo_qr;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($tipo,$info_principal,$usuario,$sede,$info)
+    public function __construct($colaborador)
     {
         $dia = Carbon::now();
         $this->logo = asset('img/logo/SAIH-logo.png');
         $this->dia = $dia->format('d-m-Y');
         $this->hora = $dia->format('H:i');
-        $this->tipo = $tipo;
-        $this->info_principal = $info_principal;
-        $this->usuario = $usuario;
-        $this->sede = $sede;
-        $this->info = $info;
+        $this->colaborador = $colaborador;
+        $url = route('colaborador.show',$colaborador->id);
+        $this->qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
+
     }
 
     /**
@@ -44,13 +44,9 @@ class Alta extends Mailable
         $data = [
             'logo' => $this->logo,
             'dia' => $this->dia,
-            'hora' => $this->hora,
-            'tipo' => $this->tipo,
-            'info_principal' => $this->info_principal,
-            'usuario' => $this->usuario,
-            'sede' => $this->sede,
-            'informacion' => $this->info,
+            'colaborador_nombre' => $this->colaborador->nombre,
+            'codigo_qr' => $this->qr,
         ];
-        return $this->markdown('mail.alta')->with($data);
+        return $this->markdown('mail.altaColaborador')->with($data);
     }
 }

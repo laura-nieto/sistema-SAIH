@@ -12,14 +12,15 @@ class CrudMedicos extends Component
 {
     public $medico_id,$doc_name,$apellido_paterno,$apellido_materno,$nombre,$correo_electronico,$telefono,$celular,$cedula_profesional,$ssa,$cedula_especialidad;
     public $especialidad_id,$especialidades;
-    public $modal = false;
+    public $modal = false, $modal_delete = false , $delete_id;
     public $search;
         
     public $rules = [
         'apellido_paterno' => 'required|min:2',
         'apellido_materno' => 'required|min:2',
         'nombre' => 'required|min:2',
-        'correo_electronico' =>  'email'
+        'correo_electronico' =>  'email',
+        'especialidad_id' => 'required'
     ];
     public $messages = [
         'required' => 'El campo es requerido',
@@ -93,6 +94,9 @@ class CrudMedicos extends Component
             'descripcion' => 'Borrado',
             'usuario_id' => Auth::id(),
         ]);
+        $this->delete_id = null;
+        $this->cerrarModal();
+        session()->flash('message', 'El médico fue borrado.');
     }
     
     //FUNCIONES MODAL
@@ -100,9 +104,15 @@ class CrudMedicos extends Component
     {
         $this->modal = true;
     }
+    public function abrirModalDelete($id)
+    {
+        $this->delete_id = $id;
+        $this->modal_delete = true;
+    }
     public function cerrarModal()
     {
         $this->modal = false;
+        $this->modal_delete = false;
     }
     public function limpiarCampos()
     {

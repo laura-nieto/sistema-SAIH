@@ -61,8 +61,10 @@
                                                     class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Editar</button>
                                             @endcan
                                             @can('admin.especialidades_medicas.destroy')
-                                                <button wire:click='borrar({{$especialidad->id}})'
+                                                @if($especialidad->deleted_at == null)
+                                                    <button wire:click='abrirModalDelete({{$especialidad->id}})'
                                                     class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Eliminar</button>
+                                                @endif
                                             @endcan
                                         </div>
                                     </td>
@@ -72,6 +74,29 @@
                     </tbody>
                 </table>
             </div>
+            <div wire:loading wire:target="save,borrar">
+                <div class="fixed z-20 inset-0 overflow-y-auto ease-out duration-400">
+                    <!-- component -->
+                    <div class="flex justify-center h-screen items-center bg-gray-200 bg-opacity-75 antialiased">
+                        <div
+                            class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg shadow-xl bg-white">
+                            <div class="flex items-center justify-center w-full h-full">
+                                <div class="flex justify-center items-center space-x-1 text-sm text-gray-700 p-10">
+                                    <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
+                                        <path clip-rule='evenodd'
+                                            d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z'
+                                            fill='currentColor' fill-rule='evenodd' />
+                                    </svg>
+                                    <div>Procesando ...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if($modal_delete)
+                @include('livewire.modal-delete')
+            @endif
         </x-sesccion-white>
     </div>
 </div>

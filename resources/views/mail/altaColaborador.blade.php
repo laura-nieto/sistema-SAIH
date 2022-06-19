@@ -4,9 +4,9 @@
 <img src="{{ $logo }}" alt=""  class="logo">
 @endcomponent
 @endslot
-# Estimado/a
+# Estimado/a {{$colaborador->apellido_paterno . ' ' . $colaborador->nombre}}
 
-Usted a sido ingresado a la plataforma de SAIH. Muestre el siguiente código QR a la recepción.
+Usted a sido dado de alta el día {{$dia . ' ' . $hora}}. A continuación le dejamos un código QR que debe presentar cuando se presente al hospital deseado.
 
 <img src="{{$codigo_qr}}" alt="" width="200px" height="200px">
 

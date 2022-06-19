@@ -2,9 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\IngresoPaciente as MailIngresoPaciente;
 use App\Models\Colaborador;
+use App\Models\ConfigEmail;
 use App\Models\PacienteIngresos;
+use App\Models\Sucursal;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class IngresoPaciente extends Component
@@ -63,6 +67,11 @@ class IngresoPaciente extends Component
         $ingreso->DocId = 1;
 
         if ($ingreso->save()) {
+            $config = ConfigEmail::where('model','paciente')->where('tipo','ingreso')->first();
+            if ($config->active) {
+                $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
+                Mail::to($this->colaborador->correo_electronico)->send(new MailIngresoPaciente($this->colaborador,$sede));
+            }
             session()->flash('success', 'Paciente ingresado en SAIH');
             $this->limpiarCampos();
             $this->cerrarModal();    

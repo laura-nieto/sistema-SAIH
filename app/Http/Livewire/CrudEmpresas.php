@@ -16,7 +16,7 @@ class CrudEmpresas extends Component
     public $nombre,$direccion,$dom_noExterior,$dom_noInterior,$colonia,$rfc,$telefono,$ciudad,$dom_municipio,$dom_cp,$dom_pais,$dom_referencia,$estado,$representante;
     public $id_empresa;
     public $search;
-    public $modal = false;
+    public $modal = false, $modal_delete = false , $delete_id;
 
     protected $rules = [
         'nombre' => 'required|min:2',
@@ -93,6 +93,9 @@ class CrudEmpresas extends Component
             'descripcion' => 'Borrado',
             'usuario_id' => Auth::id(),
         ]);
+        $this->delete_id = null;
+        $this->cerrarModal();
+        session()->flash('message', 'La empresa fue borrada.');
     }
 
     //FUNCIONES MODAL
@@ -100,9 +103,15 @@ class CrudEmpresas extends Component
     {
         $this->modal = true;
     }
+    public function abrirModalDelete($id)
+    {
+        $this->delete_id = $id;
+        $this->modal_delete = true;
+    }
     public function cerrarModal()
     {
         $this->modal = false;
+        $this->modal_delete = false;
     }
     public function limpiarCampos()
     {

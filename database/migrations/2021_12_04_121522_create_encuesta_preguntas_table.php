@@ -29,8 +29,10 @@ class CreateEncuestaPreguntasTable extends Migration
         });
         Schema::create('encuesta_respuestas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('cuestionario_id')->constrained('cuestionario')->onDelete('cascade');
             $table->foreignId('pregunta_id')->constrained('encuesta_preguntas')->onDelete('cascade');
             $table->string('respuesta');
+            $table->foreignId('colaborador_id')->nullable()->constrained('colaboradores')->onDelete('cascade'); //Colaborador se crea despues por eso nullable
             $table->softDeletes('deleted_at');
             $table->timestamps();
         });

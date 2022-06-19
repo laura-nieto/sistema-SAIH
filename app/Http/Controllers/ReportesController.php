@@ -16,16 +16,17 @@ class ReportesController extends Controller
     public function index()
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        $medicos = DboMedicos::all()->mapWithKeys(function($item,$key){
+        $medicos = DboMedicos::where('estatus','A')->get()->mapWithKeys(function($item,$key){
             return [$item['DoctorID'] =>  $item['Doc_Name']];
         });
-        // $diagnosticos = Diagnosticos::all()->mapWithKeys(function($item,$key){
-        //     return [$item['ClaveId'] =>  $item['NombreDiagnostico']];
-        // });
+        $diagnosticos = Diagnosticos::where('estatus','A')->paginate(100)
+        ->mapWithKeys(function($item,$key){
+            return [$item['ClaveId'] =>  $item['NombreDiagnostico']];
+        });
         $data = [
             'clientes' => $clientes,
             'medicos' => $medicos,
-            //'diagnosticos' => $diagnosticos,
+            'diagnosticos' => $diagnosticos,
         ];
         return view('reportes.index',$data);
     }
@@ -36,14 +37,20 @@ class ReportesController extends Controller
         if ($tipo_reporte == 1) {
             $fecha_inicio = Carbon::parse($request->fecha)->copy()->startOfDay();
             $fecha_fin = Carbon::parse($request->fecha)->copy()->endOfDay();
-            $respuestas = EncuestaRespuesta::whereBetween('created_at',[$fecha_inicio,$fecha_fin])->get();
+            $respuestas = EncuestaRespuesta::whereBetween('created_at',[$fecha_inicio,$fecha_fin])->paginate(15);
             $data = [
                 'fecha' => Carbon::parse($request->fecha)->format('d-m-Y'),
                 'respuestas'=>$respuestas
             ];
             return view('reportes.reporte_cuestionario',$data);
         }elseif ($tipo_reporte == 2) {
-            # code...
+            $cliente = Cliente::findOrFail($request->cliente);
+            $respuestas = EncuestaRespuesta::has('colaborador.clientes',$request->cliente)->paginate(15);
+            $data = [
+                'cliente' => $cliente->nombre,
+                'respuestas'=>$respuestas
+            ];
+            return view('reportes.reporte_cuestionario',$data);
         }else{
             return back()->with('error','El tipo de reporte es erroneo');
         }
@@ -87,7 +94,16 @@ class ReportesController extends Controller
                 ];
                 break;
             case 4: //por diagnostico
-                return back()->with('error','Aun trabajamos en ello :(');
+                // return back()->with('error','Aun trabajamos en ello :(');
+                $diagnostico = Diagnosticos::findOrFail($request->diagnostico);
+                $colaboradores = Colaborador::all()->mapWithKeys(function ($item, $key) {
+                    return [$key => $item['paciente_id']];
+                })->toArray();
+                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->where('DiagID',$request->diagnostico)->paginate(15);
+                $data = [
+                    'ingresos' => $ingresos,
+                    'diagnostico' => $diagnostico->NombreDiagnostico,
+                ];
                 break;
             default:
                 return back()->with('error','El tipo de reporte es erroneo');

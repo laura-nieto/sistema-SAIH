@@ -38,7 +38,7 @@
                         </div>
 
                         {{-- Reportes por Colaborador --}}
-                        <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="colaborador == 2" x-transition>
+                        <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="colaborador == 2 || cuestionario == 2" x-transition>
                             <label class="mb-2 font-semibold text-gray-700" for="cliente">Clientes</label>
                             <select name="cliente" id="cliente"
                                 class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
@@ -146,15 +146,15 @@
                             </div>
                         </div>
                         {{-- SELECT DIAGNOSTICO --}}
-                        {{-- <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="colaborador == 1" x-transition>
+                        <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="colaborador == 4" x-transition>
                             <label class="mb-2 font-semibold text-gray-700" for="cliente">Diagnostico</label>
                             <input type="hidden" name="diagnostico" id="input_diagnostico">
                             <div
-                                x-data="seleccion_buscador({ data: {{ $diagnostico }}, emptyOptionsMessage: 'No hay diagnosticos con esa búsqueda.', name: 'diagnostico', placeholder: 'Seleccione un diagnostico', input:'diagnostico' })"
+                                x-data="seleccion_buscador({ data: {{ $diagnosticos }}, emptyOptionsMessage: 'No hay diagnosticos con esa búsqueda.', name: 'diagnostico', placeholder: 'Seleccione un diagnostico', input:'input_diagnostico' })"
                                 x-init="init()"
                                 @click.away="closeListbox()"
                                 @keydown.escape="closeListbox()"
-                                class="relative w-full"
+                                class="relative w-80"
                             >
                                 <span>
                                     <div
@@ -241,7 +241,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                         {{-- Reportes por Cuestionario --}}
                         <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="cuestionario == 1 || colaborador == 3" x-transition>
                             <label class="mb-2 font-semibold text-gray-700" for="fecha">Ingrese la fecha</label>

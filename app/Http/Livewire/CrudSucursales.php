@@ -12,7 +12,7 @@ class CrudSucursales extends Component
 {
     public $nombre,$ip_sucursal,$servidor_sucursal,$base_de_datos,$conexion_ip,$id_sucursal,$empresa_id;
     public $search, $empresas;
-    public $modal = false;
+    public $modal = false, $modal_delete = false , $delete_id;
     
     protected $rules = [
         'nombre' => 'required|min:2',
@@ -75,8 +75,10 @@ class CrudSucursales extends Component
             'descripcion' => 'Borrado',
             'usuario_id' => Auth::id(),
         ]);
+        $this->delete_id = null;
+        $this->cerrarModal();
+        session()->flash('message', 'La sucursal fue borrada.');
     }
-
 
     //FUNCIONES MODAL
     public function abrirModal()
@@ -84,9 +86,15 @@ class CrudSucursales extends Component
         $this->empresas = Empresa::all();
         $this->modal = true;
     }
+    public function abrirModalDelete($id)
+    {
+        $this->delete_id = $id;
+        $this->modal_delete = true;
+    }
     public function cerrarModal()
     {
         $this->modal = false;
+        $this->modal_delete = false;
     }
     public function limpiarCampos()
     {

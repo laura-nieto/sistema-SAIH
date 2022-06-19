@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Mail\Alta;
+use App\Mail\AltaColaborador;
 use App\Mail\Baja;
 use App\Models\Bitacora;
 use App\Models\Cliente;
@@ -26,7 +27,7 @@ class CrudColaboradores extends Component
     public $direccion,$colonia,$ciudad,$estado,$pais,$cp,$is_active = true;
     public $sucursales_id=[];
 
-    public $modal = false;
+    public $modal = false, $modal_delete = false , $delete_id;
     public $sucursales, $puestos,$departamentos,$estados_civiles,$clientes;
     public $search, $deleted = false;
 
@@ -144,6 +145,7 @@ class CrudColaboradores extends Component
                     $usuario = Auth::user()->apellido . ' ' . Auth::user()->nombre;
                     $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
                     Mail::to($correo_cliente)->send(new Alta('colaborador',$colaborador_nombre,$usuario,$sede,$data));
+                    Mail::to($colaborador->correo_electronico)->send(new AltaColaborador($colaborador));
                 } 
             }else{
                 $colaborador->delete();
@@ -208,15 +210,24 @@ class CrudColaboradores extends Component
             'descripcion' => 'Borrado',
             'usuario_id' => Auth::id(),
         ]);
+        $this->delete_id = null;
+        $this->cerrarModal();
+        session()->flash('message', 'El colaborador fue borrado.');
     }
     //FUNCIONES MODAL
     public function abrirModal()
     {
         $this->modal = true;
     }
+    public function abrirModalDelete($id)
+    {
+        $this->delete_id = $id;
+        $this->modal_delete = true;
+    }
     public function cerrarModal()
     {
         $this->modal = false;
+        $this->modal_delete = false;
     }
     public function limpiarCampos()
     {

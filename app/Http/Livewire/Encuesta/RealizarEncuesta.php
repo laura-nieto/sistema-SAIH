@@ -43,6 +43,7 @@ class RealizarEncuesta extends Component
                 }
             }
         }
+        session()->forget('colaborador_id');
         return view('livewire.encuesta.fin-encuesta');
     }
 
@@ -52,7 +53,9 @@ class RealizarEncuesta extends Component
         $this->validate();
         $pregunta = EncuestaPregunta::findOrFail($this->pregunta_id);
         $pregunta->respuestas()->create([
-            'respuesta'=>$respuesta
+            'cuestionario_id' => $this->cuestionario_id,
+            'respuesta'=>$respuesta,
+            'colaborador_id' => session('colaborador_id'),
         ]);
         $this->respuesta = NULL;
         $this->count++;

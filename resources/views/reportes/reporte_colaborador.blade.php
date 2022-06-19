@@ -15,11 +15,14 @@
                     @if (isset($doctor))
                         Médico: {{$doctor->Doc_name}}
                     @endif
+                    @if (isset($diagnostico))
+                        Médico: {{$diagnostico}}
+                    @endif
                 </h1>
             </div>
             <div>
                 @if(!$ingresos->count())
-                    <h5 class="p-4 text-lg font-semibold">No hay respuestas</h5>
+                    <h5 class="p-4 text-lg font-semibold">No hay colaboradores</h5>
                 @else
                     <table class="text-black min-w-full divide-y divide-gray-200 sm:rounded-lg">
                         <thead class="bg-gray-50">
