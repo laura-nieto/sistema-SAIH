@@ -126,7 +126,7 @@
                                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
                         </span>
-                        <input type="text" wire:model="search_colaboradores" placeholder="Buscar colaborador"
+                        <input type="text" wire:model.lazy="search_colaboradores" placeholder="Buscar colaborador"
                         class="pl-10 text-black focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300">
                     </div>
                 </div>
@@ -228,148 +228,73 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @if(!$colaboradores->count())
+                    @if(!$ingresos->count())
                         <tr>
-                            <td class="px-6 py-4 border-b-2" colspan="10">No existen colaboradores</td>
+                            <td class="px-6 py-4 border-b-2" colspan="10">No existen ingresos con esos valores</td>
                         </tr>
                     @else
-                        @foreach($colaboradores as $colaborador){{-- colaborador es ingreso si search_date o search_ingreso tienen una busqueda --}}
-                            @if (!$colaborador->paciente || !$colaborador->paciente->colaborador)
-                                @continue
-                            @endif
+                        @foreach($ingresos as $ingreso)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            {{$colaborador->paciente->colaborador->id}}
-                                        @else
-                                            {{ $colaborador->id }}                                            
-                                        @endif
+                                        {{$ingreso->paciente->colaborador->id}}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">                                      
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            {{ $colaborador->paciente->colaborador->folio_tarjeta }}
-                                        @else
-                                            {{ $colaborador->folio_tarjeta }}                                                
-                                        @endif
+                                        {{ $ingreso->paciente->colaborador->folio_tarjeta }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @php
-                                        if($search_ingreso || $search_date){
-                                            $colaboradorReal = $colaborador->paciente->colaborador;
-                                        }else{
-                                            $colaboradorReal = $colaborador;
-                                        }
+                                        $colaboradorReal = $ingreso->paciente->colaborador;
                                     @endphp
-                                    <div class="text-sm text-gray-900 cursor-pointer" wire:click='show_colaborador({{$colaboradorReal}})'>                                        
-                                        @if ($search_ingreso || $search_date)
-                                            {{ $colaboradorReal->apellido_paterno . " "  . $colaboradorReal->apellido_materno . " " . $colaboradorReal->nombre }}
-                                        @else
-                                            {{ $colaborador->apellido_paterno . " "  . $colaborador->apellido_materno . " " . $colaborador->nombre }}
-                                        @endif
+                                    <div class="text-sm text-gray-900 cursor-pointer" wire:click='show_colaborador({{$colaboradorReal}})'>
+                                        {{ $colaboradorReal->apellido_paterno . " "  . $colaboradorReal->apellido_materno . " " . $colaboradorReal->nombre }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            {{$colaborador->paciente->colaborador->clientes->tipo_membresia->nombre }}
-                                        @else
-                                            {{ $colaborador->clientes->tipo_membresia->nombre }}
-                                        @endif
+                                        {{$ingreso->paciente->colaborador->clientes->tipo_membresia->nombre }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">               
                                     <div class="text-sm text-gray-900"> 
-                                        @if ($search_ingreso || $search_date)
-                                            {{$colaborador->PacientID}}
-                                        @else
-                                            {{ $colaborador->paciente_id }} 
-                                        @endif
+                                        {{$ingreso->PacientID}}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900"> 
-                                        @if ($search_ingreso || $search_date)
-                                            {{$colaborador->IngresoID}}
-                                        @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ $colaborador->paciente->ingresos->last()->IngresoID }}
-                                            @else
-                                                -
-                                            @endif
-                                        @endif
+                                        {{$ingreso->IngresoID}}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                    <div class="text-sm text-gray-900"> 
-                                        @if ($search_ingreso || $search_date)
-                                            {{ Carbon\Carbon::parse($colaborador->Date_In)->format('d-m-Y') }}
-                                        @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_In)->format('d-m-Y') }}
-                                            @else
-                                                -
-                                            @endif
-                                        @endif
+                                        {{ Carbon\Carbon::parse($ingreso->Date_In)->format('d-m-Y') }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900"> 
-                                        @if ($search_ingreso || $search_date)
-                                            {{ Carbon\Carbon::parse($colaborador->Hour_In)->format('H:i:s') }}                                          
-                                        @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_In)->format('H:i:s') }}
-                                            @else
-                                                -
-                                            @endif
-                                        @endif
+                                        {{ Carbon\Carbon::parse($ingreso->Hour_In)->format('H:i:s') }}
                                     </div>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900"> 
-                                        @if ($search_ingreso || $search_date)
-                                            @if($colaborador->Date_Out != null)
-                                                {{ Carbon\Carbon::parse($colaborador->Date_Out)->format('d-m-Y') }}
-                                            @else
-                                                -
-                                            @endif
+                                        @if($ingreso->Date_Out != null)
+                                            {{ Carbon\Carbon::parse($ingreso->Date_Out)->format('d-m-Y') }}
                                         @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                @if($colaborador->paciente->ingresos->last()->Date_Out != null)
-                                                    {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_Out)->format('d-m-Y') }}
-                                                @else
-                                                    -
-                                                @endif
-                                            @else
-                                                -
-                                            @endif
+                                            -
                                         @endif
                                     </div>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            @if($colaborador->Hour_Out != null)
-                                                {{ Carbon\Carbon::parse($colaborador->Hour_Out)->format('H:i:s') }}
-                                            @else
-                                                -
-                                            @endif
+                                        @if($ingreso->Hour_Out != null)
+                                            {{ Carbon\Carbon::parse($ingreso->Hour_Out)->format('H:i:s') }}
                                         @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                @if($colaborador->paciente->ingresos->last()->Hour_Out != null)
-                                                    {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_Out)->format('H:i:s') }}
-                                                @else
-                                                    -
-                                                @endif
-                                            @else
-                                                -
-                                            @endif
+                                            -
                                         @endif
                                     </div>
                                 </td>
@@ -384,57 +309,25 @@
                                 </td> --}}
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            {{ $colaborador->Diag_Desc }}                                         
-                                        @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ $colaborador->paciente->ingresos->last()->Diag_Desc }}
-                                            @else
-                                                -
-                                            @endif
-                                        @endif
+                                        {{ $ingreso->Diag_Desc }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            {{$colaborador->medico_atendido()}}
-                                        @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ $colaborador->paciente->ingresos->last()->medico_atendido() }}
-                                            @else
-                                                -
-                                            @endif
-                                        @endif
+                                        {{$ingreso->medico_atendido()}}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @php
-                                        if($search_ingreso || $search_date){
-                                            $cliente = $colaborador->paciente->colaborador->clientes;
-                                        }else{
-                                            $cliente = $colaborador->clientes;
-                                        }
+                                        $cliente = $ingreso->paciente->colaborador->clientes;
                                     @endphp
                                     <div class="text-sm text-gray-900 cursor-pointer" wire:click='show_cliente({{$cliente}})'>
-                                        @if ($search_ingreso || $search_date)
-                                            {{ $cliente->nombre }}
-                                        @else
-                                            {{ $colaborador->clientes->nombre }}
-                                        @endif
+                                        {{ $cliente->nombre }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            {{ $colaborador->AplicaCortesia ? 'Sí':'No' }}
-                                        @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ $colaborador->paciente->ingresos->last()->AplicaCortesia ? 'Sí':'No' }}
-                                            @else
-                                                -
-                                            @endif
-                                        @endif
+                                        {{ $ingreso->AplicaCortesia ? 'Sí':'No' }}
                                     </div>
                                 </td>
                                 {{-- <td class="px-6 py-4 whitespace-nowrap">
@@ -465,36 +358,19 @@
                                 </td> --}}
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            @if ($colaborador->venta)    
-                                                <div class="md:col-span-2 justify-self-center mb-2 mt-2">
-                                                    <button wire:click='show_venta({{$colaborador->venta}})'
-                                                    class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                                                        Ver venta
-                                                    </button>
-                                                </div>
-                                            @endif
-                                        @else
-                                            @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                @if ($colaborador->paciente->ingresos->last()->venta)
-                                                    <div class="md:col-span-2 justify-self-center mb-2 mt-2">
-                                                        <button wire:click='show_venta({{$colaborador->paciente->ingresos->last()->venta}})'
-                                                            class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
-                                                            Ver venta
-                                                        </button>
-                                                    </div>
-                                                @endif
-                                            @endif
+                                        @if ($ingreso->venta)    
+                                            <div class="md:col-span-2 justify-self-center mb-2 mt-2">
+                                                <button wire:click='show_venta({{$colaborador->venta}})'
+                                                class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                                                    Ver venta
+                                                </button>
+                                            </div>
                                         @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        @if ($search_ingreso || $search_date)
-                                            {{$colaborador->paciente->colaborador->estado === null ? '-' : $colaborador->paciente->colaborador->estado }}
-                                        @else
-                                            {{ $colaborador->estado === null ? '-' : $colaborador->estado }}
-                                        @endif
+                                        {{$ingreso->paciente->colaborador->estado === null ? '-' : $ingreso->paciente->colaborador->estado }}
                                     </div>
                                 </td>
                                 
@@ -506,7 +382,7 @@
         </div>
         {{-- Paginado --}}
         <div class="mt-5"> 
-            {{ $colaboradores->links() }}
+            {{ $ingresos->links() }}
         </div>
     </div>
     @if ($modal_colaborador)

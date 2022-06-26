@@ -28,31 +28,55 @@ class Home extends Component
 
     public function render()
     {
-        $respuestas = EncuestaRespuesta::all()->count(); //TOTAL RESPUESTAS
-        
-        if ($this->search_ingreso) {
-            $colaboradores = PacienteIngresos::where('IngresoID',$this->search_ingreso)
-            ->paginate(10);
-        }elseif($this->search_date){
-            $date = Carbon::parse($this->search_date)->format('Y-d-m H:i:s');
-            $colaboradores = PacienteIngresos::where('Date_In',$date)->paginate(15);
-            foreach ($colaboradores as $key => $ingreso) { // No esta soportado el whereHas entre dos bb.dd diferentes
-                if (!$ingreso->paciente->colaborador) {
-                    $colaboradores->forget($key);
-                }
-            }
+        // $respuestas = EncuestaRespuesta::all()->count(); //TOTAL RESPUESTAS
+
+        if ($this->search_colaboradores) {
+            $pacientes_id = Colaborador::where('apellido_materno','like','%'.$this->search_colaboradores.'%')
+                ->orWhere('apellido_paterno','like','%'.$this->search_colaboradores.'%')
+                ->orWhere('nombre','like','%'.$this->search_colaboradores.'%')
+                ->orWhere('folio_tarjeta','like','%'.$this->search_colaboradores.'%')
+                ->orWhere('paciente_id',$this->search_colaboradores)
+                ->orWhereHas('clientes',function($query){
+                    $query->where('nombre','like','%'.$this->search_colaboradores.'%');
+                })->pluck('paciente_id')->toArray();
         }else{
-            $colaboradores = Colaborador::where('apellido_materno','like','%'.$this->search_colaboradores.'%')
-            ->orWhere('apellido_paterno','like','%'.$this->search_colaboradores.'%')
-            ->orWhere('nombre','like','%'.$this->search_colaboradores.'%')
-            ->orWhere('folio_tarjeta','like','%'.$this->search_colaboradores.'%')
-            ->orWhere('paciente_id',$this->search_colaboradores)
-            ->orWhereHas('clientes',function($query){
-                $query->where('nombre','like','%'.$this->search_colaboradores.'%');
-            })
-            ->paginate(10);
+            $pacientes_id = Colaborador::pluck('paciente_id')->toArray();
         }
-        return view('dashboard',compact('respuestas','colaboradores'));
+
+        $ingresos = PacienteIngresos::whereIn('PacientID',$pacientes_id);
+        if ($this->search_date) {
+            $date = Carbon::parse($this->search_date)->format('Y-d-m H:i:s');
+            $ingresos->where('Date_In',$date);
+        }
+        if ($this->search_ingreso) {
+            $ingresos->where('IngresoID',$this->search_ingreso);
+        }
+
+        $ingresos = $ingresos->paginate(15);
+        
+        // if ($this->search_ingreso) {
+        //     $colaboradores = PacienteIngresos::where('IngresoID',$this->search_ingreso)
+        //     ->paginate(10);
+        // }elseif($this->search_date){
+        //     $date = Carbon::parse($this->search_date)->format('Y-d-m H:i:s');
+        //     $colaboradores = PacienteIngresos::where('Date_In',$date)->paginate(15);
+        //     foreach ($colaboradores as $key => $ingreso) { // No esta soportado el whereHas entre dos bb.dd diferentes
+        //         if (!$ingreso->paciente->colaborador) {
+        //             $colaboradores->forget($key);
+        //         }
+        //     }
+        // }else{
+        //     $colaboradores = Colaborador::where('apellido_materno','like','%'.$this->search_colaboradores.'%')
+        //     ->orWhere('apellido_paterno','like','%'.$this->search_colaboradores.'%')
+        //     ->orWhere('nombre','like','%'.$this->search_colaboradores.'%')
+        //     ->orWhere('folio_tarjeta','like','%'.$this->search_colaboradores.'%')
+        //     ->orWhere('paciente_id',$this->search_colaboradores)
+        //     ->orWhereHas('clientes',function($query){
+        //         $query->where('nombre','like','%'.$this->search_colaboradores.'%');
+        //     })
+        //     ->paginate(10);
+        // }
+        return view('dashboard',compact('ingresos'));
     }
 
     public function show_venta(Ventas $venta)

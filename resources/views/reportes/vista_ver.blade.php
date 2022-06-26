@@ -288,7 +288,7 @@
                     form.action="/reportes/cuestionario";
                     form.submit();
                 }else{
-                    alert('error');
+                    alert('No seleccionó un tipo de reporte');
                 }
             })
         </script>

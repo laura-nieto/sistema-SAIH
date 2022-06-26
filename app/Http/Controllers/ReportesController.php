@@ -109,7 +109,7 @@ class ReportesController extends Controller
                 $colaboradores = Colaborador::all()->mapWithKeys(function ($item, $key) {
                     return [$key => $item['paciente_id']];
                 })->toArray();
-                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->whereBetween('Date_In',[$fecha_desde,$fecha_hasta])->orderBy('Hour_In', 'DESC')->paginate(15);
+                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->whereBetween('Date_In',[$fecha_desde,$fecha_hasta])->orderBy('Date_In', 'DESC')->paginate(15);
                 $data = [
                     'ingresos'=> $ingresos,
                     'fecha' => $request->fecha_desde . ' hasta ' . $request->fecha_hasta,
@@ -199,7 +199,7 @@ class ReportesController extends Controller
                 $colaboradores = Colaborador::all()->mapWithKeys(function ($item, $key) {
                     return [$key => $item['paciente_id']];
                 })->toArray();
-                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->whereBetween('Date_In',[$fecha_desde,$fecha_hasta])->orderBy('Hour_In', 'DESC')->get();
+                $ingresos = PacienteIngresos::whereIn('PacientID',$colaboradores)->whereBetween('Date_In',[$fecha_desde,$fecha_hasta])->orderBy('Date_In', 'DESC')->get();
                 $pdf = PDF::setPaper('A4', 'landscape')->loadView('pdf.reporte_colaborador', ['ingresos'=>$ingresos,'tipo_reporte'=>'fecha','data'=>$data]);
                 return $pdf->stream('test.pdf');
 
