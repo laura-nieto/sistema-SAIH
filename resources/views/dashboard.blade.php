@@ -318,7 +318,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900"> 
-                                        @if ($search_ingreso)
+                                        @if ($search_ingreso || $search_date)
                                             {{ Carbon\Carbon::parse($colaborador->Hour_In)->format('H:i:s') }}                                          
                                         @else
                                             @if (!$colaborador->paciente->ingresos->isEmpty())
@@ -333,10 +333,18 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900"> 
                                         @if ($search_ingreso || $search_date)
-                                            {{ Carbon\Carbon::parse($colaborador->Date_Out)->format('d-m-Y') }}                                             
+                                            @if($colaborador->Date_Out != null)
+                                                {{ Carbon\Carbon::parse($colaborador->Date_Out)->format('d-m-Y') }}
+                                            @else
+                                                -
+                                            @endif
                                         @else
                                             @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_Out)->format('d-m-Y') }}
+                                                @if($colaborador->paciente->ingresos->last()->Date_Out != null)
+                                                    {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Date_Out)->format('d-m-Y') }}
+                                                @else
+                                                    -
+                                                @endif
                                             @else
                                                 -
                                             @endif
@@ -347,10 +355,18 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
                                         @if ($search_ingreso || $search_date)
-                                            {{ Carbon\Carbon::parse($colaborador->Hour_Out)->format('H:i:s') }}    
+                                            @if($colaborador->Hour_Out != null)
+                                                {{ Carbon\Carbon::parse($colaborador->Hour_Out)->format('H:i:s') }}
+                                            @else
+                                                -
+                                            @endif
                                         @else
                                             @if (!$colaborador->paciente->ingresos->isEmpty())
-                                                {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_Out)->format('H:i:s') }}
+                                                @if($colaborador->paciente->ingresos->last()->Hour_Out != null)
+                                                    {{ Carbon\Carbon::parse($colaborador->paciente->ingresos->last()->Hour_Out)->format('H:i:s') }}
+                                                @else
+                                                    -
+                                                @endif
                                             @else
                                                 -
                                             @endif

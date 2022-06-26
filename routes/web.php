@@ -90,9 +90,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/ingresar/paciente',IngresoPaciente::class)->name('ingreso.paciente')->middleware('permission:admin.ingresar.pacientes');
 
     // REPORTES
-    Route::get('/reportes',[ReportesController::class,'index'])->name('reportes.index')->middleware('permission:reportes.index');
-    Route::get('/reportes/cuestionario',[ReportesController::class,'reportes_cuestionario'])->name('reportes.cuestionario')->middleware('permission:reportes.index');
-    Route::get('/reportes/colaborador',[ReportesController::class,'reportes_colaborador'])->name('reportes.index')->middleware('permission:reportes.index');
+    Route::get('/reportes',function(){
+        return view('reportes.index');
+    })->name('reportes.index')->middleware('permission:reportes.index');
+    Route::get('/reportes/ver',[ReportesController::class,'vista_ver'])->name('reportes.ver_reportes')->middleware('permission:reportes.index');
+    Route::get('/reportes/cuestionario',[ReportesController::class,'reportes_cuestionario'])->name('reportes.ver_cuestionario')->middleware('permission:reportes.index');
+    Route::get('/reportes/colaborador',[ReportesController::class,'reportes_colaborador'])->name('reportes.ver_colaborador')->middleware('permission:reportes.index');
+    Route::get('/reportes/descargar',[ReportesController::class,'vista_descargar'])->name('reportes.descargar')->middleware('permission:reportes.index');
+    Route::post('/reportes/descargar/colaborador',[ReportesController::class,'pdf_colaborador'])->name('reportes.descargar.colaborador')->middleware('permission:reportes.index');
+    Route::post('/reportes/descargar/cuestionario',[ReportesController::class,'pdf_cuestionario'])->name('reportes.descargar.cuestionario')->middleware('permission:reportes.index');
 
     // EMAIL
     Route::get('/email',function(){

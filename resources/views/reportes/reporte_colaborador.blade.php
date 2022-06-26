@@ -4,10 +4,10 @@
             {{ __('Reportes colaborador') }}
         </x-slot>
         <x-seccion-white>
-            <div class="mb-2">
+            <div class="mb-2 flex justify-between items-center">
                 <h1 class="text-xl"> 
                     @if (isset($fecha))
-                        Fecha: {{ Carbon\Carbon::parse($fecha)->format('d-m-Y')}}
+                        Fecha: {{ $fecha }}
                     @endif
                     @if (isset($cliente))
                         Cliente: {{$cliente->nombre}}
@@ -16,7 +16,7 @@
                         Médico: {{$doctor->Doc_name}}
                     @endif
                     @if (isset($diagnostico))
-                        Diagnostico: {{$diagnostico}}
+                        Diagnostico: {{$diagnostico->NombreDiagnostico}}
                     @endif
                 </h1>
             </div>
@@ -96,12 +96,16 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-gray-900">
-                                            {{ Carbon\Carbon::parse($ingreso->Date_Out)->format('d-m-Y') }}
+                                            @if($ingreso->Date_Out != null)
+                                                {{ Carbon\Carbon::parse($ingreso->Date_Out)->format('d-m-Y') }}
+                                            @endif
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-gray-900">
-                                            {{ Carbon\Carbon::parse($ingreso->Hour_Out)->format('H:i:s') }}
+                                            @if($ingreso->Hour_Out != null)
+                                                {{ Carbon\Carbon::parse($ingreso->Hour_Out)->format('H:i:s') }}
+                                            @endif
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
@@ -126,7 +130,7 @@
                 @endif
             </div>
             <div class="mt-5">
-                <a href="{{url('/reportes')}}" class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                <a href="{{url('/reportes/ver')}}" class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
                     Volver
                 </a>
             </div>

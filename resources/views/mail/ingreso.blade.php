@@ -6,7 +6,7 @@
 @endslot
 # Estimado/a
 
-Usted a sido ingresado a la plataforma de SAIH. Muestre el siguiente código QR a la recepción.
+Usted a sido ingresado a la plataforma de SAIH. Le dejamos adjuntado en este correo un código QR para presentar en la recepción.
 
 
 
