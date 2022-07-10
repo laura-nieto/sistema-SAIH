@@ -1,7 +1,7 @@
 <div class="w-full">
     <div class="py-12 flex-1 px-2 md:px-10">
         <x-slot name="header">
-            {{ __('Lista de Colaboradores') }}
+            {{ __('Lista de Familiares') }}
         </x-slot>
         @if(session('success'))
             <x-success>{{ session('success') }}</x-success>
@@ -10,24 +10,18 @@
             <x-error>{{ session('error') }}</x-error>
         @endif
         <x-seccion-white>
-            @can('admin.colaboradores.create')
+            {{-- @can('admin.colaboradores.create')
                 <div class="my-4 sm:px-6 lg:px-8 border-b-1 pb-3">
                     <button wire:click='crear()'
                     class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Crear
                     Nuevo</button>
                 </div>
-            @endcan
+            @endcan --}}
             @if ($modal)
-                @include('livewire.colaboradores.modal-create-colaborador')
+                @include('livewire.familiar.modal')
             @endif
             <div class="overflow-hidden sm:px-6 lg:px-8">
                 <div>
-                    <div>
-                        <label class="inline-flex items-center mt-3">
-                            <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600" wire:model="deleted" value="deleted" name='deleted'>
-                            <span class="ml-2" for='deleted'>Mostrar desactivos</span>
-                        </label>
-                    </div>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                             <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6 text-gray-600">
@@ -45,6 +39,12 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                 Cliente
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                Colaborador
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                Relación
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                 Apellido Paterno
@@ -89,15 +89,6 @@
                                 Teléfono
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                Sucursal
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                Puesto
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                Departamento
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                 Activo
                             </th>
                             <th scope="col" class="relative px-6 py-3">
@@ -106,88 +97,79 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @if(!$colaboradores->count())
+                        @if(!$familiares->count())
                             <tr>
-                                <td class="px-6 py-4 border-b-2" colspan="5">No existen colaboradores</td>
+                                <td class="px-6 py-4 border-b-2" colspan="5">No existen familiares</td>
                             </tr>
                         @else
-                            @foreach($colaboradores as $colaborador)
+                            @foreach($familiares as $familiar)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->folio_tarjeta }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->folio_tarjeta }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->clientes != null ? $colaborador->clientes->nombre : '' }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->clientes != null ? $familiar->clientes->nombre : '' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->apellido_paterno }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->colaborador->apellido_paterno . ' ' . $familiar->colaborador->nombre }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->apellido_materno }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->relacion }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->nombre }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->apellido_paterno }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->fecha_nacimiento != null ? Carbon\Carbon::parse($colaborador->fecha_nacimiento)->format('d-m-Y') : '' }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->apellido_materno }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->sexo }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->nombre }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->estado_civil_r != null ? $colaborador->estado_civil_r->nombre : '' }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->fecha_nacimiento != null ? Carbon\Carbon::parse($familiar->fecha_nacimiento)->format('d-m-Y') : '' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->direccion }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->sexo }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->colonia }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->estado_civil_r != null ? $familiar->estado_civil_r->nombre : '' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->ciudad }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->direccion }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->estado }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->colonia }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->pais }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->ciudad }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->cp }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->estado }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->correo_electronico }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->pais }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->telefono }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->cp }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">
-                                            @if ($colaborador->sucursales->isNotEmpty())
-                                                @foreach ($colaborador->sucursales as $sucursal)
-                                                    {{$sucursal->nombre}}, 
-                                                @endforeach
-                                            @endif
-                                        </div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->correo_electronico }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->puesto->nombre }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->telefono }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->departamento->nombre }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $colaborador->deleted_at === NULL ? 'Activo':'Desactivo' }}</div>
+                                        <div class="text-sm text-gray-900">{{ $familiar->deleted_at === NULL ? 'Activo':'Desactivo' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex justify-evenly">
                                             @can('admin.colaboradores.edit')
-                                                <button wire:click='editar({{$colaborador->id}})'
+                                                <button wire:click='editar({{$familiar->id}})'
                                                     class="px-4 py-2 mr-1 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Editar</button>
                                             @endcan
                                             @can('admin.colaboradores.destroy')
-                                                @if($colaborador->deleted_at == null)
-                                                    <button  wire:click='abrirModalDelete({{$colaborador->id}})'
+                                                @if($familiar->deleted_at == null)
+                                                    <button  wire:click='abrirModalDelete({{$familiar->id}})'
                                                         class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">Eliminar</button>
                                                 @endif
                                             @endcan
@@ -225,7 +207,7 @@
         </x-sesccion-white>
         {{-- Paginado --}}
         <div class="mt-5"> 
-            {{ $colaboradores->links() }}
+            {{ $familiares->links() }}
         </div>
     </div>
 </div>

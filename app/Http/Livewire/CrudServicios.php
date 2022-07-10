@@ -23,7 +23,7 @@ class CrudServicios extends Component
     public function render()
     {
         $servicios = Servicio::where('nombre','like','%'.$this->search.'%')
-                        ->get();
+                        ->paginate(15);
         return view('livewire.servicios.crud-servicios',compact('servicios'));
     }
 

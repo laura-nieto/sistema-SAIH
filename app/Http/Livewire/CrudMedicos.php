@@ -34,7 +34,7 @@ class CrudMedicos extends Component
             $query->where('nombre','like','%'.$this->search.'%');
             $query->orWhere('apellido_paterno','like','%'.$this->search.'%');
             $query->orWhere('apellido_materno','like','%'.$this->search.'%');
-        })->get();
+        })->paginate(15);
         return view('livewire.medicos.crud-medicos',compact('medicos'));
     }
     public function crear()

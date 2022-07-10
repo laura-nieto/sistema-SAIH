@@ -22,7 +22,7 @@ class CrudDeptoColaborador extends Component
 
     public function render()
     {
-        $dptos = DepartamentoColaborador::where('nombre','like','%'.$this->search.'%')->get();
+        $dptos = DepartamentoColaborador::where('nombre','like','%'.$this->search.'%')->paginate(15);
         return view('livewire.depto-colaborador.crud-depto-colaborador',compact('dptos'));
     }
     public function crear()

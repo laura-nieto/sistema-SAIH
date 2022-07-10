@@ -122,5 +122,9 @@
                 @include('livewire.modal-delete')
             @endif
         </x-sesccion-white>
+        {{-- Paginado --}}
+        <div class="mt-5"> 
+            {{ $sucursales->links() }}
+        </div>
     </div>
 </div>

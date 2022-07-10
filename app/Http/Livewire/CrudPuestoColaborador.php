@@ -22,7 +22,7 @@ class CrudPuestoColaborador extends Component
 
     public function render()
     {
-        $puestos = PuestoColaborador::where('nombre','like','%'.$this->search.'%')->get();
+        $puestos = PuestoColaborador::where('nombre','like','%'.$this->search.'%')->paginate(15);
         return view('livewire.puesto-colaborador.crud-puesto-colaborador',compact('puestos'));
     }
     public function crear()

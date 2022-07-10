@@ -29,7 +29,7 @@ class CrudColaboradores extends Component
 
     public $modal = false, $modal_delete = false , $delete_id;
     public $sucursales, $puestos,$departamentos,$estados_civiles,$clientes;
-    public $search, $deleted = false;
+    public $search, $deleted = false , $editar = false;
 
     protected $rules = [
         'folio_tarjeta' => 'max:30',
@@ -38,8 +38,9 @@ class CrudColaboradores extends Component
         'apellido_materno' => 'required|max:30',
         'fecha_nacimiento' => 'required|date',
         'sexo' => 'required|max:10',
-        'correo_electronico' => 'nullable|email',
+        'correo_electronico' => 'required|email',
         'telefono' => 'max:10',
+        'edad' => 'integer|max:120',
         'cliente_id' => 'required',
         'departamento_id' => 'required',
         'puesto_id' => 'required',
@@ -52,16 +53,25 @@ class CrudColaboradores extends Component
         'email' => 'Debe ingresar un correo electrónico válido'
     ];
 
+    public function mount()
+    {
+        $this->sucursales = Sucursal::all();
+        $this->puestos = PuestoColaborador::all();
+        $this->departamentos = DepartamentoColaborador::all();
+        $this->estados_civiles = EstadoCivil::all();
+        $this->clientes = Cliente::all();
+    }
+
     public function render()
     {
         if (!$this->deleted) {
             $colaboradores = Colaborador::where('apellido_materno','like','%'.$this->search.'%')
                             ->orWhere('apellido_paterno','like','%'.$this->search.'%')
-                            ->orWhere('nombre','like','%'.$this->search.'%')->get();
+                            ->orWhere('nombre','like','%'.$this->search.'%')->paginate(15);
         }else{
             $colaboradores = Colaborador::withTrashed()->where('apellido_materno','like','%'.$this->search.'%')
                             ->orWhere('apellido_paterno','like','%'.$this->search.'%')
-                            ->orWhere('nombre','like','%'.$this->search.'%')->get();
+                            ->orWhere('nombre','like','%'.$this->search.'%')->paginate(15);
         }
         return view('livewire.colaboradores.crud-colaboradores',compact('colaboradores'));
     }
@@ -70,11 +80,6 @@ class CrudColaboradores extends Component
     {
         $this->resetErrorBag();
         $this->limpiarCampos();
-        $this->sucursales = Sucursal::all();
-        $this->puestos = PuestoColaborador::all();
-        $this->departamentos = DepartamentoColaborador::all();
-        $this->estados_civiles = EstadoCivil::all();
-        $this->clientes = Cliente::all();
         $this->abrirModal();
     }
     public function save()
@@ -97,6 +102,7 @@ class CrudColaboradores extends Component
             'estado' => $this->estado,
             'pais' => $this->pais,
             'cp' => $this->cp,
+            'edad' => $this->edad,
             // 'is_active' => $this->is_active,
             
             // 'sucursal_id'=> $this->sucursal_id  == '' ? NULL : $this->sucursal_id,
@@ -137,6 +143,7 @@ class CrudColaboradores extends Component
                     'estado' => $colaborador->estado,
                     'pais' => $colaborador->pais,
                     'cp' => $colaborador->cp,
+                    'edad' => $colaborador->edad,
                     'puesto' => $colaborador->puesto->nombre,
                     'departamento' => $colaborador->departamento->nombre,
                 ];
@@ -178,18 +185,14 @@ class CrudColaboradores extends Component
         $this->estado = $colaborador->estado;
         $this->pais = $colaborador->pais;
         $this->cp = $colaborador->cp;
+        $this->edad = $colaborador->edad;
         // $this->is_active = $colaborador->is_active;
         
         $this->cliente_id = $colaborador->cliente_id;
         // $this->sucursal_id = $colaborador->sucursal_id;
         $this->departamento_id = $colaborador->departamento_id;
         $this->puesto_id = $colaborador->puesto_id;
-
-        $this->sucursales = Sucursal::all();
-        $this->puestos = PuestoColaborador::all();
-        $this->departamentos = DepartamentoColaborador::all();
-        $this->estados_civiles = EstadoCivil::all();
-        $this->clientes = Cliente::all();
+        $this->editar = true;
 
         $this->abrirModal();
     }
@@ -228,6 +231,7 @@ class CrudColaboradores extends Component
     {
         $this->modal = false;
         $this->modal_delete = false;
+        $this->editar = false;
     }
     public function limpiarCampos()
     {
@@ -248,6 +252,7 @@ class CrudColaboradores extends Component
         $this->cp = NULL;
         $this->telefono = NULL;
         $this->is_active = true;
+        $this->edad = NULL;
         // $this->sucursal_id = NULL;
         $this->puesto_id = NULL;
         $this->departamento_id = NULL;

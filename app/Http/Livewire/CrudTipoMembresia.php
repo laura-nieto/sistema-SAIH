@@ -22,7 +22,7 @@ class CrudTipoMembresia extends Component
 
     public function render()
     {
-        $membresias = TipoMembresia::where('nombre','like','%'.$this->search.'%')->get();
+        $membresias = TipoMembresia::where('nombre','like','%'.$this->search.'%')->paginate(15);
         return view('livewire.tipo-membresia.crud-tipo-membresia',compact('membresias'));
     }
     public function crear()

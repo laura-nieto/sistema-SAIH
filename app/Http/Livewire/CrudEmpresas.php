@@ -28,7 +28,7 @@ class CrudEmpresas extends Component
     public function render()
     {
         $empresas = Empresa::where('nombre','like','%'.$this->search.'%')
-                    ->get();
+                    ->paginate(15);
         return view('livewire.empresas.crud-empresas',compact('empresas'));
     }
 

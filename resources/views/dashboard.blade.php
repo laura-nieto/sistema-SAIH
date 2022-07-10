@@ -2,6 +2,12 @@
     <x-slot name="header">
         {{ __('Inicio') }}
     </x-slot>
+    @if(session('success'))
+        <x-success>{{ session('success') }}</x-success>
+    @endif
+    @if(session('error'))
+        <x-error>{{ session('error') }}</x-error>
+    @endif
     <div class="flex-1 sm:px-10 py-10 px-3">
         <div>
             <div class="grid lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center sm:justify-start">

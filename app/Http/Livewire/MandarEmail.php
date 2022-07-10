@@ -25,14 +25,14 @@ class MandarEmail extends Component
         if (auth()->user()->hasRole(1)) {
             $users = User::where('nombre','like','%'.$this->search.'%')
                     ->orWhere('apellido','like','%'.$this->search.'%')
-                    ->get();
+                    ->paginate(15);
         } else {
             $users = User::where('empresa_id',auth()->user()->empresa_id)
             ->where( function($query) {
                 $query->where('nombre','like','%'.$this->search.'%');
                 $query->orWhere('apellido','like','%'.$this->search.'%');
             })
-            ->get();
+            ->paginate(15);
         }
         return view('livewire.enviarEmail.mandar-email',compact('users'));
     }

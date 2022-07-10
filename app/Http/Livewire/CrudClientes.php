@@ -41,9 +41,9 @@ class CrudClientes extends Component
     public function render()
     {
         if (!$this->deleted) {
-            $clientes = Cliente::where('nombre','like','%'.$this->search.'%')->get();
+            $clientes = Cliente::where('nombre','like','%'.$this->search.'%')->paginate(15);
         }else{
-            $clientes = Cliente::withTrashed()->where('nombre','like','%'.$this->search.'%')->get();
+            $clientes = Cliente::withTrashed()->where('nombre','like','%'.$this->search.'%')->paginate(15);
         }
         return view('livewire.clientes.crud-clientes',compact('clientes'));
     }

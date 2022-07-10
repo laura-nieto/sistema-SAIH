@@ -40,7 +40,7 @@ class IngresoPaciente extends Component
     {
         $colaboradores = Colaborador::where('apellido_materno','like','%'.$this->search.'%')
                         ->orWhere('apellido_paterno','like','%'.$this->search.'%')
-                        ->orWhere('nombre','like','%'.$this->search.'%')->get();
+                        ->orWhere('nombre','like','%'.$this->search.'%')->paginate(15);
         return view('livewire.ingreso.ingreso-paciente',compact('colaboradores'));
     }
 

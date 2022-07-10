@@ -67,16 +67,16 @@
                         </select>
                     </div>
                     <div class="flex flex-col">
-                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="empresa">Empresa</label>
-                        <select name="empresa" id="empresa_id" wire:model="empresa_id"
+                        <label class="mb-2 mt-5 font-semibold text-gray-700" for="cliente">Cliente</label>
+                        <select name="cliente" id="cliente_id" wire:model="cliente_id"
                             class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
-                            @if (Auth::user()->hasRole(1))    
+                            @if (!Auth::user()->cliente_id)    
                                 <option selected value="">No corresponde</option>
-                                @foreach ($empresas as $empresa)
-                                    <option value="{{$empresa->id}}">{{$empresa->nombre}}</option>
+                                @foreach ($clientes as $cliente)
+                                    <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
                                 @endforeach
                             @else
-                                <option value="{{$empresas->id}}">{{$empresas->nombre}}</option>
+                                <option value="{{$clientes->id}}">{{$clientes->nombre}}</option>
                             @endif
                         </select>
                     </div>

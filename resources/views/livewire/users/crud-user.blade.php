@@ -36,7 +36,7 @@
                                 Nombre
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
-                                Empresa
+                                Cliente
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                 Rol
@@ -61,7 +61,7 @@
                                         <div class="text-sm text-gray-900">{{ $usuario->nombre }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">{{ $usuario->empresa()->exists()? $usuario->empresa->nombre : '-' }}</div>
+                                        <div class="text-sm text-gray-900">{{ $usuario->cliente()->exists()? $usuario->cliente->nombre : '-' }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">
@@ -89,6 +89,10 @@
                         @endif
                     </tbody>
                 </table>
+                {{-- Paginado --}}
+                <div class="mt-5"> 
+                    {{ $users->links() }}
+                </div>
             </div>
             <div wire:loading wire:target="save,borrar">
                 <div class="fixed z-20 inset-0 overflow-y-auto ease-out duration-400">

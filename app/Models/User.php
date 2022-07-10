@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -32,7 +33,7 @@ class User extends Authenticatable
         'apellido',
         'email',
         'password',
-        'empresa_id'
+        'cliente_id'
     ];
 
     /**
@@ -65,12 +66,18 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    /**
-     * Get the empresa
-     */
-    public function empresa()
+    protected static function booted()
     {
-        return $this->belongsTo('App\Models\Empresa','empresa_id');
+        if (isset(auth()->user()->cliente_id)) {
+            static::addGlobalScope('cliente_id', function (Builder $builder) {
+                $builder->where('cliente_id', auth()->user()->cliente_id);
+            });
+        }
+    }
+
+    public function cliente()
+    {
+        return $this->belongsTo('App\Models\Cliente','cliente_id');
     }
     public function sucursales()
     {

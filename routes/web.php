@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CitasController;
 use App\Http\Controllers\ConsultasController;
+use App\Http\Controllers\FamiliarColaboradorController;
+use App\Http\Controllers\IngresoPacienteController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Livewire\Bitacora;
@@ -13,6 +15,7 @@ use App\Http\Livewire\CrudDeptoColaborador;
 use App\Http\Livewire\CrudDocumentacion;
 use App\Http\Livewire\CrudEmpresas;
 use App\Http\Livewire\CrudEspecialidadMedica;
+use App\Http\Livewire\CrudFamiliar;
 use App\Http\Livewire\CrudMedicos;
 use App\Http\Livewire\CrudPuestoColaborador;
 use App\Http\Livewire\Encuesta\CrudEncuesta;
@@ -65,6 +68,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
     Route::get('/medicos',CrudMedicos::class)->name('admin.medicos')->middleware('permission:admin.medicos.index');
     Route::get('/control-de-cambios',Bitacora::class)->name('admin.bitacora')->middleware('permission:admin.bitacora');
     Route::get('/documentacion',CrudDocumentacion::class)->name('admin.documentacion')->middleware('permission:admin.documentacion.index');
+    Route::get('familiares',CrudFamiliar::class)->name('admin.familiares');
+    Route::get('familiar/{colaborador}',[FamiliarColaboradorController::class,'crearFamiliar'])->name('crear.familiar');
+    Route::post('familiar/{colaborador}',[FamiliarColaboradorController::class,'guardarFamiliar'])->name('guardar.familiar');
 
     //ENCUESTA
     Route::get('/preguntas',CrudEncuesta::class)->name('admin.encuesta')->middleware('permission:admin.preguntas.index');
@@ -88,6 +94,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function(){
 
     // INGRESO
     Route::get('/ingresar/paciente',IngresoPaciente::class)->name('ingreso.paciente')->middleware('permission:admin.ingresar.pacientes');
+    Route::get('/ingresar/paciente/{colaborador}',[IngresoPacienteController::class,'ingresarColaborador'])->name('ingreso.colaborador')->middleware('permission:admin.ingresar.pacientes');
+    Route::get('/ingresar/familiar/{familiar}',[IngresoPacienteController::class,'ingresarFamiliar'])->name('ingreso.familiar')->middleware('permission:admin.ingresar.pacientes');
 
     // REPORTES
     Route::get('/reportes',function(){

@@ -22,7 +22,7 @@ class CrudEspecialidadMedica extends Component
 
     public function render()
     {
-        $especialidades = EspecialidadMedica::where('especialidad','like','%'.$this->search.'%')->get();
+        $especialidades = EspecialidadMedica::where('especialidad','like','%'.$this->search.'%')->paginate(15);
         return view('livewire.especialidad-medica.crud-especialidad-medica',compact('especialidades'));
     }
     public function crear()

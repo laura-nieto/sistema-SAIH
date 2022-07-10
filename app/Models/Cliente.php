@@ -10,6 +10,8 @@ class Cliente extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $cascadeDeletes = ['usuario'];
+
     protected $fillable = [
         'nombre','razon_social','dom_calle','dom_noExterior','dom_noInterior','dom_colonia','dom_localidad','dom_municipio','dom_estado','dom_pais',
         'dom_referencia','ciudad','rfc','numero_precio','dias_credito','cuenta','cp','telefono','correo_electronico','extranjero',
@@ -23,5 +25,9 @@ class Cliente extends Model
     public function tipo_membresia()
     {
         return $this->belongsTo(TipoMembresia::class,'tipo_cliente');
+    }
+    public function usuario()
+    {
+        return $this->hasMany(User::class,'cliente_id');
     }
 }

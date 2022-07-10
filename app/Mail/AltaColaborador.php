@@ -30,7 +30,7 @@ class AltaColaborador extends Mailable
         $this->dia = $dia->format('d-m-Y');
         $this->hora = $dia->format('H:i');
         $this->colaborador = $colaborador;
-        $url = route('colaborador.show',$colaborador->id);
+        $url = route('ingreso.colaborador',$colaborador->id);
         $qr = base64_encode(QrCode::format('svg')->size(200)->generate($url));
         $this->pdf = PDF::loadView('pdf.codigo_qr', ['logo'=>$this->logo,'qr'=>$qr]);
     }

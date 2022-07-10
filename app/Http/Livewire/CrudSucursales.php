@@ -25,7 +25,7 @@ class CrudSucursales extends Component
     public function render()
     {
         $sucursales = Sucursal::where('nombre','like','%'.$this->search.'%')
-                        ->get();
+                        ->paginate(15);
         return view('livewire.sucursales.crud-sucursales',compact('sucursales'));
     }
 

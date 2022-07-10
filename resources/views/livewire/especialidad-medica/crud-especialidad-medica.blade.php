@@ -73,6 +73,10 @@
                         @endif
                     </tbody>
                 </table>
+                {{-- Paginado --}}
+                <div class="mt-5"> 
+                    {{ $especialidades->links() }}
+                </div>
             </div>
             <div wire:loading wire:target="save,borrar">
                 <div class="fixed z-20 inset-0 overflow-y-auto ease-out duration-400">

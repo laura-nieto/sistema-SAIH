@@ -11,7 +11,7 @@ class Empresa extends Model
 {
     use HasFactory, SoftDeletes, CascadeSoftDeletes;
     
-    protected $cascadeDeletes = ['usuarios','sucursal'];
+    protected $cascadeDeletes = ['sucursal'];
 
     /**
      * The attributes that are mass assignable.
@@ -22,10 +22,6 @@ class Empresa extends Model
         'nombre','direccion','dom_noExterior','dom_noInterior','colonia','rfc','telefono','ciudad','dom_municipio','dom_cp','dom_pais','dom_referencia','estado','representante'
     ];
 
-    public function usuarios()
-    {
-        return $this->hasMany('App\Models\User');
-    }
     public function sucursal()
     {
         return $this->hasMany(Sucursal::class,'empresa_id');

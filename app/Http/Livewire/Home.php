@@ -52,7 +52,7 @@ class Home extends Component
             $ingresos->where('IngresoID',$this->search_ingreso);
         }
 
-        $ingresos = $ingresos->paginate(15);
+        $ingresos = $ingresos->orderBy('Date_In','desc')->paginate(15);
         
         // if ($this->search_ingreso) {
         //     $colaboradores = PacienteIngresos::where('IngresoID',$this->search_ingreso)

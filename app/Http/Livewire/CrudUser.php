@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Bitacora;
+use App\Models\Cliente;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -13,11 +14,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CrudUser extends Component
 {
-    public $nombre,$apellido,$email,$password,$id_user,$id_empresa,$sucursales_id=[];
+    public $nombre,$apellido,$email,$password,$id_user,$id_cliente,$sucursales_id=[];
     public $modal = false, $modal_delete = false , $delete_id;
     public $search;
     public $roles,$role_id;
-    public $sucurales,$empresas,$empresa_id;
+    public $sucurales,$clientes,$cliente_id;
 
     protected $messages = [
         'required' => 'El campo es requerido.',
@@ -32,28 +33,19 @@ class CrudUser extends Component
     }
     public function render()
     {
-        if (auth()->user()->hasRole(1)) {
-            $users = User::where('nombre','like','%'.$this->search.'%')
+        $users = User::where('nombre','like','%'.$this->search.'%')
                     ->orWhere('apellido','like','%'.$this->search.'%')
-                    ->get();
-        } else {
-            $users = User::where('empresa_id',auth()->user()->empresa_id)
-            ->where( function($query) {
-                $query->where('nombre','like','%'.$this->search.'%');
-                $query->orWhere('apellido','like','%'.$this->search.'%');
-            })
-        ->get();
-        }
+                    ->paginate(15);
 
         return view('livewire.users.crud-user',compact('users'));
     }
     public function crear()
     {
         $this->roles = Role::all();
-        if (auth()->user()->hasRole(1)) {
-            $this->empresas = Empresa::all();
+        if (!auth()->user()->cliente_id) {
+            $this->clientes = Cliente::all();
         }else{
-            $this->empresas = auth()->user()->empresa;
+            $this->clientes = auth()->user()->cliente;
         }
         $this->limpiarCampos();
         $this->abrirModal();
@@ -61,10 +53,10 @@ class CrudUser extends Component
     public function editar($id)
     {
         $this->roles = Role::all();
-        if (auth()->user()->hasRole(1)) {
-            $this->empresas = Empresa::all();
+        if (!auth()->user()->cliente_id) {
+            $this->clientes = Cliente::all();
         }else{
-            $this->empresas = auth()->user()->empresa;
+            $this->clientes = auth()->user()->cliente;
         }
         $user = User::findOrFail($id);
         $this->id_user = $user->id;
@@ -93,7 +85,7 @@ class CrudUser extends Component
             'apellido'=>$this->apellido,
             'email'=>$this->email,
             'password'=>Hash::make($this->password),
-            'empresa_id'=>$this->empresa_id == '' ? null : $this->empresa_id,
+            'cliente_id'=>$this->cliente_id == '' ? null : $this->cliente_id,
         ]);
         $user->roles()->sync([$this->role_id]);
         $user->sucursales()->sync($this->sucursales_id);
@@ -137,7 +129,7 @@ class CrudUser extends Component
     {
         $this->nombre = NULL;
         $this->id_user = NULL;
-        $this->id_empresa = NULL;
+        $this->id_cliente = NULL;
         $this->apellido = NULL;
         $this->email = NULL;
         $this->password = NULL;
