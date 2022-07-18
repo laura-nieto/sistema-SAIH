@@ -16,6 +16,7 @@ class CreateDocumentacionsTable extends Migration
         Schema::create('documentacion', function (Blueprint $table) {
             $table->id();
             $table->text('documento');
+            $table->foreignId('colaborador_id')->constrained('colaboradores')->onDelete('cascade');
             $table->timestamps();
         });
     }

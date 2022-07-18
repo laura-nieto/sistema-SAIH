@@ -19,6 +19,26 @@
                                 <option value="2">Cuestionarios</option>
                             </select>
                         </div>
+                        <div class="flex flex-col mt-2 md:mt-auto md:mr-3">
+                            <label class="mb-2 font-semibold text-gray-700" for="fecha_desde">Desde</label>
+                            <input type="date" name="fecha_desde" id="fecha_desde" placeholder="Fecha de Ingreso" min="1940-01-01"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm w-full @error('fecha_desde')border-red-500 @enderror">
+                            @error('fecha_desde')
+                                <small class="text-red-500">
+                                    {{$message}}
+                                </small>
+                            @enderror
+                        </div>
+                        <div class="flex flex-col mt-2 md:mt-auto md:mr-3">
+                            <label class="mb-2 font-semibold text-gray-700" for="fecha_hasta">Hasta</label>
+                            <input type="date" name="fecha_hasta" id="fecha_hasta" placeholder="Fecha de Ingreso" min="1940-01-01"
+                            class="bg-white text-black border border-gray-200 rounded shadow-sm w-full @error('fecha_hasta')border-red-500 @enderror">
+                            @error('fecha_hasta')
+                                <small class="text-red-500">
+                                    {{$message}}
+                                </small>
+                            @enderror
+                        </div>
                         <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="tipo_reporte == 1" x-transition>
                             <label class="mb-2 font-semibold text-gray-700" for="colaborador">Colaborador</label>
                             <select name="colaborador" id="colaborador" x-model='colaborador'
@@ -246,7 +266,7 @@
                             </div>
                         </div>
                         {{-- Reportes por Cuestionario --}}
-                        <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="cuestionario == 1 || colaborador == 3" x-transition>
+                        {{-- <div class="flex flex-col mt-2 md:mt-auto md:mr-3" x-show="cuestionario == 1 || colaborador == 3" x-transition>
                             <label class="mb-2 font-semibold text-gray-700" for="fecha_desde">Desde</label>
                             <input type="date" name="fecha_desde" id="fecha_desde" placeholder="Fecha de Ingreso" min="1940-01-01"
                             class="bg-white text-black border border-gray-200 rounded shadow-sm w-full @error('fecha_desde')border-red-500 @enderror">
@@ -255,7 +275,7 @@
                             <label class="mb-2 font-semibold text-gray-700" for="fecha_hasta">Hasta</label>
                             <input type="date" name="fecha_hasta" id="fecha_hasta" placeholder="Fecha de Ingreso" min="1940-01-01"
                             class="bg-white text-black border border-gray-200 rounded shadow-sm w-full @error('fecha_hasta')border-red-500 @enderror">
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="mt-3 flex justify-end">
                         <button id="send" @click.prevent=""

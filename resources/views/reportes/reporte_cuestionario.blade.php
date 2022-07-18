@@ -4,13 +4,16 @@
             {{ __('Reportes cuestionario') }}
         </x-slot>
         <x-seccion-white>
-            <div class="mb-2">
+            <div class="mb-2 flex items-center justify-between">
                 @if(isset($fecha_desde))
                     <h1 class="text-xl"> Desde {{$fecha_desde}} hasta {{$fecha_hasta}} </h1>
                 @endif
                 @if(isset($cliente))
                     <h1 class="text-xl"> Cliente: {{$cliente}} </h1>
                 @endif
+                <a href="{{$url}}" class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
+                    Descargar PDF
+                </a>
             </div>
             <div>
                 @if(!$respuestas->count())

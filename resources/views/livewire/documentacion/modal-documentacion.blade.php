@@ -39,7 +39,24 @@
                             </div>
                         </div>
                         @error('imagen') <span class="error text-red-500">{{ $message }}</span> @enderror
-                    </div>        
+                    </div>
+                    <div>
+                        <div class="flex flex-col">
+                            <label class="mb-2 mt-5 font-semibold text-gray-700" for="colaborador_id">Colaborador</label>
+                            <select name="colaborador_id" id="colaborador_id" wire:model="colaborador_id"
+                                class="w-full bg-white text-black border border-gray-200 rounded shadow-sm appearance-none">
+                                <option selected value>Seleccione un colaborador</option>
+                                @foreach ($colaboradores as $colaborador)
+                                    <option value="{{$colaborador->id}}">
+                                        {{$colaborador->apellido_paterno . ' ' . $colaborador->nombre}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('colaborador_id')
+                                <span class="error text-red-500 mt-2">{{$message}}</span>
+                            @enderror
+                        </div>
+                    </div>
                 </form>
                 <div class="flex flex-row items-center justify-end p-5 mt-3">
                     <button

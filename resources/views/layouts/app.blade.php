@@ -128,7 +128,29 @@
                                         Control de Cambios
                                     </a>
                                 </li>
-                            @endcan                        
+                            @endcan
+                            @can('reportes.index')
+                                <li
+                                    class="flex py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-white hover:text-black {{ (request()->is('reportes')) ? 'bg-white text-black' : '' }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <a href="{{route('reportes.ver_reportes')}}" class="ml-2 w-full">
+                                        Ver reportes
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('admin.enviroment')
+                                <li
+                                    class="flex py-2.5 px-2 mb-2 transition duration-200 rounded hover:bg-white hover:text-black {{ (request()->is('enviroment')) ? 'bg-white text-black' : '' }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                                    </svg>
+                                    <a href="{{route('admin.enviroment')}}" class="ml-2 w-full">
+                                        Modificar Base de Datos
+                                    </a>
+                                </li>
+                            @endcan  
                         </ul>
                     </div>
                     <div>

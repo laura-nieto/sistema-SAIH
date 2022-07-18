@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\IngresoNotificacionCliente;
 use App\Mail\IngresoPaciente;
 use App\Models\Colaborador;
 use App\Models\ConfigEmail;
@@ -32,6 +33,11 @@ class IngresoPacienteController extends Controller
             if ($config->active) {
                 $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
                 Mail::to($colaborador->correo_electronico)->send(new IngresoPaciente($colaborador,$sede));
+            }
+            $config = ConfigEmail::where('model','cliente')->where('tipo','ingreso')->first();
+            if ($config->active) {
+                $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
+                Mail::to($this->colaborador->correo_electronico)->send(new IngresoNotificacionCliente($this->colaborador,$sede));
             }
             return redirect()->route('dashboard')->with('success','Paciente ingresado con éxito');  
         }else{

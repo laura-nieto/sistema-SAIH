@@ -69,7 +69,7 @@
                 </table>
                 {{-- Paginado --}}
                 <div class="mt-5"> 
-                    {{ $membresia->links() }}
+                    {{ $membresias->links() }}
                 </div>
             </div>
             <div wire:loading wire:target="save,borrar">

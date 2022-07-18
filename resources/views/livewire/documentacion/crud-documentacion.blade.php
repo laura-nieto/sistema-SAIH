@@ -35,6 +35,9 @@
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                                 Documento
                             </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                                Colaborador
+                            </th>
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Acciones</span>
                             </th>
@@ -54,6 +57,9 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ $documento->colaborador->apellido_paterno . ' ' . $documento->colaborador->nombre }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex justify-evenly">
                                             <button wire:click='ver({{$documento->id}})'
                                                 class="px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition">
@@ -69,6 +75,10 @@
                         @endif
                     </tbody>
                 </table>
+                {{-- Paginado --}}
+                <div class="mt-5"> 
+                    {{ $documentos->links() }}
+                </div>
             </div>
         </x-sesccion-white>
     </div>

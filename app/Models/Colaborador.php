@@ -53,4 +53,8 @@ class Colaborador extends Model
     {
         return $this->belongsTo(DepartamentoColaborador::class,'departamento_id');
     }
+    public function documentacion()
+    {
+        return $this->hasMany(Documentacion::class,'colaborador_id');
+    }
 }

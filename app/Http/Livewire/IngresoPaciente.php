@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\IngresoNotificacionCliente;
 use App\Mail\IngresoPaciente as MailIngresoPaciente;
 use App\Models\Colaborador;
 use App\Models\ConfigEmail;
@@ -71,6 +72,11 @@ class IngresoPaciente extends Component
             if ($config->active) {
                 $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
                 Mail::to($this->colaborador->correo_electronico)->send(new MailIngresoPaciente($this->colaborador,$sede));
+            }
+            $config = ConfigEmail::where('model','cliente')->where('tipo','ingreso')->first();
+            if ($config->active) {
+                $sede = Sucursal::findOrFail(session('sucursal'))->nombre;
+                Mail::to($this->colaborador->correo_electronico)->send(new IngresoNotificacionCliente($this->colaborador,$sede));
             }
             session()->flash('success', 'Paciente ingresado en SAIH');
             $this->limpiarCampos();

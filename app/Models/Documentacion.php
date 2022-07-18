@@ -12,6 +12,11 @@ class Documentacion extends Model
     protected $table = 'documentacion';
     
     protected $fillable = [
-        'documento'
+        'documento' , 'colaborador_id' ,
     ];
+    
+    public function colaborador()
+    {
+        return $this->belongsTo(Colaborador::class,'colaborador_id');
+    }
 }

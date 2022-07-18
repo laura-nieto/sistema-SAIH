@@ -44,5 +44,17 @@ class ConfigEmails extends Seeder
             'descripcion' => 'Ingreso de un paciente',
             'active' => true,
         ]);
+        ConfigEmail::create([
+            'model' => 'familiar',
+            'tipo' => 'alta',
+            'descripcion' => 'Alta de un familiar',
+            'active' => true,
+        ]);
+        ConfigEmail::create([
+            'model' => 'familiar',
+            'tipo' => 'baja',
+            'descripcion' => 'Baja de un familiar',
+            'active' => true,
+        ]);
     }
 }
