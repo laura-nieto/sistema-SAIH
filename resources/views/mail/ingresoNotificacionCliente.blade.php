@@ -6,7 +6,7 @@
 @endslot
 # Estimado/a
 
-El colaborador {{$colaborador->apellido_paterno . ' ' $colaborador->nombre}} ha sido ingresado en el sistema en la sede {{$sede}}, en el dia {{$dia}}.
+El colaborador {{$colaborador->apellido_paterno . ' ' . $colaborador->nombre}} ha sido ingresado en el sistema en la sede {{$sede}}, en el dia {{$dia}}.
 
 
 
